@@ -2,6 +2,7 @@ from rich.text import Text
 from rich.style import Style
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header, DataTable
+from login_view import LoginView
 
 class PaperWorkCLIApp(App):
     """A Textual app to manage stopwatches."""
@@ -15,7 +16,9 @@ class PaperWorkCLIApp(App):
         """Create child widgets for the app."""
         yield Header()
         yield DataTable(cursor_type="row")
+        yield LoginView()
         yield Footer()
+
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""

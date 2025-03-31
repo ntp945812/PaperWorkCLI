@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a6d4ad6-0465-456c-98eb-da3978cb9311" name="Changes" comment="initial commit.">
-      <change afterPath="$PROJECT_DIR$/paper-work.tcss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PaperWorkCLI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PaperWorkCLI.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login_view.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webWorker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaperWorKCLIAPP.py" beforeDir="false" afterPath="$PROJECT_DIR$/PaperWorKCLIAPP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paper-work.tcss" beforeDir="false" afterPath="$PROJECT_DIR$/paper-work.tcss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,19 +52,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.PaperWorKCLIAPP.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.PaperWorKCLIAPP.executor": "Run",
+    "Python.webWorker.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-14705d77f0bb-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.25659.43" />
+        <option value="bundled-python-sdk-4f4e415b4190-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.26053.29" />
       </set>
     </attachedChunks>
   </component>

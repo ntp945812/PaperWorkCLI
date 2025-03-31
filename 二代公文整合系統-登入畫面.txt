@@ -1,0 +1,269 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Expires" content="-1"/>
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="Cache-control" content="no-cache"/>
+<title>高雄市政府第二代公文整合系統-登入畫面</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/pki.js"></script>
+<script type="text/javascript" src="js/function.js"></script>
+
+<style type="text/css">
+<!--
+body {
+	background:#1874CD;
+	margin-left: 0px;
+	margin-right: 0px;
+	
+}
+.prjname {
+	font-size: 36px;
+	color: steelBlue;
+	font-family: "標楷體";
+	font-weight:bold;
+
+}
+.prjname2 {
+	font-size: 18px;
+	color: steelBlue;
+	font-family: "新細明體";
+	font-weight:bold;
+
+}
+.idTitle {
+	font-weight: bold;
+	font-family: "新細明體";
+}
+#forgotPassword {
+	text-decoration: none;
+	color : steelBlue;
+	font-family : "新細明體";
+	
+	
+}
+-->
+</style>
+<script type="text/javascript">
+function getCert(form)
+{
+	var returnObj = new Object();
+    var pincode = form.pinCode.value;
+    var flags = 0x0080 ; //只列舉 GPKI 卡片中的簽章憑證
+
+    try {
+        fsgpkicrypt.FSGPKI_SetReaderSlot(0,0);
+        var rtn = fsgpkicrypt.FSGPKI_SignDataInit(pincode,0);
+        var lastError = fsgpkicrypt.get_lastError();
+        if (lastError == 0) {
+            //"[5]自然人憑證，簽章完成。";
+            var strX509Cert = fsgpkicrypt.FSGPKI_EnumCertsToString(flags);
+            returnObj.cert = fsgpkicrypt.FSXCAPICertGetSerialNumber(strX509Cert,flags);
+        }else if(lastError == 9056) {
+            returnObj.errorMsg = "[1]9056 請確定有插入自然人憑證，並確定讀卡機已正確安裝！";
+        }else if(lastError == 9039) {
+            returnObj.errorMsg = "[2]9039 晶卡片的密碼(PinCode)錯誤！\n注意：連續錯誤達三次，會被鎖卡！";
+        }else if(lastError == 9016) {
+            returnObj.errorMsg = "9016 裝置不存在";
+        }else if(lastError == 9018) {
+            returnObj.errorMsg = "9018 裝置已拔除";
+        }else if(lastError == 9041) {
+            returnObj.errorMsg = "9041 PIN碼長度錯誤";
+        }else{
+        	returnObj.errorMsg = "錯誤代碼："+lastError;
+        }
+        fsgpkicrypt.FSGPKI_SignDataFinal(0);
+        
+    } catch(e) {
+        returnObj.errorMsg = "無法取得憑證資訊";
+    }
+    
+    return returnObj;
+}
+
+function checkField(){
+	
+	if (document.getElementById("isCard").value=="false/") {
+		if (document.getElementById("userID").value==""){ 
+			alert("請輸入使用者帳號");
+			return false; 
+		}	
+		if (document.getElementById("userPWD").value==""){ 
+			alert("請輸入使用者密碼");
+			return false;
+		}
+		if (document.getElementById("userRnd").value==""){ 
+			alert("請輸入驗證碼");
+			return false;
+		}		
+	} else if (document.getElementById("isCard").value=="true/") {
+		document.getElementById("userID").value="";
+		document.getElementById("userPWD").value="";
+		if (document.getElementById("userRnd").value==""){ 
+			alert("請輸入驗證碼");
+			return false;
+		}			
+		if (document.getElementById("pinCode").value==""){
+			alert("請輸入卡片密碼");
+			return false;
+		} else {
+			var returnObj = getCert(form1);
+			window.focus();
+			if(typeof returnObj.errorMsg != "undefined") {
+				alert(returnObj.errorMsg);
+				return false;
+			}
+			else if(typeof returnObj.cert != "undefined")
+			    document.getElementById("serialNo").value = returnObj.cert;
+		}
+	}
+	form1.state.value = "submit";
+	return true;
+}
+
+function doAction(name) {
+	if ("login"==name)
+	{
+		if (checkField())
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+	else if ("card"==name)
+	{
+		form1.action="index.jsp?_action=Y";
+		form1.submit();
+		return true;
+	}
+	else if ("input"==name)
+	{
+		form1.action="index.jsp?_action=N";
+		form1.submit();
+		return true;
+	}
+}
+
+function init() {
+
+	form1.userID.focus();
+
+}
+
+function getPassword(){
+	window.open("getPasswd.jsp","忘記密碼","width=1000,height=400")
+}
+</script>
+
+</head>
+<body onLoad="init();">
+<form method="post" name="form1" action="auth.jsp" autocomplete="off">
+<table width="100%" height="100%" >
+<tr height=80%><td align="center" valign="top" >
+  <table width="369" border="0" align="center" cellpadding="2" cellspacing="2" class="Pane" >    
+	<tr>
+		<td colspan="2">
+			<table width="0" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td><img src="images/login/login_01.png" width="394" height="595" /></td>
+					<td>
+
+						<table width="0" border="0" cellpadding="0" cellspacing="0">
+						<tr>
+						
+							<td><img src="images/login/login_02.png" width="521" height="269" border="0" usemap="#card" alt="自然人憑證登入"/></td>
+						
+						</tr>
+						<tr>
+							<td>
+								<table width="0" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td>
+												<table width="0" border="0" cellpadding="0" cellspacing="0" style="background:white;">
+													<tr>
+														<td width="342" height="131">
+															<div style="background:url('images/login/login_04.png');width:342px;height:131px;">
+																<table valign="top">
+																	
+																	<tr>
+																		<td width="20" class="prjname2"> </td>
+																		<td width="80" class="prjname2">帳號：</td>
+																		<td width="240"><input style="FONT-SIZE:12pt;width:100%;height:30px;" maxlength="100" name="userID" id="userID" tabindex="1" value=''></td>
+																	</tr>
+																	<tr>
+																		<td width="20" class="prjname2"> </td>
+																		<td width="80" class="prjname2">密碼：</td>
+																		<td width="240" ><input type="password" style="FONT-SIZE:12pt;width:100%;height:30px;" maxlength="30" name="userPWD" id="userPWD" tabindex="2" value='' /></td>
+																	</tr>																
+																	
+																	<tr>
+																		<td width="20" class="prjname2"> </td>
+																		<td width="80" class="prjname2">驗證碼：</td>
+																		<td width="240">
+																			<img src="imagedigit.jsp" align="absmiddle" alt="驗證碼" />
+																			<input style="FONT-SIZE: 12pt; width: 100px;" 
+																				maxlength="100" name="userRnd" id="userRnd" tabindex="3" />
+																			<a href="rndSound.jsp" target="_blank" style="FONT-SIZE: 8pt;">語音播放</a>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td width="20" class="prjname2"> </td>
+																		<td width="80" class="prjname2"></td>
+																		<td width = "240" align = "right">
+																			<p><a id = "forgotPassword" href="#" onclick = "getPassword()">忘記密碼</a></p>
+																			
+																		</td>
+																	</tr>																	
+																</table>
+															</div>
+														</td>
+													</tr>
+													<tr>
+													<td align="center">
+														<table width="0" border="0" cellpadding="0" cellspacing="0">
+														<tr align="center">
+															<td><img src="images/login/login_05.png" width="211" height="25" border="0"/></td>
+															<td><input type="image" src="images/login/login_06.png" width="57" height="25" onclick="return doAction('login')" /></td>
+															<td><img src="images/login/login_07.png" width="15" height="25" /></td>
+															
+															<td width="58"><input type="image" src="images/login/login_08.png" width="58" height="25" onclick="document.getElementById('userID').value='';document.getElementById('userPWD').value='';return false;" /></td>
+															
+														</tr>
+														</table>
+													</td>
+													</tr>
+													<tr>
+													<td><img src="images/login/login_09.png" width="342" height="171" /></td>
+													</tr>
+												</table>
+												</td>
+												<td><img src="images/login/login_03.png" width="179" height="327" /></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+  </table>
+</td></tr></table>   
+<input type="hidden" name="state" />
+<input type="hidden" id="data" name="data" value="">
+<input type="hidden" id="isCard" name="isCard" value=false/>
+
+</form><br><br><br>
+ap03
+<br>
+128.5.196.129
+<map name="card">
+<area shape="rect" coords="120,200,350,230" href="javascript:doAction('card');" alt="自然人憑證登入">
+</map>
+<map name="input">
+<area shape="rect" coords="15,200,125,230" href="javascript:doAction('input');" alt="帳號登入">
+</map>
+</body>
+</html>

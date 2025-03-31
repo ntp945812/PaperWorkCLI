@@ -3,3 +3,21 @@
     align-vertical: middle;
 }
 */
+LoginView {
+    align: center middle;
+    height: 60%;
+}
+
+LoginView Label{
+    offset: 50w 0;
+}
+
+LoginView Input{
+    width: 50%;
+    margin: 1;
+}
+
+LoginView Button{
+    width: 20%;
+    offset: 75w 0;
+}
