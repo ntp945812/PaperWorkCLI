@@ -21,3 +21,8 @@ LoginView Button{
     width: 20%;
     offset: 75w 0;
 }
+
+LoginView ImageViewer{
+    width: 50%;
+    height: 3;
+}
