@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a6d4ad6-0465-456c-98eb-da3978cb9311" name="Changes" comment="initial commit.">
-      <change afterPath="$PROJECT_DIR$/data_table_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PaperWorKCLIAPP.py" beforeDir="false" afterPath="$PROJECT_DIR$/PaperWorKCLIAPP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/login_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paper-work.tcss" beforeDir="false" afterPath="$PROJECT_DIR$/paper-work.tcss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/captcha_login.png" beforeDir="false" afterPath="$PROJECT_DIR$/captcha_login.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webWorker.py" beforeDir="false" afterPath="$PROJECT_DIR$/webWorker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

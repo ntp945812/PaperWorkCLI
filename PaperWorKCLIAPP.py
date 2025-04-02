@@ -37,8 +37,10 @@ class PaperWorkCLIApp(App):
             user_rnd = self.query_one("#userRnd", Input).value
 
             self.web_worker.login(user_id, user_pwd, user_rnd)
-            self.query_one(LoginView).remove()
-            self.mount(DataTableView())
+
+            if self.web_worker.is_login:
+                self.query_one(LoginView).remove()
+                self.mount(DataTableView())
 
 
 if __name__ == "__main__":
