@@ -5,7 +5,6 @@
 */
 LoginView {
     align: center middle;
-    height: 60%;
 }
 
 LoginView Label{
