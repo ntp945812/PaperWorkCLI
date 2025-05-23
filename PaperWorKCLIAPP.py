@@ -40,7 +40,7 @@ class PaperWorkCLIApp(App):
 
             if self.web_worker.is_login:
                 self.query_one(LoginView).remove()
-                self.mount(DataTableView())
+                self.mount(DataTableView(self.web_worker.get_all_docs()))
 
 
 if __name__ == "__main__":

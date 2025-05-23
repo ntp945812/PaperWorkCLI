@@ -19,7 +19,7 @@ class LoginView(VerticalGroup):
 
     def compose(self) -> ComposeResult:
 
-        yield Label(Text("二代公文整合系統-自然人憑證登入",style="bold deep_sky_blue3",justify="right"))
+        yield Label(Text("二代公文整合系統-帳號密碼登入",style="bold deep_sky_blue3",justify="right"))
         yield Input(placeholder="帳號", id="userID")
         yield Input(placeholder="密碼", password=True, id="userPWD")
         yield ImageViewer(Image.open("captcha_login.png"))
