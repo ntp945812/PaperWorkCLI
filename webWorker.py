@@ -4,7 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import base64
-from paper import Paper
+from document import Document
 
 
 class WebWorker:
@@ -91,9 +91,9 @@ class WebWorker:
         docs = []
 
         for tr in doc_trs:
-            paper = Paper(tr)
+            paper = Document(tr)
             docs.append(paper)
-            print(paper.status)
+            print(paper.doc_type)
 
         return docs
 

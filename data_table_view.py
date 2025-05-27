@@ -1,14 +1,14 @@
 from textual.app import ComposeResult
 from textual.containers import Container
 from textual.widgets import DataTable
-from paper import Paper
+from document import Document
 from typing import List
 
 from rich.text import Text
 
 class DataTableView(Container):
 
-    def __init__(self, papers: List[Paper]):
+    def __init__(self, papers: List[Document]):
         super().__init__()
         self.papers = papers
 
@@ -28,6 +28,6 @@ class DataTableView(Container):
 
     def add_data_rows(self):
         table = self.query_one(DataTable)
-        data = [(p.status,p.send_date,p.send_no,p.serial_no,p.subject,p.send_depart,p.deadline) for p in self.papers]
+        data = [(p.doc_type, p.issue_date, p.external_doc_number, p.internal_doc_number, p.title, p.issue_unit, p.deadline) for p in self.papers]
         for d in data:
             table.add_row(*d, height=None)
