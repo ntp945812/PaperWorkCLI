@@ -6,6 +6,8 @@ import time
 import base64
 from document import Document
 
+download_dir = "C:\\Users\\hsiegw\\Desktop\\unzip_and_merge"
+
 
 class WebWorker:
 
@@ -13,6 +15,14 @@ class WebWorker:
         self.is_login = False
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('headless')
+        self.options.add_experimental_option("prefs", {
+            "download.default_directory": download_dir,
+            "download.prompt_for_download": False,
+            "download.directory_upgrade": True,
+            "plugins.always_open_pdf_externally": True,
+            "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
+            "profile.default_content_setting_values.automatic_downloads": 1,
+        })
         self.driver = webdriver.Chrome(options=self.options)
         self.driver.get("https://odm.kcg.gov.tw")
         self.driver.implicitly_wait(5)
@@ -82,7 +92,7 @@ class WebWorker:
                                                   '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td/span')
         page_size_text.click()
 
-        time.sleep(0.7)
+        time.sleep(1)
 
         docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
 
@@ -91,11 +101,49 @@ class WebWorker:
         docs = []
 
         for tr in doc_trs:
-            paper = Document(tr)
-            docs.append(paper)
-            print(paper.doc_type)
+            d = Document(tr)
+            docs.append(d)
 
         return docs
+
+    def download_document(self, row_index, doc_id):
+        '''
+        :param doc_id: pass any string other than empty can do the job.
+        :param row_index: row index of document wants to download.
+        '''
+        self.toggle_mainframe()
+        original_window = self.driver.current_window_handle
+        self.driver.execute_script(f"queryOne('{doc_id}',3,{row_index})")
+        wait = WebDriverWait(self.driver, 5)
+        wait.until(EC.number_of_windows_to_be(2))
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+
+        download_all_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')
+        download_main_doc_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')
+
+        document_name = \
+        self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[1]').get_attribute('value').split(
+            '.')[0]
+
+        wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')))
+        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')))
+
+        download_all_link.click()
+        time.sleep(0.1)
+        download_main_doc_link.click()
+        time.sleep(0.1)
+
+        # download will open another window
+        for window in self.driver.window_handles:
+            if window != original_window:
+                self.driver.switch_to.window(window)
+                self.driver.close()
+
+        wait.until(EC.number_of_windows_to_be(1))
+        self.driver.switch_to.window(original_window)
+
+
+
 
 if __name__ == "__main__":
     worker = WebWorker()
@@ -103,8 +151,10 @@ if __name__ == "__main__":
 
     worker.download_user_rnd_img()
     rnd = input("請輸入驗證碼:")
-    worker.login("", "", rnd) # MARK :- 帳號 密碼使用 env
-    worker.get_all_docs()
+    worker.login("370000962", "s-@AM0919276562", rnd)  # MARK :- 帳號 密碼使用 env
+    r_idx = 0
+    doc = worker.get_all_docs()[r_idx]
+    worker.download_document(doc.doc_id, r_idx)
 
     # with open(f"{worker.driver.title}.txt", "w") as source_file:
     #     print(worker.driver.page_source, file=source_file)

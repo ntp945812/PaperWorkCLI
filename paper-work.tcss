@@ -5,6 +5,7 @@
 */
 LoginView {
     align: center middle;
+    margin: 1;
 }
 
 LoginView Label{

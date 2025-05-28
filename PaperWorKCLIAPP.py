@@ -11,7 +11,10 @@ class PaperWorkCLIApp(App):
         super().__init__()
         self.web_worker = WebWorker()
 
-    BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
+    BINDINGS = [
+        ("d", "toggle_dark", "Toggle dark mode"),
+        ("s", "save_doc", "Save document")
+    ]
     CSS_PATH = "paper-work.tcss"
 
 
@@ -28,6 +31,12 @@ class PaperWorkCLIApp(App):
         self.theme = (
             "textual-dark" if self.theme == "textual-light" else "textual-light"
         )
+
+    def action_save_doc(self) -> None:
+        """Save selected document to unzip and merge"""
+        selected_docs = self.query_one(DataTableView).selected_docs
+        for d in selected_docs:
+            self.web_worker.download_document(*d)
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
 
