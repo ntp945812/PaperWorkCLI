@@ -1,0 +1,1947 @@
+
+<!--
+程式目的：AOSDA006F 待辦案件
+程式代號：AOSDA006F_s02
+程式日期：100/04/18
+程式作者：eric.chen
+--------------------------------------------------------
+修改作者　　修改日期　　　修改目的
+--------------------------------------------------------
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+<html>
+<head>
+<meta http-equiv="Expires" content="-1"/>
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="Cache-control" content="no-cache"/>
+<link rel="stylesheet" href="../../js/default.css" type="text/css"/>
+<link rel="stylesheet" href="../../js/jquery-ui-1.7.2.custom.css" type="text/css"/>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/validate.js"></script>
+<script type="text/javascript" src="../../js/function.js"></script>
+<script type="text/javascript" src="../../js/tablesoft.js"></script>
+<script type="text/javascript" src="../../js/json.js"></script>
+<script type="text/javascript" src="../../js/docMaker.js"></script>
+<script type="text/javascript" src="../../js/cbToggle.js"></script>
+<script type="text/javascript">
+function queryOne(id){
+	//overwrite it !!
+}
+var subPageObj = new Object();
+subPageObj.initScript = function(buttonName){
+    // do nothing,for override.
+};
+function isBatch(){
+	try {
+		if("Y" == top.fbody.menuleft.docMakerIsBatch){
+			return true;
+		}	
+	} catch(e) {}
+	return false;
+}
+function isKD(){
+	return false;
+}
+</script>
+</head>
+<body onLoad="init();">
+<form id="form1"  name="form1" method="post">
+<input type="hidden" id="id" name="id" value="1442">
+<input type="hidden" id="docType" name="docType" value="000">
+<input type="hidden" id="actionId" name="actionId" value="0">
+<input type="hidden" id="actionName" name="actionName" value="承辦人(承辦中)">
+<input type="hidden" id="actionUrl" name="actionUrl" value="../../tbkn/aosda/AOSDA006F_s05.jsp">
+<input type="hidden" id="roleId" name="roleId" value="18">
+<input type="hidden" id="folderId" name="folderId" value="02">
+
+<input type="hidden" id="subId" name="subId" value="">
+<input type="hidden" id="subDocType" name="subDocType" value="">
+<input type="hidden" id="subActionId" name="subActionId" value="">
+<input type="hidden" id="subActionName" name="subActionName" value="">
+<input type="hidden" id="subActionUrl" name="subActionUrl" value="">
+<input type="hidden" id="subRoleId" name="subRoleId" value="">
+<input type="hidden" id="subFolderId" name="subFolderId" value="">
+<input type="hidden" name="viewRoleId" value="18">
+<input type="hidden" name="viewDeptFullCode" value="37AI">
+
+<div id="newWindowContainer">
+	<iframe id="newWindowContainerFrame" name="newWindowContainerFrame" border="0" framespacing="0" src="" frameborder="0" style="border:none;display:none"></iframe>
+</div>
+
+<table width="100%" cellspacing="0" cellpadding="0">
+<!--Form區============================================================-->
+<tr><td class="bgToolbar" style="text-align:left">
+<span id="functionMenuContainer">
+<span><input   type='button'  class='function_button'  style="display:" name='000011802' value='線上陳核' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1443","subActionId":"1","subDocType":"000","subRoleId":"18","subActionName":"線上陳核","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s04.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000021802' value='轉紙本' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1444","subActionId":"2","subDocType":"000","subRoleId":"18","subActionName":"轉紙本","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s06.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000031802' value='送陳/會' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1445","subActionId":"3","subDocType":"000","subRoleId":"18","subActionName":"送陳\/會","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s08.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000051802' value='併/彙辦' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1446","subActionId":"5","subDocType":"000","subRoleId":"18","subActionName":"併\/彙辦","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA047F.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000061802' value='單位決行' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1447","subActionId":"6","subDocType":"000","subRoleId":"18","subActionName":"單位決行","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s10.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000091802' value='移交' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1450","subActionId":"9","subDocType":"000","subRoleId":"18","subActionName":"移交","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s16.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000151802' value='申請註銷' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1451","subActionId":"15","subDocType":"000","subRoleId":"18","subActionName":"申請註銷","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s35.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000111802' value='展期' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1697","subActionId":"11","subDocType":"000","subRoleId":"18","subActionName":"展期","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s31.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000121802' value='速別/性質變更' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1698","subActionId":"12","subDocType":"000","subRoleId":"18","subActionName":"速別\/性質變更","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s32.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000131802' value='專案' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1699","subActionId":"13","subDocType":"000","subRoleId":"18","subActionName":"專案","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s33.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000141802' value='專案展期' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1700","subActionId":"14","subDocType":"000","subRoleId":"18","subActionName":"專案展期","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s34.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000071802' value='退文' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1811","subActionId":"7","subDocType":"000","subRoleId":"18","subActionName":"退文","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s03.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000101802' value='個人文註銷' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1829","subActionId":"10","subDocType":"000","subRoleId":"18","subActionName":"個人文註銷","subFolderId":"02","subActionUrl":"..\/aosda\/AOSDA062F_s51.jsp"}))' /></span><span><input   type='button'  class='function_button'  style="display:" name='000191802' value='函復' onclick='gbActionButtonFireEvent(this.name,eval({"subId":"1840","subActionId":"19","subDocType":"000","subRoleId":"18","subActionName":"函復","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s52.jsp"}))' /></span>
+</span>
+</td></tr>
+</table>
+
+<div>
+
+<!--
+程式目的：AOSDA006F 待辦案件
+程式代號：AOSDA006F_S05
+程式日期：100/04/18
+程式作者：eric.chen
+--------------------------------------------------------
+修改作者　　修改日期　　　修改目的
+--------------------------------------------------------
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+<span id="buttonContainer">
+	<input type="button" class="toolbar_default" name="conditionQueryAll" value="條件查詢" onClick="whatButtonFireEvent('queryAll');">
+	
+	<input type="button" class="toolbar_default" name="barCodeQuery" value="讀碼" onClick="this.disabled=true;whatButtonFireEvent(this.name);">
+	<input class="field_QE" type="text" maxlength="6000" name="q_barCode" value="" onKeyPress="if(window.event.keyCode==13){chgQBarCode();} else if(window.event.keyCode==32){whatButtonFireEvent('barCodeQuery');}" onChange="chgQBarCode()" />&nbsp;
+	
+    
+</span>
+<!--Query區============================================================-->
+<div id="queryContainer" style="width:800px;height:300px;display:none">
+	<iframe id="queryContainerFrame"></iframe>
+	<div class="queryTitle">查詢視窗</div>
+	
+	<!--
+程式目的：AOSDA006F 待辦案件
+程式代號：AOSDA006F_S06
+程式日期：100/04/18
+程式作者：eric.chen
+--------------------------------------------------------
+修改作者　　修改日期　　　修改目的
+--------------------------------------------------------
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="hidden" name="q_status4" value="">
+		<table class="queryTable" border="1">
+		<tr>
+			<td class="queryTDLable">收文日期：</td>
+			<td class="queryTDInput">
+				<input class="field_Q" type="text" name="q_IO_DATE_BF" size="7" maxlength="7" style="ime-mode: disabled;" value="">
+<input class="field_Q" type="button" style="cursor: pointer; border: 0px;  width:20; height: 17; background-color: transparent; background-image:url(../../images/calendar.png);" name="btn_q_IO_DATE_BF" onclick="popCalendar('q_IO_DATE_BF&js=')" value="..." title="萬年曆輔助視窗">
+
+			</td>
+			<td class="queryTDLable">狀態：</td>
+			<td class="queryTDInput">
+				<select class="field_Q" name="q_DOC_TYPE">
+					<option value=''>請選擇</option><option value='C60' >創稿待辦</option><option value='C61' >來文待辦</option>
+				</select>
+			</td>		
+		</tr>
+		<tr>
+			<td class="queryTDLable">送件日期：</td>
+			<td class="queryTDInput">
+				<input class="field_Q" type="text" name="q_ORG_OT_DATE_S" size="7" maxlength="7" style="ime-mode: disabled;" value="">
+<input class="field_Q" type="button" style="cursor: pointer; border: 0px;  width:20; height: 17; background-color: transparent; background-image:url(../../images/calendar.png);" name="btn_q_ORG_OT_DATE_S" onclick="popCalendar('q_ORG_OT_DATE_S&js=')" value="..." title="萬年曆輔助視窗">
+~
+				<input class="field_Q" type="text" name="q_ORG_OT_DATE_E" size="7" maxlength="7" style="ime-mode: disabled;" value="">
+<input class="field_Q" type="button" style="cursor: pointer; border: 0px;  width:20; height: 17; background-color: transparent; background-image:url(../../images/calendar.png);" name="btn_q_ORG_OT_DATE_E" onclick="popCalendar('q_ORG_OT_DATE_E&js=')" value="..." title="萬年曆輔助視窗">
+
+			</td>
+			<td class="queryTDLable" nowrap>來文(受文)機關：</td>
+			<td class="queryTDInput">
+				<input class="field_Q" type="text" name="q_IO_DEP3_NAME" size="20" maxlength="40" value="" />
+			</td>		
+		</tr>
+		<tr>
+			<td class="queryTDLable" nowrap>公文文號起迄：</td>
+			<td class="queryTDInput">
+				<input class="field_Q" type="text" name="q_DO_SNO_S" maxlength="11" size="11" value="" onchange="javascript:form1.q_DO_SNO_E.value=this.value"/>~
+				<input class="field_Q" type="text" name="q_DO_SNO_E" maxlength="11" size="11" value="" />
+			</td>
+			<td class="queryTDLable">來文方式：</td>
+			<td class="queryTDInput">
+				<select class="field_Q" name="q_eget">
+					<option value=''>請選擇</option><option value='9' >電子收文</option><option value='1' >紙本收文</option>
+				</select>
+			</td>
+		</tr>	
+		<tr>
+			<td class="queryTDLable">來文字號：</td>
+			<td class="queryTDInput">
+				<input class="field_Q" type="text" name="q_ORG_OT_WORD" maxlength="20" size="10" value="" />
+				<input class="field_Q" type="text" name="q_ORG_OT_WORDNO" maxlength="11" size="10" value="" />
+			</td>
+			<td class="queryTDLable">陳核方式：</td>
+            <td class="queryTDInput">
+                <select class="field_Q" name="q_epaper2">
+                    <option value=''>請選擇</option><option value='N' >紙本</option><option value='Y' >線上</option>
+                </select>
+            </td>
+		</tr>
+		<tr>
+			<td class="queryTDLable">主旨摘要：</td>
+			<td class="queryTDInput" colspan="3">
+				<input class="field_Q" type="text" name="q_ABSTRACT" size="60" value="" />
+			</td>
+		</tr>
+		<tr>
+			<td class="queryTDLable">年度號/分類號：</td>
+            <td class="queryTDInput">
+            	<input class="field_Q" type="text" name="q_fsYear2" size="4" value="" onChange="addZero2('4',q_fsYear2);" />/
+                <input class="field_Q" type="text" name="q_fsKindno2" size="10" value="" />
+            </td>
+            <td class="queryTDLable">保存年限：</td>
+            <td class="queryTDInput">
+            	<input class="field_Q" type="text" name="q_fsYearLimit" size="4" value=""/>
+            </td>
+		</tr>
+		<tr>
+			<td class="queryTDLable">承辦單位：</td>
+			<td class="queryTDInput">			
+				
+				     捷運工程局系統工程科
+				     <input type="hidden"   id="q_IO_DEP1_NO" name="q_IO_DEP1_NO" value=""/>
+                
+			</td>
+			<td class="queryTDLable">承辦人：</td>
+			<td class="queryTDInput">
+			
+				謝冠緯
+				<input type="hidden"   id="q_ACTN_EMPL" name="q_ACTN_EMPL" value=""/>
+			
+			</td>		
+		</tr>
+		
+		<tr>
+			<td class="queryTDInput" colspan="4" style="text-align:center;">	
+				<input class="toolbar_default" followPK="false" type="submit" name="querySubmit" value="確　　定" >
+				<input class="toolbar_default" followPK="false" type="button" name="queryCannel" value="取　　消" onClick="whatButtonFireEvent(this.name)">
+	
+			</td>
+		</tr>					
+		</table>
+</div>
+<div id="queryContainer2" style="width:600px;height:100px;display:none">
+    <div class="queryTitle">重新收文</div>
+    <table class="queryTable" border="1">
+        <tr>
+            <td class="queryTDLable">來文別：</td>
+            <td class="queryTDInput">
+                <select class="field" name="getType">
+                <option value='1' >府來文</option><option value='2' >機關來文</option>
+                </select>
+            </td>
+            <td class="queryTDLable">府收文號：</td>
+            <td class="queryTDInput">
+                <input class="field" type="text" name="kcgNo" value=""/>
+            </td>       
+        </tr>
+        <tr>
+            <td class="queryTDInput" colspan="4" style="text-align:center;">    
+                <input class="toolbar_default" followPK="false" type="button" name="querySubmit2" value="確　　定" onClick="reGetSubmit();">
+                <input class="toolbar_default" followPK="false" type="button" name="queryCannel2" value="取　　消" onClick="closeReGet();">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<TABLE CELLPADDING="0" CELLSPACING="0" valign="top" style="display:none">
+<!--Toolbar區============================================================-->
+<tr><td class="bgToolbar" style="text-align:center">
+	<input type="hidden" name="gbDocFlowId" value="">
+	<input type="hidden" name="doDeptno" value="">	
+	<input type="hidden" name="doSno" value="">
+	<input type="hidden" name="meetNo" value="">
+	<input type="hidden" name="defaultTab" value="">				
+	<input type="hidden" name="gbActionId" value="1442">		
+	<input type="hidden" name="state" value="queryOneSuccess">
+	<input type="hidden" name="queryAllFlag" value="false">
+	<input type="hidden" name="userID" value="370000962">
+	<input type="hidden" name="sortColumn" value="">
+	<input type="hidden" name="sortType" value="">	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var readbg="#FFFFFF";
+var editbg="#FFFFFF";
+var hasBeenConfirmed = false;
+var clearFormFieldFlag = true;
+var listToHTMLReportFlag = true;
+var listHiddenFlag = false;
+
+var localButtonFireListener = new Object();
+localButtonFireListener.whatButtonFireEvent = function(buttonName){
+    // do nothing,for override.
+}
+
+localButtonFireListener.beforeWhatButtonFireEvent = function(buttonName){
+    return true;
+    // do nothing,for override.
+}
+
+function getFocusField() {	
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;		
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if (!like(obj.className,"field_Q") && !like(obj.className,"RO") && like(obj.className,"field")){
+			if ((obj.value=="" && obj.type!="hidden") && (obj.readOnly==false||obj.disabled==false)) {
+				try { obj.focus(); } catch(e) {}
+				break;
+			}				
+		}
+		/**
+		if (obj.className=="field"||obj.className=="field_P"||obj.className=="field_N"||obj.className=="field_C"||obj.className=="field_E") {		
+			if ((obj.value=="" && obj.type!="hidden") && (obj.readOnly==false||obj.disabled==false)) {
+				try { obj.focus(); } catch(e) {}
+				break;
+			}				
+		}
+		**/
+	}	
+}
+
+/*全部欄位都設為readonly,  除query欄位及所有資料*/
+function setAllReadonly(){
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;		
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if (like(obj.className,"field_Q")){	
+			if (like(obj.className,"RO")){	
+				if((obj.type=="text")||(obj.type=="textarea")||(obj.type=="password")){									
+	    	    	obj.readOnly = true;	
+				}else if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+					obj.style.backgroundColor=readbg;
+					obj.disabled = true;
+			   	}
+			 }
+		}else{			
+			if (like(obj.className,"RO")){			
+				//obj.readOnly = true;	
+				obj.style.backgroundColor=readbg;							
+				if((obj.type=="text")||(obj.type=="textarea")||(obj.type=="password")){
+					obj.style.backgroundColor=editbg;			
+    	    		obj.readOnly = true;	
+				}else if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+					obj.disabled = true;
+		   	  	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){
+   			  		obj.disabled = true;
+   	  			}				
+			}else{
+				if((obj.type=="text")||(obj.type=="textarea")||(obj.type=="password")){						
+					obj.style.backgroundColor=readbg;			
+    	    		obj.readOnly = true;	
+				}else if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+					obj.style.backgroundColor=readbg;
+					obj.disabled = true;
+		   	  	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){
+   			  		obj.disabled = true;
+   	  			}
+   	  		}
+   	  	}
+	}
+}
+
+/*全部欄位都設為readonly並清空, 除query欄位外所有資料*/
+function setAllReadonlyClear(){
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;		
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if (like(obj.className,"field_Q")){	
+			if (like(obj.className,"RO")){	
+				if((obj.type=="text")||(obj.type=="textarea")||(obj.type=="password")){									
+	    	    	obj.readOnly = true;	
+				}else if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+					obj.style.backgroundColor=readbg;
+					obj.disabled = true;
+			   	}
+			 }
+		}else{	
+			if (like(obj.className,"RO")){
+				if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+					obj.style.backgroundColor=readbg;
+					obj.disabled = true;
+		   	  	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){		   	  	
+   			  		obj.disabled = true;
+   	  			}				
+				obj.style.backgroundColor=editbg;	
+				obj.readOnly = true;
+				obj.value="";	
+			}else{	
+				if((obj.type=="text")||(obj.type=="textarea")||(obj.type=="password")){						
+					obj.style.backgroundColor=readbg;			
+        			obj.readOnly = true;	
+        			obj.value="";
+				}else if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")) {
+					obj.style.backgroundColor=readbg;										
+					obj.disabled = true;
+					obj.value = "";
+				}else if((obj.type=="checkbox")||(obj.type=="radio")){
+					obj.disabled = true;
+					obj.checked  = false;
+		   	  	}else if((obj.type=="button")&&(obj.className!="toolbar_default")){
+   			  		obj.disabled = true;
+   	  			}
+   	  		}
+      	}
+	}
+}
+
+/*全部欄位都設為open*/
+function setAllOpen(){
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;		
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if (like(obj.className,"RO")){
+			obj.style.backgroundColor=readbg;
+			if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+				obj.disabled = true;
+	   	  	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){
+  				obj.disabled = true;
+  	  		} else {
+				obj.style.backgroundColor=editbg;	
+				obj.readOnly = true;
+			}
+		}else{		
+			if((obj.type=="text")||(obj.type=="textarea")||(obj.type=="password")){					
+				obj.style.backgroundColor=editbg;			
+	        	obj.readOnly = false;			
+			}else if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+				obj.style.backgroundColor=editbg;
+				obj.disabled = false;
+    	  	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){
+	    	  	obj.disabled = false;
+    	  	}
+   	  	}
+	}
+}
+
+/*全部欄位都設為open並清空, 除query欄位外所有資料*/
+function setAllOpenClear(){
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;		
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if (!like(obj.className,"field_Q")){			
+			if (like(obj.className,"RO")){			
+				obj.style.backgroundColor=readbg;
+				if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+					obj.disabled = true;
+		   	  	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){
+	  				obj.disabled = true;
+	  	  		} else {
+					obj.style.backgroundColor=editbg;	
+					obj.readOnly = true;
+				}
+    	    	obj.value="";
+			}else{		
+				if((obj.type=="text")||(obj.type=="textarea")||(obj.type=="password")){					
+					obj.style.backgroundColor=editbg;			
+		        	obj.readOnly = false;			
+		        	obj.value="";
+				}else if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")){
+					obj.style.backgroundColor=editbg;
+					obj.disabled = false;
+					obj.value="";
+				}else if((obj.type=="checkbox")||(obj.type=="radio")){
+					obj.disabled = false;
+					obj.checked  = false;
+	   		  	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){
+	    		  	obj.disabled = false;
+	    		//為了使用單位與非機關使用單位二擇一時清除hidden欄位值
+				}else if((obj.type=="hidden")&&(obj.className=="field")){
+					obj.value="";
+				}
+			}
+      	}
+	}
+}
+
+/*除PK欄位外全部欄位都設為open*/
+function setUnpkOpen(){
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;		
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if (like(obj.className,"RO")){
+			obj.style.backgroundColor=readbg;			
+			if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+				obj.disabled = true;
+	   	  	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){
+  				obj.disabled = true;
+  	  		} else {	
+				obj.style.backgroundColor=editbg;	
+				obj.readOnly = true;
+			}
+		}else{		
+			if((obj.type=="text")||(obj.type=="textarea")||(obj.type=="password")){
+				if (like(obj.className,"field_P") || like(obj.className,"field_EP")){
+					obj.style.backgroundColor=readbg;			
+	   	    		obj.readOnly = true;
+				}else{
+					obj.style.backgroundColor=editbg;			
+	    	    	obj.readOnly = false;
+				}			
+			}else if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")){
+				if (like(obj.className,"field_P") || like(obj.className,"field_RO") || like(obj.className,"field_QRO")){
+					obj.style.backgroundColor=readbg;
+					obj.disabled = true;			
+				}else{
+					obj.style.backgroundColor=editbg;
+					obj.disabled = false;	
+				}	
+	      	}else if ((obj.type=="button")&&(obj.className!="toolbar_default")){
+				if (like(obj.className,"field_P")){
+					obj.disabled = true;			
+				}else{
+					obj.disabled = false;	
+				}    	  	
+      		}
+		}
+	}
+}
+
+/*submit之前將select打開*/
+function beforeSubmit(){
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;		
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if((obj.type=="select-one")||(obj.type=="select-multiple")||(obj.type=="select")||(obj.type=="checkbox")||(obj.type=="radio")) {		
+			obj.disabled = false;
+		} else if(obj.type=="text") {
+			if ((like(obj.className,"field_N") || like(obj.className,"field_QN"))) deleteCommas(obj);
+			if ((like(obj.className,"field_C") || like(obj.className,"field_QC"))) deleteChr(obj,'.');
+		}
+	}
+	document.all.item("confirm").disabled = true;
+	showProcessDialog();
+}
+/*顯示查詢視窗*/
+function queryShow(queryName){
+	if (isObj(document.all.item(queryName))) {
+		var queryObj=document.all.item(queryName);		
+		var objHeight= queryObj.style.height;
+		var objWidth= queryObj.style.width;	
+		objHeight= objHeight.substring(0,objHeight.length-2);
+		objWidth= objWidth.substring(0,objWidth.length-2);
+		/**
+	  	document.all.item("insert").disabled = true;   
+	  	document.all.item("queryAll").disabled = true;
+	  	if (!document.all.item("update").disabled){
+	   		document.all.item("update").disabled = true;   
+	  		document.all.item("delete").disabled = true; 	
+	  	}
+	  	**/
+		queryObj.style.top=(document.body.clientHeight-Number(objHeight)-80)/2;
+		queryObj.style.left=(document.body.clientWidth-Number(objWidth))/2;	
+		queryObj.style.display="block";		
+	}	
+}
+/*隱藏查詢視窗*/
+function queryHidden(queryName){
+	if (isObj(document.all.item(queryName))) {
+		var queryObj=document.all.item(queryName);		
+		queryObj.style.display="none";		
+	}
+	/**
+  	document.all.item("insert").disabled = false;   
+  	document.all.item("queryAll").disabled = false; 	
+  	btnFollowPK();
+  	**/
+}
+
+/*按鈕隨著PK值顯示*/
+function btnFollowPK(){  	
+  	var PKValueflag = false;
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;		
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if (obj.className=="field_P" && obj.value!="" && !PKValueflag && obj.type!="button"){
+			PKValueflag = true;
+			break;
+		}			
+   	}
+   	
+	for(var i=0; i<arrLen; i++){  			
+		var obj = arrObj[i];
+		if ((obj.type=="button")&&(obj.className=="toolbar_default" )){	
+			if (PKValueflag){
+				if (obj.followPK=="true" || obj.getAttribute('followPK')=='true') {obj.disabled = false; }				
+			}else{
+				if (obj.followPK=="true" || obj.getAttribute('followPK')=='true'){ obj.disabled = true; }
+			}
+		}					
+   	}   	
+   	
+}
+
+/*顯示新增,查詢按鈕*/
+function btnIQ(){
+	if (isObj(document.all.item("btnDuplicate"))) document.all.item("btnDuplicate").disabled = false;
+	if (isObj(document.all.item("insert"))) document.all.item("insert").disabled = false;  	 
+	if (isObj(document.all.item("queryAll"))) document.all.item("queryAll").disabled = false; 
+	if (isObj(document.all.item("update"))) document.all.item("update").disabled = true; 
+	if (isObj(document.all.item("delete"))) document.all.item("delete").disabled = true; 
+	if (isObj(document.all.item("clear"))) document.all.item("clear").disabled = true;  
+	if (isObj(document.all.item("confirm"))) document.all.item("confirm").disabled = true;	
+  	if (isObj(document.all.item("listPrint"))) document.all.item("listPrint").disabled = false;
+  	if (isObj(document.all.item("listHidden"))) document.all.item("listHidden").disabled = false; 	
+}
+/*顯示取消,確定按鈕*/
+function btnCC(){
+	if (isObj(document.all.item("btnDuplicate"))) document.all.item("btnDuplicate").disabled = true;
+	if (isObj(document.all.item("insert"))) document.all.item("insert").disabled = true; 
+	if (isObj(document.all.item("queryAll"))) document.all.item("queryAll").disabled = true; 
+	if (isObj(document.all.item("update"))) document.all.item("update").disabled = true; 
+	if (isObj(document.all.item("delete"))) document.all.item("delete").disabled = true; 
+	if (isObj(document.all.item("clear"))) document.all.item("clear").disabled = false;  
+	if (isObj(document.all.item("confirm"))) document.all.item("confirm").disabled = false;	
+  	if (isObj(document.all.item("listPrint"))) document.all.item("listPrint").disabled = false;
+  	if (isObj(document.all.item("listHidden"))) document.all.item("listHidden").disabled = false;
+
+}
+/*顯示新增,查詢,修改,刪除按鈕*/
+function btnIQUD(){
+	if (isObj(document.all.item("btnDuplicate"))) document.all.item("btnDuplicate").disabled = false;
+	if (isObj(document.all.item("insert"))) document.all.item("insert").disabled = false;   
+	if (isObj(document.all.item("queryAll"))) document.all.item("queryAll").disabled = false; 
+	if (isObj(document.all.item("update"))) document.all.item("update").disabled = false; 
+	if (isObj(document.all.item("delete"))) document.all.item("delete").disabled = false; 
+	if (isObj(document.all.item("clear"))) document.all.item("clear").disabled = true;  
+	if (isObj(document.all.item("confirm"))) document.all.item("confirm").disabled = true;
+  	if (isObj(document.all.item("listPrint"))) document.all.item("listPrint").disabled = false;
+  	if (isObj(document.all.item("listHidden"))) document.all.item("listHidden").disabled = false;   
+}
+
+/*觸發不同Button之相對應動作*/
+function whatButtonFireEvent(buttonName){
+	var obj;
+	var oldState = "";
+
+	if(!localButtonFireListener.beforeWhatButtonFireEvent(buttonName)){
+	   return;
+	}
+	oldState = document.all("state").value;
+	document.all("state").value=buttonName;	
+	switch (buttonName)	{
+		case "init":
+			setAllReadonly();
+			btnFollowPK();
+			btnIQ();
+			break;
+		case "insert":
+			if (clearFormFieldFlag) setAllOpenClear();
+			else setAllOpen();
+			if (isObj(insertDefault)){
+				for(var i=0;i<insertDefault.length;i++){
+					if (isObj(document.all.item(insertDefault[i][0])) && isObj(document.all.item(insertDefault[i][0]).type)){					
+						if((document.all.item(insertDefault[i][0]).type=="checkbox")){
+							if (insertDefault[i][1]==document.all.item(insertDefault[i][0]).value)
+								document.all.item(insertDefault[i][0]).checked  = true;
+	   		  			}else{
+			    		  	document.all.item(insertDefault[i][0]).value=insertDefault[i][1];
+				   	  	}					
+					} else if (isObj(document.all.item(insertDefault[i][0]))) { //radio box
+						for (var j = 0; j < document.all.item(insertDefault[i][0]).length; j++) {
+							if (document.all.item(insertDefault[i][0])[j].value==insertDefault[i][1]) document.all.item(insertDefault[i][0])[j].checked = true;
+						}
+					}					
+				}
+			}				
+			if (isObj(form1.editID)) form1.editID.value = "370000962";
+			if (isObj(form1.editDate)) form1.editDate.value = getToday();
+			btnFollowPK();
+			btnCC();
+			getFocusField();		
+			break;
+		case "insertSuccess":
+			setAllReadonly();
+			btnFollowPK();
+			btnIQUD();
+			break;
+		case "insertError":
+			setAllOpen();
+			//setUnpkOpen();
+			btnFollowPK();
+			btnCC();
+			break;
+		case "update":
+			if (isObj(form1.editID)) form1.editID.value = "370000962";
+			if (isObj(form1.editDate)) form1.editDate.value = getToday();
+			setUnpkOpen();
+			btnFollowPK();
+			btnCC();
+			break;
+		case "updateSuccess":
+			setAllReadonly();
+			btnFollowPK();
+			btnIQUD();
+			break;
+		case "updateError":
+			setUnpkOpen();
+			btnFollowPK();
+			btnCC();
+			break;		
+		case "delete":
+			if (hasBeenConfirmed) {
+				beforeSubmit();	
+				//genJSONString();
+				document.forms[0].submit();
+			} else {
+				if(confirm("確定刪除這筆資料?")){
+					beforeSubmit();	
+					//genJSONString();
+					document.forms[0].submit();
+				}
+			}
+			break;
+		case "deleteSuccess":
+			setAllReadonlyClear();
+			btnFollowPK();
+			btnIQ();
+			break;
+		case "deleteError":
+			setAllReadonly();
+			btnFollowPK();
+			btnIQUD();
+			break;					
+		case "queryAll":
+			queryShow('queryContainer');
+			break;
+		case "queryCannel":
+			queryHidden('queryContainer');
+			break;	
+		case "queryAllSuccess":
+			setAllReadonlyClear();
+			btnFollowPK();
+			btnIQ();
+			break;		
+		case "queryOneSuccess":
+			setAllReadonly();
+			btnFollowPK();
+			btnIQUD();
+			break;
+		case "clear":
+			if (oldState=="update" || oldState=="updateError") {
+				document.all("state").value="queryOne";
+				beforeSubmit();				
+				document.forms[0].submit();				
+				//setAllReadonly();
+			} else {				
+				setAllReadonlyClear();
+			}
+			btnFollowPK();
+			btnIQ();
+			break;	
+		default:
+			break;
+	}
+	localButtonFireListener.whatButtonFireEvent(buttonName); 	
+}
+
+/*模仿sql like功能*/
+function like(buttonName,likestr){
+	return (buttonName.indexOf(likestr)>=0)
+}
+/*檢查查詢欄位至少輸入一個*/
+function checkQuery(){
+	var errorflag=true;
+	var arrObj = document.forms[0].elements;
+	var arrLen = arrObj.length;	
+	for(var i=0; i<arrLen; i++){
+		var obj = arrObj[i];	
+		if (like(obj.className,"field_Q")){
+			if((obj.type=="checkbox")||(obj.type=="radio")){
+				if (obj.checked){
+					errorflag=false;
+					break;				
+				}
+			}else{
+				if ((parse(obj.value)!="") && (obj.type!="button")){
+					errorflag=false;
+					break;
+				}
+			}
+		}	
+	}
+	if (errorflag){
+		return "查詢欄位至少輸入一個!\n";
+	}else{
+		return "";
+	}
+}
+
+
+/*列表隱藏*/
+function listToHidden(btnObj,formName,listName){
+	var formObj=document.all.item(formName);
+	var listObj=document.all.item(listName);
+	if (btnObj.value=="列表隱藏"){
+		formObj.style.height="auto";
+		listObj.style.display="none";
+		btnObj.value="列表顯示";
+	}else{
+		formObj.style.height="220px";
+		listObj.style.display="block";
+		btnObj.value="列表隱藏";	
+	}
+}
+
+function listToHTMLReportWithColor(listHeadName,listBodyName) {
+	window.open('../../home/listReport.htm');
+	listToHTMLReportFlag = true;
+}
+
+/*列表檔案*/
+function listToHTMLReport(listHeadName,listBodyName){	
+	
+	
+	var i=0, j=0;
+	if (listToHTMLReportFlag) {
+		var sb = new StringBuffer();
+		sb.append("<table border='0' cellpadding='0' cellspacing='0' bgcolor='#000000' width='100%'><tr><td><table width='100%' border='0' cellpadding='1' cellspacing='1'>");
+		//寫入Thead資料
+		var listHead = document.getElementById(listHeadName);	
+		for(i=0; i<listHead.rows.length; i++){
+			sb.append("<tr bgcolor='#CCCCCC' align='center'>");
+			for(j=0; j<listHead.rows[i].cells.length; j++){			
+				if (isObj(listHead.rows[i].cells[j].childNodes[0].childNodes[0])){
+					sb.append("<td>").append(listHead.rows[i].cells[j].childNodes[0].childNodes[0].nodeValue).append("</td>");
+				}else{
+					sb.append("<td>&nbsp;</td>");
+				}
+			}
+			sb.append("</tr>");
+		}
+		
+		//寫入Tbody資料	
+		var listBody = document.getElementById(listBodyName);	
+		for(i=0; i<listBody.rows.length; i++){
+			sb.append("<tr bgcolor='#FFFFFF' align='center'>");	
+			for(j=0; j<listBody.rows[i].cells.length; j++){
+				textAlign = "";
+				if (isObj(listBody.rows[i].cells[j].childNodes[0])){
+					try {			
+						textAlign = listBody.rows[i].cells[j].style.getAttribute('textAlign');
+					} catch(e) {}					
+					if (textAlign!=null && textAlign!="") sb.append("<td style=\"text-align:").append(textAlign).append("\">").append(listBody.rows[i].cells[j].childNodes[0].nodeValue).append("</td>");
+					else sb.append("<td>").append(listBody.rows[i].cells[j].childNodes[0].nodeValue).append("</td>");
+				}else{
+					sb.append("<td>&nbsp;</td>");
+				}
+			}
+			sb.append("</tr>");
+		}
+		sb.append("</table></td></tr></table>");
+		var ie = window.open();
+		ie.document.write(sb.toString());
+		listToHTMLReportFlag = false;
+	} else listToHTMLReportWithColor(listHeadName,listBodyName);
+}
+
+function btnQueryAllOnly() {
+	setDisplayItem('spanInsert,spanDuplicate,spanUpdate,spanDelete,spanClear,spanConfirm,spanListPrint,spanListHidden','H');
+}
+
+var leavePageConfirm = true;
+function setBeforePageUnload(on){
+    window.onbeforeunload = (on) ? confirmLeavePage : null;
+    //window.onunload = (on) ? confirmLeavePage : null;
+}
+
+function confirmLeavePage(e) {
+	if (isObj(document.all.item("state"))) {
+		var s = document.all.item("state").value;
+		if (s=="insert" || s=="insertError" || s=="update" || s=="updateError") {
+			return "資料尚未儲存，確定要離開?";
+		}
+	}
+}
+//setBeforePageUnload(true);
+</script>
+<input type='hidden' name='permissionField' value='1'>
+<span id="spanToolbar">&nbsp;
+<span id="spanInsert" >
+<input class="toolbar_default" type="button" followPK="false" name="insert"  value="新　增" onClick="whatButtonFireEvent(this.name)">&nbsp;
+</span>
+<span id="spanQueryAll" >
+<input class="toolbar_default" type="button" followPK="false" name="queryAll" value="查　詢" onClick="whatButtonFireEvent(this.name)">&nbsp;
+</span>
+<span id="spanUpdate" >
+<input class="toolbar_default" type="button" followPK="true"  name="update" value="修　改" onClick="whatButtonFireEvent(this.name)">&nbsp;
+</span>
+<span id="spanDelete" >
+<input class="toolbar_default" type="button" followPK="true"  name="delete" value="刪　除" onClick="whatButtonFireEvent(this.name)">&nbsp;
+</span>
+<span id="spanClear" >
+<input class="toolbar_default" type="button" followPK="false" name="clear" value="取　消" onClick="whatButtonFireEvent(this.name)">&nbsp;
+</span>
+<span id="spanConfirm" >
+<input class="toolbar_default" type="submit" followPK="false" name="confirm" value="確　定" onClick="setBeforePageUnload(false);">&nbsp;
+</span>
+<!-- 
+<span id="spanListPrint" >
+<input class="toolbar_default" type="button" followPK="false" name="listPrint" value="列表檔案" onClick="listToHTMLReport('listTHEAD','listTBODY')">&nbsp;
+</span>
+-->
+<span id="spanListHidden" >
+<input class="toolbar_default" type="button" followPK="false" name="listHidden" value="列表隱藏" onClick="listToHidden(this,'formContainer','listContainer')">&nbsp;
+</span></span>
+</td></tr>
+</table>
+
+<TABLE width="100%" CELLPADDING="0" CELLSPACING="0" valign="top">
+<tr><td>
+
+
+
+
+
+<script language="javascript">
+var pageListener = new Object();
+pageListener.beforeGotoPage = function(){
+    // do nothing,for override.
+}
+
+function gotoPage(iPageNo)
+{
+	if(isNaN(form1.pageSize.value)){		
+		alert(" 請輸入數值格式的頁碼!!");
+		form1.pageSize.value = "10";
+		return false;
+	}
+    pageListener.beforeGotoPage();
+    if (isObj(form1.state)) form1.state.value = "queryAll";
+   	form1.currentPage.value = iPageNo;
+   	form1.action = "";
+   	form1.target = "";
+   	form1.submit();
+}
+
+function chgPageSize(size) {
+	form1.pageSize.value=size;
+	pageListener.beforeGotoPage();
+    if (isObj(form1.state)) form1.state.value = "queryAll";
+   	form1.currentPage.value = 1;
+   	form1.action = "";
+   	form1.target = "";
+   	form1.submit();
+}
+</script>
+
+	<input type="hidden" name="currentPageSize" value="10">
+	<input type="hidden" name="currentPage" value="1"> 
+	<input type="hidden" name="listContainerActiveRowId" value="">	
+		
+    <table width="99%" border="0" align="center">
+      <tr>
+        <td class="querytext" valign="middle"><span class="pagetext" >一頁<input type="text" class="field_Q" name="pageSize" maxlength="4" size="4" value="10" autocomplete="off" onchange="gotoPage(1);" style="font-size: 12px;">筆, 共23筆 第1到10筆</span></td>
+ 	       
+        <td class="querytext" valign="middle">
+        <div align="right"><span class="pagetext" >
+        			  共3頁</span>
+				   [ <a class="pagetext" href="javascript: gotoPage(1)">第一頁</a>
+				   <span class="pagetext" style="color:red">1</span>
+<a class="pagetext" href="javascript:javascript: gotoPage(2)">2</a>
+<a class="pagetext" href="javascript:javascript: gotoPage(3)">3</a>
+
+				<a class="pagetext" href="javascript: gotoPage(3)">末頁</a> ]
+
+                [<a class="pagetext" href="javascript: gotoPage(2)">下一頁</a>]
+
+        		
+
+                
+	 	</div>
+	 	</td>
+      </tr>
+    </table>
+
+
+</td></tr>
+</table>
+
+<table width="100%" cellspacing="0" cellpadding="0">
+<!--List區============================================================-->
+<tr><td class="bgList">
+<div id="listContainer" style="height:400px;width:100%;">
+<table class="table_form" width="100%" cellspacing="0" cellpadding="0" style="overflow-y:auto;">
+	<thead id="listTHEAD">
+	<tr>
+    
+    	<th class="listTH" ><input type="checkbox" name="cbAll" id="cbAll"></th>
+        <th class="listTH"><img src="../../images/nolines_plus.gif"  onClick="setDisplayCol(-1,'S');"/>序號</th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(2,'H');"/><a class="text_link_w" onClick="return sortTable('status1');" href="#">收文</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(3,'H');"/><a class="text_link_w" onClick="return sortTable('docType');" href="#">狀態</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(4,'H');" /><a class="text_link_w" onClick="return sortTable('epaper');" href="#">簽核</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(5,'H');" /><a class="text_link_w" onClick="return sortTable('speed');" href="#">速別</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(6,'H');" /><a class="text_link_w" onClick="return sortTable('doSno');" href="#">公文文號</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(7,'H');" /><a class="text_link_w" onClick="return sortTable('sendDate || sendTime');" href="#">送件日期</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(8,'H');" /><a class="text_link_w" onClick="return sortTable('orgOtDate');" href="#">來文日期/字號</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(9,'H');" /><a class="text_link_w" onClick="return sortTable('ioDep3Name');" href="#">來文(受文)機關</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(10,'H');" /><a class="text_link_w" onClick="return sortTable('(ioDateBf || ioTimeBf)');" href="#">收文日期/時間</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(11,'H');"/><a class="text_link_w" onClick="return sortTable('abstractMain');" href="#">主旨摘要</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(12,'H');"/><a class="text_link_w" onClick="return sortTable('ioDep1No');" href="#">承辦單位</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(13,'H');" /><a class="text_link_w" onClick="return sortTable('emplNo');" href="#">承辦人</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(14,'H');"/><a class="text_link_w" onClick="return sortTable('(rsvEndDate || newRsvEndDate)');" href="#">限辦日期</a></th>
+        <th class="listTH"><img src="../../images/nolines_minus.gif"  onClick="setDisplayCol(15,'H');"/><a class="text_link_w" onClick="return sortTable('sendJobNo');" href="#">送件單位</a></th>
+        <th class="listTH">流程</th>
+    
+	</tr>
+	</thead>
+	<tbody id="listTBODY">
+	 <tr class='highLight' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339355012"></td>
+ <td class='listTD' style="text-align:center;;">1<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431466100","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65149094","id":"339355012","doSno":"11431466100","dq":"1","status4":"2","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339355012',3,0)"><img style="width:15px;height:15px;" border='0' alt='電子收文' src='../../images/DOCTYPE_1E.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='線' src='../../images/EPAPE_2.png' onClick='document.getElementsByName("ids")[0].checked=true;gbActionButtonFireEvent("000011802",eval({"subId":"1443","subActionId":"1","subDocType":"000","subRoleId":"18","subActionName":"線上陳核","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s04.jsp"}))'/></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339355012',7,0)"><p title=''>11431466100</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 15:49:13</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339355012',9,0)">114/05/16<br/>M01-SSS-PCM字第1140500175號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339355012',10,0)"><p title='新加坡商新加坡科技電子有限公司台灣分公司'>新加坡商新加坡科技電...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 13:35:01</td>
+ <td class='listTD' style="text-align:left;;"><p title='有關「高雄都會區大眾捷運系統都會線（黃線）YM01標機電系統暨機廠與主變電站統包工程」之「RAM配當報告含可靠度方塊圖E版」(REP-YLM-00000-MSA-000001)，文件送審期限展延，詳如說明，敬請核復。'>有關「高雄都會區大眾捷運系統都會線（黃線）YM01標機電系統暨機廠與主變電站統包工程」之「RAM配當...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/26</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339355012',17,0)">...</a></td>
+</tr>
+ <tr class='highLight2' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339354959"></td>
+ <td class='listTD' style="text-align:center;;">2<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431466000","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65149095","id":"339354959","doSno":"11431466000","dq":"1","status4":"2","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339354959',3,1)"><img style="width:15px;height:15px;" border='0' alt='電子收文' src='../../images/DOCTYPE_1E.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='線' src='../../images/EPAPE_2.png' onClick='document.getElementsByName("ids")[1].checked=true;gbActionButtonFireEvent("000011802",eval({"subId":"1443","subActionId":"1","subDocType":"000","subRoleId":"18","subActionName":"線上陳核","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s04.jsp"}))'/></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339354959',7,1)"><p title=''>11431466000</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 15:49:13</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339354959',9,1)">114/05/16<br/>YM01-SSS-PCM字第1140500168號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339354959',10,1)"><p title='新加坡商新加坡科技電子有限公司台灣分公司'>新加坡商新加坡科技電...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 13:35:01</td>
+ <td class='listTD' style="text-align:left;;"><p title='有關「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」之「初步安全紀實E版」(REP-YLM-00000-MSA-000002)，文件送審期限展延，詳如說明，敬請核復。'>有關「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」之「初步安全紀...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/26</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339354959',17,1)">...</a></td>
+</tr>
+ <tr class='highLight' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339353482"></td>
+ <td class='listTD' style="text-align:center;;">3<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431465500","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65149096","id":"339353482","doSno":"11431465500","dq":"1","status4":"2","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339353482',3,2)"><img style="width:15px;height:15px;" border='0' alt='電子收文' src='../../images/DOCTYPE_1E.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='線' src='../../images/EPAPE_2.png' onClick='document.getElementsByName("ids")[2].checked=true;gbActionButtonFireEvent("000011802",eval({"subId":"1443","subActionId":"1","subDocType":"000","subRoleId":"18","subActionName":"線上陳核","subFolderId":"02","subActionUrl":"..\/..\/tbkn\/aosda\/AOSDA062F_s04.jsp"}))'/></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339353482',7,2)"><p title=''>11431465500</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 15:49:13</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339353482',9,2)">114/05/16<br/>YM01-SSS-PCM字第1140500149號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339353482',10,2)"><p title='新加坡商新加坡科技電子有限公司台灣分公司'>新加坡商新加坡科技電...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 11:31:09</td>
+ <td class='listTD' style="text-align:left;;"><p title='有關「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」之「契約資料送審文件管制表(CDSCS)0B版」展延事宜，詳如說明，請查照。'>有關「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」之「契約資料送...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/26</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339353482',17,2)">...</a></td>
+</tr>
+ <tr class='highLight2' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339324632"></td>
+ <td class='listTD' style="text-align:center;;">4<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431445100","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65141435","id":"339324632","doSno":"11431445100","dq":"1","status4":"1","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339324632',3,3)"><img style="width:15px;height:15px;" border='0' alt='電子收文含附件' src='../../images/DOCTYPE_1A.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='紙' src='../../images/EPAPE_1.png' /></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339324632',7,3)"><p title=''>11431445100</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 11:12:19</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339324632',9,3)">114/05/14<br/>捷高字第1140003386號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339324632',10,3)"><p title='台灣世曦工程顧問股份有限公司高捷專案'>台灣世曦工程顧問股份...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/15 08:38:43</td>
+ <td class='listTD' style="text-align:left;;"><p title='謹訂於114年6月12日(四)辦理「高雄都會區大眾捷運系統都會線(黃線)委託專案管理（含監造）技術服務案」YM01標機電系統暨機廠與主變電站統包工程114年度上半年品質、界面與型態稽核作業，詳如說明，請 查照辦理。'>謹訂於114年6月12日(四)辦理「高雄都會區大眾捷運系統都會線(黃線)委託專案管理（含監造）技術服...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/23</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339324632',17,3)">...</a></td>
+</tr>
+ <tr class='highLight' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339338374"></td>
+ <td class='listTD' style="text-align:center;;">5<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431455900","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65140355","id":"339338374","doSno":"11431455900","dq":"1","status4":"1","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339338374',3,4)"><img style="width:15px;height:15px;" border='0' alt='電子收文' src='../../images/DOCTYPE_1E.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='紙' src='../../images/EPAPE_1.png' /></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339338374',7,4)"><p title=''>11431455900*</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 10:47:08</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339338374',9,4)">114/05/15<br/>YC01字第1140001414號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339338374',10,4)"><p title='馬來西亞商金務大工程股份有限公司台灣分公司高雄捷運黃線YC01標統包工程專案施工處'>馬來西亞商金務大工程...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/15 15:00:26</td>
+ <td class='listTD' style="text-align:left;;"><p title='檢送「高雄都會區大眾捷運系統都會線(黃線)YC01標土建及設施機電統包工程」Y1車站及出入口(含高架段)-環控電氣工程設計計算書(A版)，敬請鑒核。'>檢送「高雄都會區大眾捷運系統都會線(黃線)YC01標土建及設施機電統包工程」Y1車站及出入口(含高架...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/23</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339338374',17,4)">...</a></td>
+</tr>
+ <tr class='highLight2' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339332056"></td>
+ <td class='listTD' style="text-align:center;;">6<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431451000","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65140354","id":"339332056","doSno":"11431451000","dq":"1","status4":"1","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339332056',3,5)"><img style="width:15px;height:15px;" border='0' alt='電子收文' src='../../images/DOCTYPE_1E.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='紙' src='../../images/EPAPE_1.png' /></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339332056',7,5)"><p title=''>11431451000</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/16 10:47:08</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339332056',9,5)">114/05/15<br/>YM01-SSS-PCM字第1140500103號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339332056',10,5)"><p title='新加坡商新加坡科技電子有限公司台灣分公司'>新加坡商新加坡科技電...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/15 11:17:41</td>
+ <td class='listTD' style="text-align:left;;"><p title='檢送「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」之114年4月份施工日誌，詳如附件，請查照。'>檢送「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」之114年4月...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/23</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339332056',17,5)">...</a></td>
+</tr>
+ <tr class='highLight' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339329205"></td>
+ <td class='listTD' style="text-align:center;;">7<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431448300","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65120618","id":"339329205","doSno":"11431448300","dq":"1","status4":"1","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339329205',3,6)"><img style="width:15px;height:15px;" border='0' alt='電子收文含附件' src='../../images/DOCTYPE_1A.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='紙' src='../../images/EPAPE_1.png' /></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339329205',7,6)"><p title=''>11431448300</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/15 11:08:30</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339329205',9,6)">114/05/15<br/>YM01-SSS-PCM字第1140500028號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339329205',10,6)"><p title='新加坡商新加坡科技電子有限公司台灣分公司'>新加坡商新加坡科技電...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/15 10:11:10</td>
+ <td class='listTD' style="text-align:left;;"><p title='檢送「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」之「分包商管理計畫C版」，敬請審查。'>檢送「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」之「分包商管理...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/23</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339329205',17,6)">...</a></td>
+</tr>
+ <tr class='highLight2' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339324614"></td>
+ <td class='listTD' style="text-align:center;;">8<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431445000","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65120620","id":"339324614","doSno":"11431445000","dq":"1","status4":"1","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339324614',3,7)"><img style="width:15px;height:15px;" border='0' alt='電子收文' src='../../images/DOCTYPE_1E.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='紙' src='../../images/EPAPE_1.png' /></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339324614',7,7)"><p title=''>11431445000</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/15 11:08:30</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339324614',9,7)">114/05/14<br/>捷高字第1140003383號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339324614',10,7)"><p title='台灣世曦工程顧問股份有限公司高捷專案'>台灣世曦工程顧問股份...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/15 08:38:43</td>
+ <td class='listTD' style="text-align:left;;"><p title='所送「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」NTP+180日內完成各系統間與YD01標初步協商與確認成果案，復如說明，請查照辦理。'>所送「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」NTP+180...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/23</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339324614',17,7)">...</a></td>
+</tr>
+ <tr class='highLight' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339313168"></td>
+ <td class='listTD' style="text-align:center;;">9<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431436500","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65107953","id":"339313168","doSno":"11431436500","dq":"1","status4":"1","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339313168',3,8)"><img style="width:15px;height:15px;" border='0' alt='電子收文含附件' src='../../images/DOCTYPE_1A.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='紙' src='../../images/EPAPE_1.png' /></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339313168',7,8)"><p title=''>11431436500</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/14 15:57:43</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339313168',9,8)">114/05/14<br/>YM01-DCV-PCM字第1140500108號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339313168',10,8)"><p title='新加坡商新加坡科技電子有限公司台灣分公司'>新加坡商新加坡科技電...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/14 13:34:41</td>
+ <td class='listTD' style="text-align:left;;"><p title='檢送「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」「接地工程設計圖-機廠非軌道區(D版)」，敬請鑒核。'>檢送「高雄都會區大眾捷運系統都會線(黃線)YM01標機電系統暨機廠與主變電站統包工程」「接地工程設計...</p></td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/22</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339313168',17,8)">...</a></td>
+</tr>
+ <tr class='highLight2' > <td class='listTD' style=""><input type='checkbox'  id="ids" name="ids" value="339304309"></td>
+ <td class='listTD' style="text-align:center;;">10<input type='hidden' id='gbDocflowObj' name='gbDocflowObj' value='{"editFileId":"","docSno":"370011431426300","status1":"1","docType":"C61","doDeptno":"3700","jobNo":"37AI01Y","meetNo":"65107954","id":"339304309","doSno":"11431426300","dq":"1","status4":"1","cipNo":""}'></td>
+ <td class='listTD' style="text-align:center;;"><a href='#' class='sLink2' onClick="queryOne('339304309',3,9)"><img style="width:15px;height:15px;" border='0' alt='電子收文' src='../../images/DOCTYPE_1E.png' /></a></td>
+ <td class='listTD' style="text-align:center;;">來文待辦</td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='紙' src='../../images/EPAPE_1.png' /></td>
+ <td class='listTD' style="text-align:center;;"><img style="width:15px;height:15px;" alt='普通件' src='../../images/31_1.png' /></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339304309',7,9)"><p title=''>11431426300</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/14 15:57:43</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339304309',9,9)">114/05/14<br/>捷高字第1140003351號</a></td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339304309',10,9)"><p title='台灣世曦工程顧問股份有限公司高捷專案'>台灣世曦工程顧問股份...</p></a></td>
+ <td class='listTD' style="text-align:left;;">114/05/14 08:59:20</td>
+ <td class='listTD' style="text-align:left;;">高雄捷運黃線及林園線各標配線零件(Cable Accessories)技術討論會議</td>
+ <td class='listTD' style="text-align:left;;">系統科</td>
+ <td class='listTD' style="text-align:left;;">謝冠緯</td>
+ <td class='listTD' style="text-align:left;;">114/05/22</td>
+ <td class='listTD' style="text-align:left;;">捷運工程局系統工程科</td>
+ <td class='listTD' style="text-align:left;;"><a href='#' class='sLink2' onClick="queryOne('339304309',17,9)">...</a></td>
+</tr>
+
+	</tbody>
+</table>
+</div>
+</td></tr>
+</table>
+<div id="alertWin" style="display:none;width:150px;height:50px;position:absolute;z-index:999;">
+<table width="100%" height="100%" style="border:#0000FF 2px solid;background:#FFFFFF;"><tr><td align="center" style="color:FF0000;font-size:20px;font-weight:bold;">查詢中...</td></tr></table>
+</div>
+<script type="text/javascript">
+var cb= new cbToggle('cb',document.form1,form1.cbAll,'ids');
+cb.config.cssTopLevel=true;
+
+function queryPdf()
+{
+	var oldAction = form1.action;	
+	var oldTarget = form1.target;
+	form1.action = "AOSDA006F_s06P.jsp";
+	form1.target = "_blank";
+	form1.submit();
+	form1.action = oldAction;
+	form1.target = oldTarget;
+}
+
+function queryOne(id,cellIndex,rowIndex){
+	if("" != id){
+		if(-1 < rowIndex){
+			var vGbDocflowData = document.getElementsByName("gbDocflowObj")[rowIndex].value;
+			var vGbDocFlowObj = JSON.parse(vGbDocflowData);//eval("(" +  + ")");		
+			form1.gbDocFlowId.value=vGbDocFlowObj.id;
+			form1.doDeptno.value=vGbDocFlowObj.doDeptno;
+			form1.doSno.value=vGbDocFlowObj.doSno;
+			form1.meetNo.value=vGbDocFlowObj.meetNo;
+			if(cellIndex >= 16 || cellIndex == 14){
+				form1.defaultTab.value="6";
+			} else if (cellIndex == 3) {
+				form1.defaultTab.value="5";
+			} else {
+				form1.defaultTab.value="1";
+			}
+			
+			if(cellIndex == 7 && "" == vGbDocFlowObj.doSno){
+				return;
+			}
+
+			var oldAction = form1.action;
+			var oldTarget = form1.target;
+			if(vGbDocFlowObj.isHis == "Y")
+				form1.action="AOSDA243F.jsp?r=" + Math.random();
+			else
+				form1.action="AOSDA006F_s07.jsp?r=" + Math.random();
+			form1.target = "_blank";
+			form1.submit();
+			form1.action=oldAction;
+			form1.target=oldTarget;	
+		}
+	}
+}
+
+subPageObj.initScript = function(buttonName){
+    // do nothing,for override.
+	
+	setFormItem("q_barCode","O");
+}
+localButtonFireListener.whatButtonFireEvent = function(buttonName){
+    // do nothing,for override.
+    switch (buttonName){
+    	case "barCodeQuery":
+    		alertShow();
+    		barCodeQuery();
+    		break;
+    	case "barCodeQueryAll":
+        	if(form1.q_barCode.value.trim() == "")
+            	break;
+    		var len = form1.q_barCode.value.length;
+    		focusPosition(form1.q_barCode,len+1);
+    		var length = document.getElementsByName("ids").length;
+    		for(var i=0;i<length;i++){
+    			document.getElementsByName("ids")[i].checked=true;
+    		}
+    		break;
+    	default:
+    		break;    		
+    }    
+}
+localButtonFireListener.beforeWhatButtonFireEvent = function(buttonName){
+    // do nothing,for override.
+    switch (buttonName){   
+	default:
+		break;		
+	}          
+    return true;  
+}
+
+function focusPosition(obj,position)
+{ 
+  if(obj.setSelectionRange)//FireFox , Chrome
+  {
+	  obj.focus();
+	  obj.setSelectionRange(position,position);
+  }
+  else { //IE
+	  var r = obj.createTextRange();   
+	  r.moveStart('character',position);
+	  r.collapse(true);   
+	  r.select();   
+  }
+}
+
+function barCodeQuery() {
+	var alertMsg = checkMixLen(form1.q_barCode,"讀碼",6000);
+	
+	if("" != alertMsg){
+		alert(alertMsg);
+		return false;
+	}
+
+	form1.state.value="barCodeQueryAll";
+	form1.submit();
+}
+
+function chgQBarCode(){
+	var qBarCode = form1.q_barCode.value;
+
+	if("" != qBarCode){
+		//自動補0到11碼
+		var qBarCodes = qBarCode.split(",");
+		qBarCode = "";
+
+		for(var i=0;i<qBarCodes.length;i++){
+			if(i > 9) {
+				alert("一次不可輸入超過10筆文號！");
+				break;
+			}
+			if(qBarCodes[i] != ""){
+				qBarCodes[i] = rpad(qBarCodes[i],11,'0');
+				qBarCode += qBarCodes[i] + ",";
+			}
+		}
+	}
+	form1.q_barCode.value = qBarCode;	
+	//form1.state.value="barCodeQueryAll";
+	//form1.submit();
+}
+//for query
+function chgIODEP1NO(){
+	form1.q_ACTN_EMPL.options.length=0;
+	form1.q_ACTN_EMPL.options.add(new Option("請選擇",""));
+	if("" != form1.q_IO_DEP1_NO.value){
+		var q="1&depNo=" + form1.q_IO_DEP1_NO.value + "&roleId=17,18";
+		var ajaxuri="../../ajax/jsonOdaf15GbJobRole.jsp";
+		var x=getRemoteData(ajaxuri,q);
+		if (x!=null && x.length>0)	{
+			x = JSON.parse(x);
+			for(var i=0;i<x.length;i++){
+				form1.q_ACTN_EMPL.options.add(new Option(x[i].empName,x[i].empNo));	
+			}
+		}	
+	}
+}
+
+function checkAtLeastRow(){
+	var length = document.getElementsByName("ids").length;
+	var hasChecked = false;
+	for(var i=0;i<length;i++){
+		if(document.getElementsByName("ids")[i].checked){
+			hasChecked = true;
+		}
+	}
+	if(!hasChecked){
+		return "至少要勾選一筆清單!!";		
+	}
+	return "";
+}
+
+function checkOnlyOneRow(){
+	var length = document.getElementsByName("ids").length;
+	var checkedCnt = 0;
+	
+	for(var i=0;i<length;i++){
+		if(document.getElementsByName("ids")[i].checked){
+			checkedCnt++;
+		}
+	}
+	if(checkedCnt > 1){
+		for(var i=0;i<length;i++){
+			if(document.getElementsByName("ids")[i].checked){
+				if(i != (checkedCnt -1)){
+					document.getElementsByName("ids")[i].checked = false;	
+				}
+			}
+		}
+		return "只能勾選一筆清單!!";		
+	}
+	return "";
+}
+
+function sortTable(vSortColumn){
+	var vSortType = "DESC";
+	var currentSortColumn = form1.sortColumn.value;
+	var currentSortType = form1.sortType.value;
+	if(currentSortColumn == vSortColumn){
+		if(currentSortType == vSortType){
+			vSortType = "ASC";
+		} else {
+			vSortType = "DESC";
+		}
+	}	
+	form1.sortType.value = vSortType;
+	form1.sortColumn.value = vSortColumn;
+	form1.submit();
+}
+
+function reGet() {
+	var msg = "";
+	msg += checkAtLeastRow();
+	msg += checkOnlyOneRow();
+	if(msg != "")
+	    alert(msg);
+	else {
+		queryShow("queryContainer2");
+	}
+}
+
+function reGetSubmit() {
+	form1.state.value = "reGet";
+    form1.submit();
+}
+
+function closeReGet() {
+	queryHidden("queryContainer2");
+}
+
+function delSubmit() {
+	var msg = "";
+    msg += checkAtLeastRow();
+    msg += checkOnlyOneRow();
+    if(msg != "")
+        alert(msg);
+    else {
+        
+        var length = document.getElementsByName("ids").length;
+        for(var i=0;i<length;i++){
+            if(document.getElementsByName("ids")[i].checked){
+                var gbDocflowData = document.getElementsByName("gbDocflowObj")[i].value;
+                var gbDocFlowObj = eval("(" + gbDocflowData + ")");
+                
+                if("" != gbDocFlowObj.doSno){
+                	msg = "公文已取號(" + gbDocFlowObj.doSno + ")不可刪除!!";
+                	break;
+                }
+            }
+        }
+        
+        if(msg != "")
+            alert(msg);
+        else {
+	        if(confirm("確定要刪除此筆公文？\n\n(刪除後資料無法回復，請小心確認)")) {
+	            form1.state.value = "del";
+	            form1.submit();
+	        }
+        }
+    }
+}
+
+function alertShow(){
+	try {
+		if (isObj(document.all.item("alertWin"))) {
+			var alertObj=document.all.item("alertWin");		
+			var objHeight= alertObj.style.height;
+			var objWidth= alertObj.style.width;	
+			objHeight= objHeight.substring(0,objHeight.length-2);
+			objWidth= objWidth.substring(0,objWidth.length-2);
+			alertObj.style.top=(document.body.clientHeight-Number(objHeight)-80)/2;
+			alertObj.style.left=(document.body.clientWidth-Number(objWidth))/2;
+			alertObj.style.display="block";
+		}
+	}catch(e){alert(e);}
+}
+
+
+</script>
+
+</div>
+
+<script type="text/javascript">
+function procChkRoleJe(){
+	var vRoleID = document.all.item("viewRoleId");
+	var vDept = document.all.item("viewDeptFullCode");
+	
+	if( !(isObj(vRoleID) && isObj(vDept))){
+		return;
+	}
+	if(""!=vRoleID.value && ""!=vDept.value){
+		var q = "1";
+		var x = getRemoteData("../../ajax/jsonChkRoleOnFocus.jsp",q);
+		if (x!=null && x.length>0) {
+			var json = JSON.parse(x);
+			var roleID = json[0].roleID;
+			var deptNo = json[0].deptNo;
+			//alert('roleID>'+ roleID+',vRoleID>'+vRoleID.value+',deptNo>'+deptNo+',vDept>'+vDept.value);
+			//if(deptNo!=vDept.value || (vRoleID.value!="index" && vRoleID.value.substring(0,2)!=roleID)){
+			if(deptNo!=vDept.value || roleID!=vRoleID.value){
+				alert("系統偵測到您開兩個視窗以上，且目前職務代號已被上一個登入單位角色["+deptNo+"],["+roleID+"]覆蓋，請您重新登入，以避免公文異常!");
+				return false;
+			}
+		}
+	}
+	return true;
+}
+var fsvaUserId = "397370000H_370000962";
+var userId="370000962";
+
+var orgId="397370000H";
+var currentOrgId="3700";
+//var hasSignDoc="null";
+function init(){
+	jsinclude("../../gbActionJs/fun18.js");
+	
+	if(null != document.getElementById("buttonContainer") && 
+			null != document.getElementById("functionMenuContainer")){
+		jQuery("#buttonContainer").appendTo(jQuery("#functionMenuContainer"));
+	}	
+	subPageObj.initScript('');
+	if(isObj(form1.q_barCode))form1.q_barCode.focus();
+}
+function clickFunctionMenu(){
+	var alertMsg = "";
+	if("function" == typeof(checkAtLeastRow)){
+		alertMsg = checkAtLeastRow();
+	}
+	if("" != alertMsg){
+		alert(alertMsg);
+		return false;
+	}
+	form1.action = form1.subActionUrl.value;
+	form1.submit();
+	return true;
+}
+
+function chkGbDocflow(){
+	var reValue = true;
+	var sb = new StringBuffer();
+	if(null != document.getElementsByName("ids")){
+		var length = document.getElementsByName("ids").length;
+		for(var i=0;i<length;i++){
+			if(document.getElementsByName("ids")[i].checked){
+				var gbDocflowData = document.getElementsByName("gbDocflowObj")[i].value;
+				var gbDocFlowObj = JSON.parse(gbDocflowData);						
+				var q = "1&id="+gbDocFlowObj.id+"&docType="+gbDocFlowObj.docType;
+				var x = getRemoteData("../../ajax/jsonCntGbDocflow.jsp",q);
+				if(x!=null && x.length > 0){
+					if(x == "0"){
+						sb.append(gbDocFlowObj.doSno).append("此文已被處理!!\n");
+					}
+				}
+			}
+		}
+		if("" != sb.toString()){
+			alert(sb.toString());
+			reValue = false; 
+		}
+	}
+	return reValue;
+}
+
+function clickFunctionMenu2(){
+	var alertMsg = "";
+	if("function" == typeof(checkAtLeastRow)){
+		alertMsg += checkAtLeastRow();
+		if("" != alertMsg)alertMsg+="\n";
+	}
+	/**if("function" == typeof(checkOnlyOneRow)){
+		alertMsg += checkOnlyOneRow();
+		if("" != alertMsg)alertMsg+="\n";
+	}**/
+	
+	var paperCnt = 0;
+	var onlineCnt = 0;
+	var totalCnt = 0;	
+	var length = document.getElementsByName("ids").length;
+	for(var i=0;i<length;i++){
+		if(document.getElementsByName("ids")[i].checked){
+			var gbDocflowData = document.getElementsByName("gbDocflowObj")[i].value;
+			var gbDocFlowObj = eval("(" + gbDocflowData + ")");
+			if("" == gbDocFlowObj.doSno){
+				alertMsg += "第" + (i+1) + "筆此公文尚未取號,不可執行此作業！！\n";
+			}
+			if(gbDocFlowObj.status4 == "1"){
+				paperCnt++;
+			}
+			if(gbDocFlowObj.status4 == "2"){
+				onlineCnt++;
+			}
+			totalCnt++;
+		}
+	}
+	
+	if(paperCnt > 0 && onlineCnt > 0){
+		alertMsg += "線上紙本案件不可同選\n";
+	}	
+	
+	if("" != alertMsg){
+		alert(alertMsg);
+		return false;
+	}
+	form1.action = form1.subActionUrl.value;
+	form1.submit();
+	return true;
+}
+
+function clickFunctionMenu3(){
+	var isFailure = false;
+	var alertMsg = "";
+	if("function" == typeof(checkAtLeastRow)){
+		alertMsg += checkAtLeastRow();
+		if("" != alertMsg){
+			alertMsg+="\n";
+			isFailure=true;
+		}
+	}
+	if("function" == typeof(checkOnlyOneRow)){
+		alertMsg += checkOnlyOneRow();
+		if("" != alertMsg){
+			alertMsg+="\n";
+			isFailure=true;
+		}
+	}	
+	var sb = new StringBuffer();
+	var length = document.getElementsByName("ids").length;
+	for(var i=0;i<length;i++){
+		if(document.getElementsByName("ids")[i].checked){
+			var gbDocflowData = document.getElementsByName("gbDocflowObj")[i].value;
+			var gbDocFlowObj = eval("(" + gbDocflowData + ")");
+			sb.append("&gbDocFlowIds=").append(gbDocFlowObj.id);
+		}
+	}
+	var q = "1"+sb.toString();
+	var x = getRemoteData("AOSDA062F_s22.jsp",q);
+	if(x!=null && x.length > 0){
+		x = JSON.parse(x);
+		if("" != x.msg){			
+			alertMsg += x.msg;
+			isFailure=true;
+		}
+		if("" != x.msg2){
+			alertMsg += x.msg2;
+		}		
+	}	
+
+	if("" != alertMsg){
+		alert(alertMsg);
+	}
+	if(isFailure){		
+		return false;
+	}
+	
+	form1.action = form1.subActionUrl.value;
+	form1.submit();
+	return true;
+}
+
+
+var AOSDA006F_s02 = new Object();
+function gbActionButtonFireEvent(buttonName , jsonObject){
+	showProcessDialog();
+	var isOK = true;	
+	form1.state.value = "queryOneSuccess";
+	setFormItem(buttonName,"R");
+
+	if(!chkGbDocflow()){
+    	closeProcessDialog();
+		return false;
+	}
+	
+    // do nothing,for override.
+    if(null != jsonObject){    	
+		for(var s in jsonObject){
+			if(isObj(form1[s]))form1[s].value = jsonObject[s];
+		}
+		//
+		if(jsonObject.online){
+			$("#online").val(jsonObject.online);
+		} else {
+			$("#online").val("");
+		}
+    }
+	try {
+		//1070323 jerry 綁定所有按鈕直行前先檢核session是否有異動
+		var isRoleSame = procChkRoleJe();
+		if(isRoleSame==false){
+			setFormItem(buttonName,"O");   	
+	    	resetButton();
+	    	closeProcessDialog();
+			return false;
+		}
+	    switch (buttonName){
+		 
+ 	case '000011802': 
+		isOK = AOSDA062F_s04();
+ 	break; 
+
+ 
+ 	case '000021802': 
+		isOK = AOSDA062F_s06();
+ 	break; 
+
+ 
+ 	case '000031802': 
+		isOK = AOSDA062F_s08();
+ 	break; 
+
+ 
+ 	case '000051802': 
+		isOK = AOSDA047F();
+ 	break; 
+
+ 
+ 	case '000061802': 
+		isOK = AOSDA062F_s10();
+ 	break; 
+
+ 
+ 	case '000091802': 
+		isOK = AOSDA062F_s16();
+ 	break; 
+
+ 
+ 	case '000151802': 
+		isOK = AOSDA062F_s35();
+ 	break; 
+
+ 
+ 	case '000111802': 
+		isOK = AOSDA062F_s31();
+ 	break; 
+
+ 
+ 	case '000121802': 
+		isOK = AOSDA062F_s32();
+ 	break; 
+
+ 
+ 	case '000131802': 
+		isOK = AOSDA062F_s33();
+ 	break; 
+
+ 
+ 	case '000141802': 
+		isOK = AOSDA062F_s34();
+ 	break; 
+
+ 
+ 	case '000071802': 
+		isOK = clickFunctionMenu();
+ 	break; 
+
+ 
+ 	case '000101802': 
+		isOK = AOSDA062F_s51();
+ 	break; 
+
+ 
+ 	case '000191802': 
+		isOK = AOSDA062F_s52();
+ 	break; 
+
+
+	    }    
+	} catch(error){
+		isOK = false;
+	}
+    //isOK may be undefine
+    if(!isOK){
+    	setFormItem(buttonName,"O");   	
+    	resetButton();
+    	closeProcessDialog();
+    	return false;
+    }
+    setDivPosition('listContainer','listContainer');
+    return true;
+}
+
+function getRemoteData(uri,q,asyn){
+	var online = "N";
+	//分別出是線上或紙本
+	if($("#online") && $("#online").length > 0){
+		online = $("#online").val();
+	}
+	q+= "&online=" + online; 
+	var x ;
+	if(window.XMLHttpRequest){
+	    x = new XMLHttpRequest();
+	} else {
+	   x = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	if (isObj(asyn) && asyn != null && asyn == true) {
+		x.open('Post',uri,true);
+	} else 	x.open('Post',uri,false);
+	x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	x.setRequestHeader( "If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT" );
+	x.send(encodeURI('q='+q));
+	return x.responseText.trim();
+}
+top.fbody.mainhead.document.getElementById('pathname').innerText = "承辦人 >> 待辦案件 >> 承辦中";
+
+
+
+getDivPosition('listContainer','listContainer');
+function getDisplayCol(){
+	var listColumn = getCookie("listColumn");
+	if(null != listColumn && "" != listColumn){
+		var listColumns = listColumn.split(";");
+		for(var i=0;i<listColumns.length;i++){
+			var colIndexStr = listColumns[i].split("_")[1];
+			if(null != colIndexStr && "" != colIndexStr && "NaN" != colIndexStr){
+				try {
+					var colIndex = parseInt(colIndexStr, 10);
+					setDisplayCol(colIndex,"H");
+				} catch(ex){
+					//alert(ex.message);
+				}
+			}
+		}
+	}
+}
+
+function setDisplayCol(displayItem,displayType){
+
+	try {
+		var displayValue = "block";
+		if("H" ==displayType){
+			displayValue = "none";
+		}
+		var listColumn = getCookie("listColumn");
+		if(-1 != displayItem){			
+			var theColumn = "listColumn_" +  lpad(displayItem,3,'0')  +";";
+			if(null == listColumn){
+				listColumn = "";
+			}
+			if(-1 == listColumn.indexOf(theColumn)){
+				listColumn += theColumn;
+			}
+		} else {
+			listColumn = "";
+		}
+
+		var listTHEAD = document.getElementById("listTHEAD");
+		if(isObj(listTHEAD)){
+			if(null != listTHEAD.rows){
+				var length = listTHEAD.rows.length;	
+				try {
+					for(var i=0;i<length;i++){
+						if(-1 == displayItem){
+							var cells = listTHEAD.rows[i].cells.length;
+							for(var j=0;j<cells;j++){
+								listTHEAD.rows[i].cells[j].style.display= displayValue;	
+							}
+						} else {
+							listTHEAD.rows[i].cells[displayItem].style.display= displayValue;	
+						}	
+					}
+				} catch(ex){
+					alert(ex.message);
+				}
+			}
+		}
+		
+		var listTBODY = document.getElementById("listTBODY");
+		if(isObj(listTBODY)){
+			if(null != listTBODY.rows){
+				var length = listTBODY.rows.length;	
+				try {
+					for(var i=0;i<length;i++){
+						if(-1 == displayItem){
+							var cells = listTBODY.rows[i].cells.length;
+							for(var j=0;j<cells;j++){
+								listTBODY.rows[i].cells[j].style.display= displayValue;	
+							}
+						} else {
+							listTBODY.rows[i].cells[displayItem].style.display= displayValue;	
+						}	
+					}
+				} catch(ex){
+					//alert(ex.message);
+				}
+			}
+		}
+
+		setCookie("listColumn",listColumn);
+		
+	} catch(err){
+		//alert(err.message);
+	}
+
+}
+getDisplayCol();
+</script>
+</form>
+</body>
+</html>

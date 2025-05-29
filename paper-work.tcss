@@ -1,8 +1,8 @@
-/*DataTable {
+DataTable {
     width: 100%;
-    align-vertical: middle;
+    height: 100%
 }
-*/
+
 LoginView {
     align: center middle;
     margin: 1;

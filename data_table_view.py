@@ -1,3 +1,4 @@
+from selenium.webdriver.common.devtools.v132.dom import focus
 from textual.app import ComposeResult
 from textual.containers import Container
 from textual.widgets import DataTable
@@ -22,14 +23,13 @@ class DataTableView(Container):
         table.add_column("來文日期",width=10,key="issue_date")
         table.add_column("來文字號", width=20, key="external_doc_number")
         table.add_column("公文文號", width=12, key="internal_doc_number")
-        table.add_column(Text("主旨",justify="center"), width=70, key="title")
+        table.add_column(Text("主旨",justify="center"), width=50, key="title")
         table.add_column("來文單位", width=20, key="issue_unit")
         table.add_column("限辦日期", width=10, key="deadline")
         self.add_data_rows()
-        self.focus()
+        table.focus()
 
     def add_data_rows(self):
-        print('Add row')
         table = self.query_one(DataTable)
         for number,d in enumerate(self.documents, start=1):
             table.add_row(*(d.doc_type, d.issue_date, d.external_doc_number, d.internal_doc_number, d.title, d.issue_unit, d.deadline),label=str(number), height=None, key=d.doc_id )
@@ -46,7 +46,7 @@ class DataTableView(Container):
         if selected_row_metadata not in self.selected_docs:
             self.selected_docs.append(selected_row_metadata)
             for col in data_table.columns:
-                data_table.update_cell(row_key,col,Text(data_table.get_cell(row_key,col),style="on dark_slate_gray3"))
+                data_table.update_cell(row_key,col,Text(data_table.get_cell(row_key,col),style="grey89 on steel_blue"))
         else:
             self.selected_docs.remove(selected_row_metadata)
             for col in data_table.columns:

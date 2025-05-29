@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
     worker.download_user_rnd_img()
     rnd = input("請輸入驗證碼:")
-    worker.login("370000962", "s-@AM0919276562", rnd)  # MARK :- 帳號 密碼使用 env
+    worker.login("", "", rnd)  # MARK :- 帳號 密碼使用 env
     r_idx = 0
     doc = worker.get_all_docs()[r_idx]
     worker.download_document(doc.doc_id, r_idx)

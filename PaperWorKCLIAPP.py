@@ -17,6 +17,9 @@ class PaperWorkCLIApp(App):
     ]
     CSS_PATH = "paper-work.tcss"
 
+    def on_mount(self) -> None:
+        self.theme = "gruvbox"
+
 
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
@@ -29,7 +32,7 @@ class PaperWorkCLIApp(App):
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
         self.theme = (
-            "textual-dark" if self.theme == "textual-light" else "textual-light"
+            "catppuccin-mocha" if self.theme == "gruvbox" else "gruvbox"
         )
 
     def action_save_doc(self) -> None:
@@ -38,18 +41,27 @@ class PaperWorkCLIApp(App):
         for d in selected_docs:
             self.web_worker.download_document(*d)
 
-    def on_button_pressed(self, event: Button.Pressed) -> None:
+    def on_button_pressed(self, message: Button.Pressed) -> None:
 
-        if event.button.id == "login_button":
-            user_id = self.query_one("#userID", Input).value
-            user_pwd = self.query_one("#userPWD", Input).value
-            user_rnd = self.query_one("#userRnd", Input).value
+        if message.button.id == "login_button":
+            self.login()
 
-            self.web_worker.login(user_id, user_pwd, user_rnd)
+    def on_input_submitted(self, message:Input.Submitted) -> None:
+        if message.input.id == "userRnd":
+            self.login()
 
-            if self.web_worker.is_login:
-                self.query_one(LoginView).remove()
-                self.mount(DataTableView(self.web_worker.get_all_docs()))
+    def login(self) -> None:
+        user_id = self.query_one("#userID", Input).value
+        user_pwd = self.query_one("#userPWD", Input).value
+        user_rnd = self.query_one("#userRnd", Input).value
+
+        login_v = self.query_one(LoginView)
+
+        self.web_worker.login(user_id, user_pwd, user_rnd)
+
+        if self.web_worker.is_login:
+            login_v.remove()
+            self.mount(DataTableView(self.web_worker.get_all_docs()))
 
 
 if __name__ == "__main__":
