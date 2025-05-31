@@ -175,3 +175,4 @@ cython_debug/
 
 *.png
 *.txt
+.idea/workspace.xml
