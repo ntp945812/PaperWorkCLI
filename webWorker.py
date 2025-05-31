@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import time
 import base64
 from document import Document
@@ -53,10 +54,9 @@ class WebWorker:
         user_pwd_input.send_keys(user_pwd)
         user_rnd_input.send_keys(user_rnd)
 
-        login_btn.click()
-        WebDriverWait(self.driver, 5).until(EC.title_is("公文管理系統"))
-
-        if self.driver.title == "公文管理系統":
+        try:
+            login_btn.click()
+            WebDriverWait(self.driver, 3).until(EC.title_is("公文管理系統"))
             self.is_login = True
 
             self.driver.switch_to.frame(self.driver.find_element(By.ID, "title"))
@@ -65,6 +65,11 @@ class WebWorker:
                                      '//*[@id="form1"]/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[3]/a').click()
             # 切換到承辦中頁面
             self.toggle_std2_page()
+
+        except TimeoutException as timeout:
+            msg = self.driver.find_element(By.TAG_NAME,'body').text
+            raise TimeoutException(msg,timeout.screen,timeout.stacktrace)
+
 
     def toggle_std2_page(self):
         """切換到承辦中頁面"""

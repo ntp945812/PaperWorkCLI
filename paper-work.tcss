@@ -34,10 +34,18 @@ LoginView ImageViewer{
 
 MessageBox {
     layer: top;
-    height: 50%;
-    margin: 8 30 16 30;
+    padding-top: 4;
+}
+
+MessageBox Label {
+    max-width: 50%;
     background: $surface;
     color: $text;
     border: tall $secondary;
-    padding: 2 1;
+    content-align: center middle;
+    padding: 1 3;
+}
+
+.hided {
+    display: none;
 }

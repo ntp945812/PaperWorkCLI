@@ -1,5 +1,6 @@
 from textual.app import App, ComposeResult
-from textual.widgets import Footer, Header, DataTable, Button, Input
+from textual.widgets import Footer, Header, Button, Input
+from selenium.common.exceptions import  TimeoutException
 
 from login_view import LoginView
 from webWorker import WebWorker
@@ -53,15 +54,23 @@ class PaperWorkCLIApp(App):
             self.login()
 
     def login(self) -> None:
+
+        msg_box = self.query_one(MessageBox)
+        msg_box.alert("登入中")
+
         user_id = self.query_one("#userID", Input).value
         user_pwd = self.query_one("#userPWD", Input).value
         user_rnd = self.query_one("#userRnd", Input).value
 
         login_v = self.query_one(LoginView)
 
-        self.web_worker.login(user_id, user_pwd, user_rnd)
+        try:
+            self.web_worker.login(user_id, user_pwd, user_rnd)
+        except TimeoutException as timeout:
+            msg_box.alert(timeout.msg)
 
         if self.web_worker.is_login:
+            msg_box.hide()
             login_v.remove()
             self.mount(DataTableView(self.web_worker.get_all_docs()))
 
