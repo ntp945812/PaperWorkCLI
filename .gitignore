@@ -176,3 +176,6 @@ cython_debug/
 *.png
 *.txt
 .idea/workspace.xml
+/.idea
+/__pycache__
+*.png

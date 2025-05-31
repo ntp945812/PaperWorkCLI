@@ -1,6 +1,8 @@
-from textual.containers import Container
+from textual.app import ComposeResult
+from textual.containers import Container, Center
+from textual.widgets import Label
 
 class MessageBox(Container):
 
     def compose(self) -> ComposeResult:
-        yield DataTable(cursor_type="row")
+        yield Center(Label("Message Box"))

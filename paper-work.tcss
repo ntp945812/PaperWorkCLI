@@ -1,9 +1,14 @@
+Screen {
+    layers: one top;
+}
+
 DataTable {
     width: 100%;
     height: 100%
 }
 
 LoginView {
+    layer: one;
     align: center middle;
     margin: 1;
 }
@@ -25,4 +30,14 @@ LoginView Button{
 LoginView ImageViewer{
     width: 50%;
     height: 3;
+}
+
+MessageBox {
+    layer: top;
+    height: 50%;
+    margin: 8 30 16 30;
+    background: $surface;
+    color: $text;
+    border: tall $secondary;
+    padding: 2 1;
 }

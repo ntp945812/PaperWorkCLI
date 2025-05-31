@@ -1,4 +1,3 @@
-from selenium.webdriver.common.devtools.v132.dom import focus
 from textual.app import ComposeResult
 from textual.containers import Container
 from textual.widgets import DataTable

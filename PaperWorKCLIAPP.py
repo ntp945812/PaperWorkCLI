@@ -4,6 +4,7 @@ from textual.widgets import Footer, Header, DataTable, Button, Input
 from login_view import LoginView
 from webWorker import WebWorker
 from data_table_view import DataTableView
+from message_box import MessageBox
 
 class PaperWorkCLIApp(App):
     """A Textual app to manage stopwatches."""
@@ -26,6 +27,7 @@ class PaperWorkCLIApp(App):
 
         yield Header()
         yield LoginView(web_worker=self.web_worker)
+        yield MessageBox()
         yield Footer()
 
 
