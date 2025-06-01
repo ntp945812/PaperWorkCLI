@@ -1,5 +1,9 @@
+from pickle import FALSE
+
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header, Button, Input
+from textual import work
+
 from selenium.common.exceptions import  TimeoutException
 
 from login_view import LoginView
@@ -53,6 +57,7 @@ class PaperWorkCLIApp(App):
         if message.input.id == "userRnd":
             self.login()
 
+    @work(thread=True)
     def login(self) -> None:
 
         msg_box = self.query_one(MessageBox)

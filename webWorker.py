@@ -26,7 +26,7 @@ class WebWorker:
         })
         self.driver = webdriver.Chrome(options=self.options)
         self.driver.get("https://odm.kcg.gov.tw")
-        self.driver.implicitly_wait(5)
+        WebDriverWait(self.driver, 5).until(EC.title_is("高雄市政府第二代公文整合系統-登入畫面"))
 
     def __exit__(self):
         self.driver.quit()

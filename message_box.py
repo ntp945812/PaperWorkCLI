@@ -1,3 +1,4 @@
+from textual import events
 from textual.app import ComposeResult
 from textual.containers import Center
 from textual.widgets import Label
@@ -25,3 +26,6 @@ class MessageBox(Center):
     def hide(self):
         self.hided = True
         self.query_one(Label).update("")
+
+    def on_click(self, event: events.Click) -> None:
+        self.hide()
