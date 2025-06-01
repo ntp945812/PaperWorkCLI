@@ -25,11 +25,14 @@ class WebWorker:
             "profile.default_content_setting_values.automatic_downloads": 1,
         })
         self.driver = webdriver.Chrome(options=self.options)
-        self.driver.get("https://odm.kcg.gov.tw")
-        WebDriverWait(self.driver, 5).until(EC.title_is("高雄市政府第二代公文整合系統-登入畫面"))
+        self.go_to_login_page()
 
     def __exit__(self):
         self.driver.quit()
+
+    def go_to_login_page(self):
+        self.driver.get("https://odm.kcg.gov.tw")
+        WebDriverWait(self.driver, 5).until(EC.title_is("高雄市政府第二代公文整合系統-登入畫面"))
 
     def download_user_rnd_img(self):
         img_xpath = "/html/body/form/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td/table/tbody/tr/td[1]/table/tbody/tr[1]/td/div/table/tbody/tr[3]/td[3]/img"
@@ -68,6 +71,7 @@ class WebWorker:
 
         except TimeoutException as timeout:
             msg = self.driver.find_element(By.TAG_NAME,'body').text
+            self.go_to_login_page()
             raise TimeoutException(msg,timeout.screen,timeout.stacktrace)
 
 
