@@ -93,6 +93,7 @@ class WebWorker:
     def get_all_docs(self):
 
         self.toggle_mainframe()
+        # 文件數 <=10 的時候 不會出現input
         WebDriverWait(self.driver,3).until(EC.presence_of_element_located((By.XPATH,
                                                    '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')))
         page_size_input = self.driver.find_element(By.XPATH,

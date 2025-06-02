@@ -77,7 +77,7 @@ class PaperWorkCLIApp(App):
         if self.web_worker.is_login:
             msg_box.hide()
             login_v.remove()
-            self.mount(DataTableView(self.web_worker.get_all_docs()))
+            self.call_from_thread(self.mount,DataTableView(self.web_worker.get_all_docs()))
 
 
 if __name__ == "__main__":

@@ -8,9 +8,12 @@ from rich.text import Text
 
 class DataTableView(Container):
 
-    def __init__(self, documents: List[Document]):
+    def __init__(self, documents=None):
         super().__init__()
-        self.documents = documents
+        if documents is None:
+            self.documents = []
+        else:
+            self.documents = documents
         self.selected_docs = []
 
     def compose(self) -> ComposeResult:
