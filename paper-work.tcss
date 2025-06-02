@@ -39,6 +39,7 @@ MessageBox {
 
 MessageBox Label {
     max-width: 50%;
+    min-width: 25%;
     background: $surface;
     color: $text;
     border: tall $secondary;

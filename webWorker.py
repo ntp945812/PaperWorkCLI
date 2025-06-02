@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import TimeoutException
 import time
 import base64
 from document import Document
@@ -93,6 +93,8 @@ class WebWorker:
     def get_all_docs(self):
 
         self.toggle_mainframe()
+        WebDriverWait(self.driver,3).until(EC.presence_of_element_located((By.XPATH,
+                                                   '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')))
         page_size_input = self.driver.find_element(By.XPATH,
                                                    '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')
         page_size_input.send_keys("100")
