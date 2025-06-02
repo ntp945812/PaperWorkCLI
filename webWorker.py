@@ -2,9 +2,12 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException ,NoSuchElementException
+
 import time
+from pathlib import Path
 import base64
+
 from document import Document
 
 download_dir = "C:\\Users\\hsiegw\\Desktop\\unzip_and_merge"
@@ -93,18 +96,23 @@ class WebWorker:
     def get_all_docs(self):
 
         self.toggle_mainframe()
+
         # 文件數 <=10 的時候 不會出現input
-        WebDriverWait(self.driver,3).until(EC.presence_of_element_located((By.XPATH,
-                                                   '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')))
-        page_size_input = self.driver.find_element(By.XPATH,
-                                                   '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')
-        page_size_input.send_keys("100")
+        try:
+            page_size_input = self.driver.find_element(By.XPATH,
+                                                       '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')
+            page_size_input.send_keys("100")
 
-        page_size_text = self.driver.find_element(By.XPATH,
-                                                  '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td/span')
-        page_size_text.click()
+            page_size_text = self.driver.find_element(By.XPATH,
+                                                      '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td/span')
+            page_size_text.click()
 
-        time.sleep(1)
+            time.sleep(1)
+
+        except NoSuchElementException:
+            pass
+
+        WebDriverWait(self.driver,3).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
 
         docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
 
@@ -140,10 +148,13 @@ class WebWorker:
         wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')))
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')))
 
+
+        download_path = Path(download_dir)
+
         download_all_link.click()
-        time.sleep(0.1)
+        wait.until(lambda _: download_path.joinpath(f'{document_name}.zip').exists())
         download_main_doc_link.click()
-        time.sleep(0.1)
+        wait.until(lambda _: download_path.joinpath(f'{document_name}.pdf').exists())
 
         # download will open another window
         for window in self.driver.window_handles:
@@ -153,9 +164,6 @@ class WebWorker:
 
         wait.until(EC.number_of_windows_to_be(1))
         self.driver.switch_to.window(original_window)
-
-
-
 
 if __name__ == "__main__":
     worker = WebWorker()
