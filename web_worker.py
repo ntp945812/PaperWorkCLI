@@ -96,6 +96,8 @@ class WebWorker:
 
         self.toggle_mainframe()
 
+        WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
+
         # 文件數 <=10 的時候 不會出現input
         try:
             page_size_input = self.driver.find_element(By.XPATH,
@@ -110,8 +112,6 @@ class WebWorker:
 
         except NoSuchElementException:
             pass
-
-        WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
 
         docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
 

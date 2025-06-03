@@ -34,7 +34,9 @@ LoginView ImageViewer{
 
 MessageBox {
     layer: top;
-    padding-top: 4;
+    padding-top: 6;
+    align: center top;
+    height: 100%
 }
 
 MessageBox Label {
