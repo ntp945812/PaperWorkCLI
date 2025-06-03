@@ -21,6 +21,6 @@ class LoginView(VerticalGroup):
         yield Label(Text("二代公文整合系統-帳號密碼登入", style="bold deep_sky_blue3", justify="right"))
         yield Input(placeholder="帳號", id="userID")
         yield Input(placeholder="密碼", password=True, id="userPWD")
-        yield ImageViewer(Image.open("captcha_login.png"))
+        yield ImageViewer(Image.open("C:\\Users\\hsiegw\\AppData\\Local\\Temp\\captcha_login.png"))
         yield Input(placeholder="驗證碼", id="userRnd")
         yield Button("登入", variant="primary", id="login_button")

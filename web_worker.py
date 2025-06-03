@@ -47,7 +47,7 @@ class WebWorker:
             return cnv.toDataURL('image/jpeg').substring(22);    
             """, self.driver.find_element(By.XPATH, img_xpath))
 
-        with open("captcha_login.png", 'wb') as image:
+        with open("C:\\Users\\hsiegw\\AppData\\Local\\Temp\\captcha_login.png", 'wb') as image:
             image.write(base64.b64decode(img_base64))
 
     def login(self, user_id, user_pwd, user_rnd):
