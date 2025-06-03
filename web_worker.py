@@ -126,10 +126,9 @@ class WebWorker:
         return docs
 
     def download_document(self, row_index, doc_id):
-        '''
-        :param doc_id: pass any string other than empty can do the job.
+        """:param doc_id: pass any string other than empty can do the job.
         :param row_index: row index of document wants to download.
-        '''
+        """
         self.toggle_mainframe()
         original_window = self.driver.current_window_handle
         self.driver.execute_script(f"queryOne('{doc_id}',3,{row_index})")
@@ -137,32 +136,34 @@ class WebWorker:
         wait.until(EC.number_of_windows_to_be(2))
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
-        download_all_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')
-        download_main_doc_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')
+        try:
+            download_all_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')
+            wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')))
+            download_main_doc_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')
+            wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')))
 
-        document_name = \
-            self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[1]').get_attribute(
-                'value').split(
-                '.')[0]
+            document_name = \
+                self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[1]').get_attribute(
+                    'value').split(
+                    '.')[0]
 
-        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')))
-        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')))
+            download_path = Path(download_dir)
 
-        download_path = Path(download_dir)
-
-        download_all_link.click()
-        wait.until(lambda _: download_path.joinpath(f'{document_name}.zip').exists())
-        download_main_doc_link.click()
-        wait.until(lambda _: download_path.joinpath(f'{document_name}.pdf').exists())
-
+            download_all_link.click()
+            wait.until(lambda _: download_path.joinpath(f'{document_name}.zip').exists())
+            download_main_doc_link.click()
+            wait.until(lambda _: download_path.joinpath(f'{document_name}.pdf').exists())
+        except NoSuchElementException:
+            pass
+        finally:
         # download will open another window
-        for window in self.driver.window_handles:
-            if window != original_window:
-                self.driver.switch_to.window(window)
-                self.driver.close()
+            for window in self.driver.window_handles:
+                if window != original_window:
+                    self.driver.switch_to.window(window)
+                    self.driver.close()
 
-        wait.until(EC.number_of_windows_to_be(1))
-        self.driver.switch_to.window(original_window)
+            wait.until(EC.number_of_windows_to_be(1))
+            self.driver.switch_to.window(original_window)
 
 
 if __name__ == "__main__":

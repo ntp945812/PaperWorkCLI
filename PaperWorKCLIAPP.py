@@ -1,5 +1,3 @@
-from pickle import FALSE
-
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header, Button, Input
 from textual import work
@@ -42,11 +40,18 @@ class PaperWorkCLIApp(App):
             "catppuccin-mocha" if self.theme == "gruvbox" else "gruvbox"
         )
 
+    @work(thread=True)
     def action_save_doc(self) -> None:
         """Save selected document to unzip and merge"""
-        selected_docs = self.query_one(DataTableView).selected_docs
+        msg_box = self.query_one(MessageBox)
+        msg_box.alert("本文、附件下載中...")
+        data_table = self.query_one(DataTableView)
+        selected_docs = data_table.selected_docs
         for d in selected_docs:
             self.web_worker.download_document(*d)
+
+        self.call_from_thread(data_table.unselect_all_document)
+        msg_box.hide()
 
     def on_button_pressed(self, message: Button.Pressed) -> None:
 

@@ -53,3 +53,7 @@ class DataTableView(DataTable):
         self.clear()
         self.load_documents()
 
+    def unselect_all_document(self):
+        self.selected_docs=[]
+        self.reload_rows()
+
