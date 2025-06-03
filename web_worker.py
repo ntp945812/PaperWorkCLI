@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException ,NoSuchElementException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 import time
 from pathlib import Path
@@ -73,10 +73,9 @@ class WebWorker:
             self.toggle_std2_page()
 
         except TimeoutException as timeout:
-            msg = self.driver.find_element(By.TAG_NAME,'body').text
+            msg = self.driver.find_element(By.TAG_NAME, 'body').text
             self.go_to_login_page()
-            raise TimeoutException(msg,timeout.screen,timeout.stacktrace)
-
+            raise TimeoutException(msg, timeout.screen, timeout.stacktrace)
 
     def toggle_std2_page(self):
         """切換到承辦中頁面"""
@@ -112,7 +111,7 @@ class WebWorker:
         except NoSuchElementException:
             pass
 
-        WebDriverWait(self.driver,3).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
+        WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
 
         docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
 
@@ -142,12 +141,12 @@ class WebWorker:
         download_main_doc_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')
 
         document_name = \
-        self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[1]').get_attribute('value').split(
-            '.')[0]
+            self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[1]').get_attribute(
+                'value').split(
+                '.')[0]
 
-        wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')))
+        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')))
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')))
-
 
         download_path = Path(download_dir)
 
@@ -164,6 +163,7 @@ class WebWorker:
 
         wait.until(EC.number_of_windows_to_be(1))
         self.driver.switch_to.window(original_window)
+
 
 if __name__ == "__main__":
     worker = WebWorker()

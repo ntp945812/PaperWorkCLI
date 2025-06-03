@@ -4,9 +4,10 @@ from selenium.common.exceptions import NoSuchElementException
 
 import json
 
+
 class Document:
 
-    def __init__(self,tr: WebElement):
+    def __init__(self, tr: WebElement):
         # 主旨
         try:
             self.title = tr.find_element(By.XPATH, './/td[12]/p').get_attribute('title')
@@ -15,8 +16,8 @@ class Document:
 
         # 文號
         doc_flow_obj = json.loads(tr.find_element(By.XPATH, './/*[@id="gbDocflowObj"]').get_attribute('value'))
-        self.doc_id = doc_flow_obj['id'] # 公文系統內部識別號碼
-        self.internal_doc_number = doc_flow_obj['doSno'] # 本局收文號
+        self.doc_id = doc_flow_obj['id']  # 公文系統內部識別號碼
+        self.internal_doc_number = doc_flow_obj['doSno']  # 本局收文號
 
         # 線上/紙本文
         match doc_flow_obj['status4']:
@@ -29,7 +30,7 @@ class Document:
 
         # 來文日期/字號
 
-        self.issue_date ,self.external_doc_number = tr.find_element(By.XPATH, './/td[9]/a').text.splitlines()
+        self.issue_date, self.external_doc_number = tr.find_element(By.XPATH, './/td[9]/a').text.splitlines()
 
         # 來文單位 //*[@id="listTBODY"]/tr[5]/td[10]/a //*[@id="listTBODY"]/tr[1]/td[10]/a/p
         try:

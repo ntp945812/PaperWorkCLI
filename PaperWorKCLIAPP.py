@@ -4,15 +4,17 @@ from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header, Button, Input
 from textual import work
 
-from selenium.common.exceptions import  TimeoutException
+from selenium.common.exceptions import TimeoutException
 
 from login_view import LoginView
-from webWorker import WebWorker
+from web_worker import WebWorker
 from data_table_view import DataTableView
 from message_box import MessageBox
 
+
 class PaperWorkCLIApp(App):
     """A Textual app to manage stopwatches."""
+
     def __init__(self):
         super().__init__()
         self.web_worker = WebWorker()
@@ -26,7 +28,6 @@ class PaperWorkCLIApp(App):
     def on_mount(self) -> None:
         self.theme = "gruvbox"
 
-
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
 
@@ -34,7 +35,6 @@ class PaperWorkCLIApp(App):
         yield LoginView(web_worker=self.web_worker)
         yield MessageBox()
         yield Footer()
-
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
@@ -53,7 +53,7 @@ class PaperWorkCLIApp(App):
         if message.button.id == "login_button":
             self.login()
 
-    def on_input_submitted(self, message:Input.Submitted) -> None:
+    def on_input_submitted(self, message: Input.Submitted) -> None:
         if message.input.id == "userRnd":
             self.login()
 
@@ -77,7 +77,7 @@ class PaperWorkCLIApp(App):
         if self.web_worker.is_login:
             msg_box.hide()
             login_v.remove()
-            self.call_from_thread(self.mount,DataTableView(self.web_worker.get_all_docs()))
+            self.call_from_thread(self.mount, DataTableView(self.web_worker.get_all_docs(),cursor_type='row'))
 
 
 if __name__ == "__main__":
