@@ -77,17 +77,17 @@ class PaperWorkCLIApp(App):
         try:
             self.web_worker.login(user_id, user_pwd, user_rnd)
         except TimeoutException as timeout:
-            msg_box.alert(timeout.msg)
+            self.call_from_thread(msg_box.alert, timeout.msg, hide_after=2.5)
 
         if self.web_worker.is_login:
             msg_box.hide()
             login_v.remove()
             msg_box.alert("載入公文資料中...")
-            self.call_from_thread(self.mount, DataTableView(self.web_worker.get_all_docs(),cursor_type='row'))
+            self.call_from_thread(self.mount, DataTableView(self.web_worker.get_all_docs(), cursor_type='row'))
             msg_box.hide()
         else:
             login_v.remove()
-            self.call_from_thread(self.mount,LoginView(web_worker=self.web_worker))
+            self.call_from_thread(self.mount, LoginView(web_worker=self.web_worker))
 
 
 if __name__ == "__main__":
