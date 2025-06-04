@@ -10,8 +10,11 @@ import base64
 
 from document import Document
 
-download_dir = "C:\\Users\\hsiegw\\Desktop\\unzip_and_merge"
+import tempfile
 
+download_dir = "C:\\Users\\hsiegw\\Desktop\\unzip_and_merge"
+TEMP_DIR = tempfile.gettempdir()
+CAPTCHA_IMG_PATH = Path(TEMP_DIR).joinpath('captcha_login.png')
 
 class WebWorker:
 
@@ -47,7 +50,10 @@ class WebWorker:
             return cnv.toDataURL('image/jpeg').substring(22);    
             """, self.driver.find_element(By.XPATH, img_xpath))
 
-        with open("C:\\Users\\hsiegw\\AppData\\Local\\Temp\\captcha_login.png", 'wb') as image:
+
+        print(CAPTCHA_IMG_PATH)
+
+        with open(CAPTCHA_IMG_PATH, 'wb') as image:
             image.write(base64.b64decode(img_base64))
 
     def login(self, user_id, user_pwd, user_rnd):

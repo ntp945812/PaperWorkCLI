@@ -9,6 +9,12 @@ from rich.text import Text
 
 from web_worker import WebWorker
 
+from pathlib import Path
+import tempfile
+
+TEMP_DIR = tempfile.gettempdir()
+
+CAPTCHA_IMG_PATH = Path(TEMP_DIR).joinpath('captcha_login.png')
 
 class LoginView(VerticalGroup):
 
@@ -21,6 +27,6 @@ class LoginView(VerticalGroup):
         yield Label(Text("二代公文整合系統-帳號密碼登入", style="bold deep_sky_blue3", justify="right"))
         yield Input(placeholder="帳號", id="userID")
         yield Input(placeholder="密碼", password=True, id="userPWD")
-        yield ImageViewer(Image.open("C:\\Users\\hsiegw\\AppData\\Local\\Temp\\captcha_login.png"))
+        yield ImageViewer(Image.open(CAPTCHA_IMG_PATH))
         yield Input(placeholder="驗證碼", id="userRnd")
         yield Button("登入", variant="primary", id="login_button")

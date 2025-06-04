@@ -85,6 +85,9 @@ class PaperWorkCLIApp(App):
             msg_box.alert("載入公文資料中...")
             self.call_from_thread(self.mount, DataTableView(self.web_worker.get_all_docs(),cursor_type='row'))
             msg_box.hide()
+        else:
+            login_v.remove()
+            self.call_from_thread(self.mount,LoginView(web_worker=self.web_worker))
 
 
 if __name__ == "__main__":
