@@ -4,7 +4,6 @@ Screen {
 
 DataTable {
     width: 100%;
-    height: 100%
 }
 
 LoginView {
@@ -51,4 +50,23 @@ MessageBox Label {
 
 .hided {
     display: none;
+}
+
+MenuView {
+    width: 100%;
+}
+
+MenuView Button {
+    width: 1fr;
+    margin: 1 1 0 1;
+    min-width: 12;
+}
+
+MenuView Input {
+    width: 3fr;
+    margin: 1 1 0 1;
+}
+
+MenuView Rule {
+    margin: 0;
 }

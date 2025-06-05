@@ -5,6 +5,7 @@ from textual import work
 from selenium.common.exceptions import TimeoutException
 
 from login_view import LoginView
+from meun_view import MenuView
 from web_worker import WebWorker
 from data_table_view import DataTableView
 from message_box import MessageBox
@@ -57,6 +58,8 @@ class PaperWorkCLIApp(App):
 
         if message.button.id == "login_button":
             self.login()
+        if message.button.id == "download_button":
+            self.action_save_doc()
 
     def on_input_submitted(self, message: Input.Submitted) -> None:
         if message.input.id == "userRnd":
@@ -66,7 +69,7 @@ class PaperWorkCLIApp(App):
     def login(self) -> None:
 
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("登入中")
+        msg_box.alert("登入中...")
 
         user_id = self.query_one("#userID", Input).value
         user_pwd = self.query_one("#userPWD", Input).value
@@ -83,7 +86,7 @@ class PaperWorkCLIApp(App):
             msg_box.hide()
             login_v.remove()
             msg_box.alert("載入公文資料中...")
-            self.call_from_thread(self.mount, DataTableView(self.web_worker.get_all_docs(), cursor_type='row'))
+            self.call_from_thread(self.mount, MenuView(id="menu"),DataTableView(self.web_worker.get_all_docs(), cursor_type='row'))
             msg_box.hide()
         else:
             login_v.remove()

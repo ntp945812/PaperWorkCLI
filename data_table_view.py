@@ -2,9 +2,10 @@ from textual.widgets import DataTable
 
 from rich.text import Text
 
+
 class DataTableView(DataTable):
 
-    def __init__(self, documents=None,**kwargs):
+    def __init__(self, documents=None, **kwargs):
         super().__init__(**kwargs)
         if documents is None:
             self.documents = []
@@ -15,19 +16,19 @@ class DataTableView(DataTable):
     def on_mount(self) -> None:
         self.add_column("本別", width=4, key="doc_type")
         self.add_column("來文日期", width=10, key="issue_date")
+        self.add_column("限辦日期", width=10, key="deadline")
         self.add_column("來文字號", width=20, key="external_doc_number")
         self.add_column("公文文號", width=12, key="internal_doc_number")
         self.add_column(Text("主旨", justify="center"), width=50, key="title")
         self.add_column("來文單位", width=20, key="issue_unit")
-        self.add_column("限辦日期", width=10, key="deadline")
         self.load_documents()
         self.focus()
 
     def load_documents(self):
         for number, d in enumerate(self.documents, start=1):
-            row_data = (d.doc_type, d.issue_date, d.external_doc_number, d.internal_doc_number, d.title, d.issue_unit,
-                  d.deadline)
-            if (number-1,d.doc_id) in self.selected_docs:
+            row_data = (d.doc_type, d.issue_date, d.deadline, d.external_doc_number, d.internal_doc_number, d.title,
+                        d.issue_unit)
+            if (number - 1, d.doc_id) in self.selected_docs:
                 row_data = (Text(s, style="grey89 on steel_blue") for s in row_data)
 
             self.add_row(
@@ -45,7 +46,7 @@ class DataTableView(DataTable):
 
         else:
             self.selected_docs.remove(selected_row_metadata)
-        
+
         self.reload_rows()
         self.move_cursor(row=row_index)
 
@@ -54,6 +55,5 @@ class DataTableView(DataTable):
         self.load_documents()
 
     def unselect_all_document(self):
-        self.selected_docs=[]
+        self.selected_docs = []
         self.reload_rows()
-

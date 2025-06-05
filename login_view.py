@@ -1,5 +1,5 @@
 from textual.app import ComposeResult
-from textual.containers import VerticalGroup, HorizontalGroup
+from textual.containers import VerticalGroup
 from textual.widgets import Input, Button, Label
 
 from textual_imageview.viewer import ImageViewer
