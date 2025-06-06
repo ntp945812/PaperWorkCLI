@@ -60,6 +60,8 @@ class PaperWorkCLIApp(App):
             self.login()
         if message.button.id == "download_button":
             self.action_save_doc()
+        if message.button.id == "to_paper_button":
+            self.to_paper()
 
     def on_input_submitted(self, message: Input.Submitted) -> None:
         if message.input.id == "userRnd":
@@ -91,6 +93,17 @@ class PaperWorkCLIApp(App):
         else:
             login_v.remove()
             self.call_from_thread(self.mount, LoginView(web_worker=self.web_worker))
+
+    def to_paper(self) -> None:
+        msg_box = self.query_one(MessageBox)
+        msg_box.alert("轉紙本作業中...")
+        data_table = self.query_one(DataTableView)
+        for selected_doc in data_table.selected_docs:
+            self.web_worker.transfer_document_to_paper(*selected_doc)
+
+        data_table.documents = self.web_worker.get_all_docs()
+        data_table.reload_rows(unselect_all_document=True)
+        msg_box.hide()
 
 
 if __name__ == "__main__":

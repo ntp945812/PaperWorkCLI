@@ -50,7 +50,10 @@ class DataTableView(DataTable):
         self.reload_rows()
         self.move_cursor(row=row_index)
 
-    def reload_rows(self):
+    def reload_rows(self,unselect_all_document:bool = False):
+        if unselect_all_document:
+            self.selected_docs = []
+
         self.clear()
         self.load_documents()
 

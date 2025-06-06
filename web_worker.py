@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoAlertPresentException
 
 import time
 from pathlib import Path
@@ -19,6 +19,8 @@ CAPTCHA_IMG_PATH = Path(TEMP_DIR).joinpath('captcha_login.png')
 class WebWorker:
 
     def __init__(self):
+        self.doc_trs = []
+        self.documents = []
         self.is_login = False
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('headless')
@@ -98,6 +100,17 @@ class WebWorker:
             self.driver.switch_to.frame(self.driver.find_element(By.ID, "fbody"))
             self.driver.switch_to.frame(self.driver.find_element(By.ID, "mainframe"))
 
+    def windows_cleanup(self,original_window):
+        wait = WebDriverWait(self.driver, 3)
+
+        for window in self.driver.window_handles:
+            if window != original_window:
+                self.driver.switch_to.window(window)
+                self.driver.close()
+
+        wait.until(EC.number_of_windows_to_be(1))
+        self.driver.switch_to.window(original_window)
+
     def get_all_docs(self):
 
         self.toggle_mainframe()
@@ -121,13 +134,15 @@ class WebWorker:
 
         docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
 
-        doc_trs = docs_table.find_elements(By.TAG_NAME, 'tr')
+        self.doc_trs = docs_table.find_elements(By.TAG_NAME, 'tr')
 
         docs = []
 
-        for tr in doc_trs:
+        for tr in self.doc_trs:
             d = Document(tr)
             docs.append(d)
+
+        self.documents = docs
 
         return docs
 
@@ -163,13 +178,39 @@ class WebWorker:
             pass
         finally:
         # download will open another window
-            for window in self.driver.window_handles:
-                if window != original_window:
-                    self.driver.switch_to.window(window)
-                    self.driver.close()
+            self.windows_cleanup(original_window)
 
-            wait.until(EC.number_of_windows_to_be(1))
-            self.driver.switch_to.window(original_window)
+    def transfer_document_to_paper(self, row_index, doc_id):
+        self.toggle_mainframe()
+
+        wait = WebDriverWait(self.driver, timeout=1)
+        wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')))
+
+        original_window = self.driver.current_window_handle
+
+        to_paper_input = self.driver.find_element(By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')
+        target_tr = self.doc_trs[row_index]
+        target_tr_checkbox = target_tr.find_element(By.XPATH,'.//*[@id="ids"]')
+
+        if doc_id == target_tr_checkbox.get_attribute('value') and self.documents[row_index].doc_type == "線":
+            target_tr_checkbox.click()
+            to_paper_input.click()
+            # 確認要轉紙本
+            alert = wait.until(lambda d: d.switch_to.alert)
+            alert.accept()
+
+            # 確認請印出紙本公文 有時候會出現 有時候又不會出現
+            try:
+                time.sleep(0.5)
+                alert2 = wait.until(lambda d: d.switch_to.alert)
+                alert2.accept()
+            except NoAlertPresentException:
+                print("請印出紙本公文 alert not present.")
+
+            self.windows_cleanup(original_window)
+
+        else:
+            raise RuntimeError("row_index and doc_id missmatch in transfer_document_to_paper")
 
 
 if __name__ == "__main__":
