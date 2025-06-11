@@ -94,6 +94,7 @@ class PaperWorkCLIApp(App):
             login_v.remove()
             self.call_from_thread(self.mount, LoginView(web_worker=self.web_worker))
 
+    @work(thread=True)
     def to_paper(self) -> None:
         msg_box = self.query_one(MessageBox)
         msg_box.alert("轉紙本作業中...")

@@ -153,7 +153,7 @@ class WebWorker:
         self.toggle_mainframe()
         original_window = self.driver.current_window_handle
         self.driver.execute_script(f"queryOne('{doc_id}',3,{row_index})")
-        wait = WebDriverWait(self.driver, 5)
+        wait = WebDriverWait(self.driver, 8)
         wait.until(EC.number_of_windows_to_be(2))
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
@@ -181,7 +181,8 @@ class WebWorker:
             self.windows_cleanup(original_window)
 
     def transfer_document_to_paper(self, row_index, doc_id):
-        self.toggle_mainframe()
+
+        self.get_all_docs()
 
         wait = WebDriverWait(self.driver, timeout=1)
         wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')))
