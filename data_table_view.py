@@ -53,9 +53,11 @@ class DataTableView(DataTable):
     def reload_rows(self,unselect_all_document:bool = False):
         if unselect_all_document:
             self.selected_docs = []
+        scroll_y  = self.scroll_y
 
         self.clear()
         self.load_documents()
+        self.scroll_to(y=scroll_y, animate=False)
 
     def unselect_all_document(self):
         self.selected_docs = []
