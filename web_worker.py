@@ -153,7 +153,7 @@ class WebWorker:
         self.toggle_mainframe()
         original_window = self.driver.current_window_handle
         self.driver.execute_script(f"queryOne('{doc_id}',3,{row_index})")
-        wait = WebDriverWait(self.driver, 8)
+        wait = WebDriverWait(self.driver, 15)
         wait.until(EC.number_of_windows_to_be(2))
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
@@ -184,7 +184,7 @@ class WebWorker:
 
         self.get_all_docs()
 
-        wait = WebDriverWait(self.driver, timeout=1)
+        wait = WebDriverWait(self.driver, timeout=3)
         wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')))
 
         original_window = self.driver.current_window_handle
@@ -202,10 +202,9 @@ class WebWorker:
 
             # 確認請印出紙本公文 有時候會出現 有時候又不會出現
             try:
-                time.sleep(0.5)
-                alert2 = wait.until(lambda d: d.switch_to.alert)
+                alert2 = wait.until(EC.alert_is_present())
                 alert2.accept()
-            except NoAlertPresentException:
+            except TimeoutException:
                 print("請印出紙本公文 alert not present.")
 
             self.windows_cleanup(original_window)
