@@ -1,5 +1,5 @@
 from textual.app import App, ComposeResult
-from textual.widgets import Footer, Header, Button, Input
+from textual.widgets import Footer, Header, Button, Input, Select
 from textual import work
 
 from selenium.common.exceptions import TimeoutException
@@ -67,6 +67,14 @@ class PaperWorkCLIApp(App):
         if message.input.id == "userRnd":
             self.login()
 
+    def on_select_changed(self, event: Select.Changed) -> None:
+        if event.select.id == "role_select":
+            match event.value:
+                case "承辦人":
+                    self.switch_to_officer()
+                case "登記桌人員":
+                    self.switch_to_checkin_table()
+
     @work(thread=True)
     def login(self) -> None:
 
@@ -88,7 +96,7 @@ class PaperWorkCLIApp(App):
             msg_box.hide()
             login_v.remove()
             msg_box.alert("載入公文資料中...")
-            self.call_from_thread(self.mount, MenuView(id="menu"),DataTableView(self.web_worker.get_all_docs(), cursor_type='row'))
+            self.call_from_thread(self.mount, MenuView(id="menu"), DataTableView(self.web_worker.get_officer_all_docs(), cursor_type='row'))
             msg_box.hide()
         else:
             login_v.remove()
@@ -102,10 +110,33 @@ class PaperWorkCLIApp(App):
         for selected_doc in data_table.selected_docs:
             self.web_worker.transfer_document_to_paper(*selected_doc)
 
-        data_table.documents = self.web_worker.get_all_docs()
+        data_table.documents = self.web_worker.get_officer_all_docs()
         data_table.reload_rows(unselect_all_document=True)
         msg_box.hide()
 
+    @work(thread=True)
+    def switch_to_checkin_table(self) -> None:
+        if self.web_worker.current_role == "登記桌人員":
+            return
+        msg_box = self.query_one(MessageBox)
+        msg_box.alert("切換至登記桌...")
+        self.web_worker.switch_to_checkin_table()
+        data_table = self.query_one(DataTableView)
+        data_table.documents = self.web_worker.get_table_all_docs()
+        data_table.reload_rows(unselect_all_document=True)
+        msg_box.hide()
+
+    @work(thread=True)
+    def switch_to_officer(self) -> None:
+        if self.web_worker.current_role == "承辦人":
+            return
+        msg_box = self.query_one(MessageBox)
+        msg_box.alert("切換至承辦人...")
+        self.web_worker.switch_to_officer()
+        data_table = self.query_one(DataTableView)
+        data_table.documents = self.web_worker.get_officer_all_docs()
+        data_table.reload_rows(unselect_all_document=True)
+        msg_box.hide()
 
 if __name__ == "__main__":
     app = PaperWorkCLIApp()

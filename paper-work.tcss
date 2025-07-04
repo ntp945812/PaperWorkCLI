@@ -57,6 +57,12 @@ MenuView {
     width: 100%;
 }
 
+MenuView Select {
+    width: 1fr;
+    margin: 1 1 0 1;
+    min-width: 10;
+}
+
 MenuView Button {
     width: 1fr;
     margin: 1 1 0 1;

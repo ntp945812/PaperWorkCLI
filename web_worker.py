@@ -2,7 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoAlertPresentException
+from selenium.webdriver.support.select import Select
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoAlertPresentException, StaleElementReferenceException
 
 import time
 from pathlib import Path
@@ -22,6 +23,7 @@ class WebWorker:
         self.doc_trs = []
         self.documents = []
         self.is_login = False
+        self.current_role = None
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('headless')
         self.options.add_experimental_option("prefs", {
@@ -72,51 +74,84 @@ class WebWorker:
             login_btn.click()
             WebDriverWait(self.driver, 3).until(EC.title_is("公文管理系統"))
             self.is_login = True
-
+            self.current_role = "承辦人"
             self.driver.switch_to.frame(self.driver.find_element(By.ID, "title"))
             # 切換到承辦人頁面
             self.driver.find_element(By.XPATH,
                                      '//*[@id="form1"]/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[3]/a').click()
-            # 切換到承辦中頁面
-            self.toggle_std2_page()
 
         except TimeoutException as timeout:
             msg = self.driver.find_element(By.TAG_NAME, 'body').text
             self.go_to_login_page()
             raise TimeoutException(msg, timeout.screen, timeout.stacktrace)
 
+    def switch_to_checkin_table(self):
+        self.driver.switch_to.default_content()
+        self.driver.switch_to.frame(self.driver.find_element(By.ID, "title"))
+        role_select_element = self.driver.find_element(By.XPATH, '//*[@id="form1"]/table/tbody/tr[1]/td/table/tbody/tr[2]/td/font/select[2]')
+        role_select = Select(role_select_element)
+        role_select.select_by_visible_text("登記桌人員")
+        self.current_role = "登記桌人員"
+        time.sleep(0.5)
+
+
+    def switch_to_officer(self):
+        self.driver.switch_to.default_content()
+        self.driver.switch_to.frame(self.driver.find_element(By.ID, "title"))
+        role_select_element = self.driver.find_element(By.XPATH, '//*[@id="form1"]/table/tbody/tr[1]/td/table/tbody/tr[2]/td/font/select[2]')
+        role_select = Select(role_select_element)
+        role_select.select_by_visible_text("承辦人")
+        self.current_role = "承辦人"
+        time.sleep(0.5)
+
+    def toggle_std1_page(self):
+        """切換到待簽收頁面"""
+        if self.is_login:
+            self.driver.switch_to.default_content()
+            wait = WebDriverWait(self.driver, 10)
+            wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "fbody")))
+            wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "memu")))
+
+            sdt1_a = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="sdt1"]')))
+            sdt1_a.click()
+
     def toggle_std2_page(self):
         """切換到承辦中頁面"""
         if self.is_login:
+
             self.driver.switch_to.default_content()
-            self.driver.switch_to.frame(self.driver.find_element(By.ID, "fbody"))
-            self.driver.switch_to.frame(self.driver.find_element(By.ID, "memu"))
-            self.driver.find_element(By.XPATH, '//*[@id="sdt2"]').click()
+            wait = WebDriverWait(self.driver, 10)
+            wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "fbody")))
+            wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "memu")))
+            sdt2_a = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="sdt2"]')))
+            sdt2_a.click()
 
     def toggle_mainframe(self):
         """切換到公文列表所在的frame"""
         if self.is_login:
             self.driver.switch_to.default_content()
-            self.driver.switch_to.frame(self.driver.find_element(By.ID, "fbody"))
-            self.driver.switch_to.frame(self.driver.find_element(By.ID, "mainframe"))
+            wait = WebDriverWait(self.driver, 10)
+            wait.until(EC.frame_to_be_available_and_switch_to_it((By.XPATH, '//*[@id="fbody"]')))
+            wait.until(EC.frame_to_be_available_and_switch_to_it((By.XPATH, '//*[@id="mainframe"]')))
 
     def windows_cleanup(self,original_window):
-        wait = WebDriverWait(self.driver, 3)
 
         for window in self.driver.window_handles:
             if window != original_window:
                 self.driver.switch_to.window(window)
                 self.driver.close()
 
+        wait = WebDriverWait(self.driver, 3)
         wait.until(EC.number_of_windows_to_be(1))
         self.driver.switch_to.window(original_window)
 
-    def get_all_docs(self):
+    def get_officer_all_docs(self):
 
+        if self.current_role != "承辦人":
+            raise RuntimeError("Role missmatch.")
+
+        self.toggle_std2_page()
         self.toggle_mainframe()
-
-        WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
-
         # 文件數 <=10 的時候 不會出現input
         try:
             page_size_input = self.driver.find_element(By.XPATH,
@@ -132,6 +167,7 @@ class WebWorker:
         except NoSuchElementException:
             pass
 
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
         docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
 
         self.doc_trs = docs_table.find_elements(By.TAG_NAME, 'tr')
@@ -145,6 +181,42 @@ class WebWorker:
         self.documents = docs
 
         return docs
+
+    def get_table_all_docs(self):
+        if self.current_role != "登記桌人員":
+            raise RuntimeError("Role missmatch.")
+
+        self.toggle_std1_page()
+        self.toggle_mainframe()
+        # 文件數 <=10 的時候 不會出現input
+        try:
+            page_size_input = self.driver.find_element(By.XPATH,
+                                                       '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')
+            page_size_input.send_keys("100")
+
+            page_size_text = self.driver.find_element(By.XPATH,
+                                                      '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td/span')
+            page_size_text.click()
+
+            time.sleep(1)
+
+        except NoSuchElementException:
+            pass
+
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
+
+        docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
+
+        doc_trs = docs_table.find_elements(By.TAG_NAME, 'tr')
+
+        docs = []
+
+        for tr in doc_trs:
+            d = Document(tr)
+            docs.append(d)
+
+        return docs
+
 
     def download_document(self, row_index, doc_id):
         """:param doc_id: pass any string other than empty can do the job.
@@ -182,7 +254,7 @@ class WebWorker:
 
     def transfer_document_to_paper(self, row_index, doc_id):
 
-        self.get_all_docs()
+        self.get_officer_all_docs()
 
         wait = WebDriverWait(self.driver, timeout=3)
         wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')))
@@ -221,7 +293,7 @@ if __name__ == "__main__":
     rnd = input("請輸入驗證碼:")
     worker.login("", "", rnd)  # MARK :- 帳號 密碼使用 env
     r_idx = 0
-    doc = worker.get_all_docs()[r_idx]
+    doc = worker.get_officer_all_docs()[r_idx]
     worker.download_document(doc.doc_id, r_idx)
 
     # with open(f"{worker.driver.title}.txt", "w") as source_file:
