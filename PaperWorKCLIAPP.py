@@ -96,7 +96,7 @@ class PaperWorkCLIApp(App):
             msg_box.hide()
             login_v.remove()
             msg_box.alert("載入公文資料中...")
-            self.call_from_thread(self.mount, MenuView(id="menu"), DataTableView(self.web_worker.get_officer_all_docs(), cursor_type='row'))
+            self.call_from_thread(self.mount, MenuView(id="menu", classes="officer"), DataTableView(self.web_worker.get_officer_all_docs(), cursor_type='row'))
             msg_box.hide()
         else:
             login_v.remove()
@@ -124,6 +124,12 @@ class PaperWorkCLIApp(App):
         data_table = self.query_one(DataTableView)
         data_table.documents = self.web_worker.get_table_all_docs()
         data_table.reload_rows(unselect_all_document=True)
+        menu_buttons = self.query("MenuView Button")
+        for btn in menu_buttons:
+            if btn.id == "receipt_button":
+                btn.remove_class("hided")
+            else:
+                btn.add_class("hided")
         msg_box.hide()
 
     @work(thread=True)
@@ -136,6 +142,12 @@ class PaperWorkCLIApp(App):
         data_table = self.query_one(DataTableView)
         data_table.documents = self.web_worker.get_officer_all_docs()
         data_table.reload_rows(unselect_all_document=True)
+        menu_buttons = self.query("MenuView Button")
+        for btn in menu_buttons:
+            if btn.id == "receipt_button":
+                btn.add_class("hided")
+            else:
+                btn.remove_class("hided")
         msg_box.hide()
 
 if __name__ == "__main__":
