@@ -1,3 +1,5 @@
+import subprocess
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -20,12 +22,14 @@ CAPTCHA_IMG_PATH = Path(TEMP_DIR).joinpath('captcha_login.png')
 class WebWorker:
 
     def __init__(self):
-        self.doc_trs = []
+        self.officer_doc_trs = []
+        self.table_doc_trs = []
         self.documents = []
         self.is_login = False
         self.current_role = None
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('headless')
+        service = webdriver.ChromeService(service_args=['--log-level=OFF'], log_output=subprocess.DEVNULL)
         self.options.add_experimental_option("prefs", {
             "download.default_directory": download_dir,
             "download.prompt_for_download": False,
@@ -34,7 +38,7 @@ class WebWorker:
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
             "profile.default_content_setting_values.automatic_downloads": 1,
         })
-        self.driver = webdriver.Chrome(options=self.options)
+        self.driver = webdriver.Chrome(options=self.options, service=service)
         self.go_to_login_page()
 
     def __exit__(self):
@@ -151,30 +155,12 @@ class WebWorker:
             raise RuntimeError("Role missmatch.")
 
         self.toggle_std2_page()
-        self.toggle_mainframe()
-        # 文件數 <=10 的時候 不會出現input
-        try:
-            page_size_input = self.driver.find_element(By.XPATH,
-                                                       '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')
-            page_size_input.send_keys("100")
 
-            page_size_text = self.driver.find_element(By.XPATH,
-                                                      '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td/span')
-            page_size_text.click()
-
-            time.sleep(1)
-
-        except NoSuchElementException:
-            pass
-
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
-        docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
-
-        self.doc_trs = docs_table.find_elements(By.TAG_NAME, 'tr')
+        self.officer_doc_trs = self.get_document_tr()
 
         docs = []
 
-        for tr in self.doc_trs:
+        for tr in self.officer_doc_trs:
             d = Document(tr)
             docs.append(d)
 
@@ -187,6 +173,18 @@ class WebWorker:
             raise RuntimeError("Role missmatch.")
 
         self.toggle_std1_page()
+
+        self.table_doc_trs = self.get_document_tr()
+
+        docs = []
+
+        for tr in self.table_doc_trs:
+            d = Document(tr)
+            docs.append(d)
+
+        return docs
+
+    def get_document_tr(self):
         self.toggle_mainframe()
         # 文件數 <=10 的時候 不會出現input
         try:
@@ -207,15 +205,9 @@ class WebWorker:
 
         docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
 
-        doc_trs = docs_table.find_elements(By.TAG_NAME, 'tr')
+        tr = docs_table.find_elements(By.TAG_NAME, 'tr')
 
-        docs = []
-
-        for tr in doc_trs:
-            d = Document(tr)
-            docs.append(d)
-
-        return docs
+        return tr
 
 
     def download_document(self, row_index, doc_id):
@@ -262,7 +254,7 @@ class WebWorker:
         original_window = self.driver.current_window_handle
 
         to_paper_input = self.driver.find_element(By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')
-        target_tr = self.doc_trs[row_index]
+        target_tr = self.officer_doc_trs[row_index]
         target_tr_checkbox = target_tr.find_element(By.XPATH,'.//*[@id="ids"]')
 
         if doc_id == target_tr_checkbox.get_attribute('value') and self.documents[row_index].doc_type == "線":
@@ -283,6 +275,53 @@ class WebWorker:
 
         else:
             raise RuntimeError("row_index and doc_id missmatch in transfer_document_to_paper")
+
+    def receipt_document_from_table(self, doc_ids):
+        self.get_table_all_docs()
+
+        for doc_id in doc_ids:
+            for tr in self.table_doc_trs:
+                tr_checkbox = tr.find_element(By.XPATH,'.//*[@id="ids"]')
+                if doc_id == tr_checkbox.get_attribute('value'):
+                    tr_checkbox.click()
+                    break
+
+        self.driver.find_element(By.XPATH,'//*[@id="functionMenuContainer"]/span[1]/input').click()
+
+    def distribute_document(self, doc_ids , officer="謝冠緯(系統科-副工程司)"):
+
+        if self.current_role != "登記桌人員":
+            raise RuntimeError("Role missmatch.")
+
+        self.toggle_std2_page()
+
+        distribute_document_tr = self.get_document_tr()
+
+        for doc_id in doc_ids:
+            for tr in distribute_document_tr:
+                tr_checkbox = tr.find_element(By.XPATH,'.//*[@id="ids"]')
+                if doc_id == tr_checkbox.get_attribute('value'):
+                    tr_checkbox.click()
+                    break
+
+        self.driver.find_element(By.XPATH, '//*[@id="functionMenuContainer"]/span[1]/input').click()
+
+        time.sleep(0.5)
+
+        officer_select_element = self.driver.find_element(By.XPATH, '//*[@id="form1"]/table[3]/tbody/tr[2]/td/div/table/tbody/tr[1]/td[4]/select[1]')
+        officer_select = Select(officer_select_element)
+        officer_select.select_by_visible_text(officer)
+
+        self.driver.find_element(By.XPATH, '//*[@id="form1"]/table[2]/tbody/tr/td/span/input[1]').click()
+
+        self.switch_to_officer()
+        self.toggle_std1_page()
+        self.toggle_mainframe()
+        time.sleep(0.5)
+        self.driver.find_element(By.XPATH,'//*[@id="cbAll"]').click()
+        time.sleep(0.5)
+        self.driver.find_element(By.XPATH,'//*[@id="functionMenuContainer"]/span[1]/input').click()
+        self.switch_to_checkin_table()
 
 
 if __name__ == "__main__":

@@ -1,14 +1,13 @@
+from selenium.common.exceptions import TimeoutException
+from textual import work
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header, Button, Input, Select
-from textual import work
 
-from selenium.common.exceptions import TimeoutException
-
+from data_table_view import DataTableView
 from login_view import LoginView
+from message_box import MessageBox
 from meun_view import MenuView
 from web_worker import WebWorker
-from data_table_view import DataTableView
-from message_box import MessageBox
 
 
 class PaperWorkCLIApp(App):
@@ -62,6 +61,8 @@ class PaperWorkCLIApp(App):
             self.action_save_doc()
         if message.button.id == "to_paper_button":
             self.to_paper()
+        if message.button.id == "receipt_button":
+            self.receipt_document_from_table()
 
     def on_input_submitted(self, message: Input.Submitted) -> None:
         if message.input.id == "userRnd":
@@ -96,7 +97,8 @@ class PaperWorkCLIApp(App):
             msg_box.hide()
             login_v.remove()
             msg_box.alert("載入公文資料中...")
-            self.call_from_thread(self.mount, MenuView(id="menu", classes="officer"), DataTableView(self.web_worker.get_officer_all_docs(), cursor_type='row'))
+            self.call_from_thread(self.mount, MenuView(id="menu", classes="officer"),
+                                  DataTableView(self.web_worker.get_officer_all_docs(), cursor_type='row'))
             msg_box.hide()
         else:
             login_v.remove()
@@ -134,7 +136,7 @@ class PaperWorkCLIApp(App):
 
     @work(thread=True)
     def switch_to_officer(self) -> None:
-        if self.web_worker.current_role == "承辦人":
+        if self.web_worker.current_role != "登記桌人員":
             return
         msg_box = self.query_one(MessageBox)
         msg_box.alert("切換至承辦人...")
@@ -148,6 +150,23 @@ class PaperWorkCLIApp(App):
                 btn.add_class("hided")
             else:
                 btn.remove_class("hided")
+        msg_box.hide()
+
+    @work(thread=True)
+    def receipt_document_from_table(self):
+        if self.web_worker.current_role != "登記桌人員":
+            return
+
+        msg_box = self.query_one(MessageBox)
+        msg_box.alert("簽收中...")
+
+        data_table = self.query_one(DataTableView)
+        doc_ids = [d[1] for d in data_table.selected_docs]
+        self.web_worker.receipt_document_from_table(doc_ids)
+        self.web_worker.distribute_document(doc_ids)
+
+        data_table.documents = self.web_worker.get_table_all_docs()
+        data_table.reload_rows(unselect_all_document=True)
         msg_box.hide()
 
 if __name__ == "__main__":

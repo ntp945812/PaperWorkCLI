@@ -67,6 +67,7 @@ MenuView Button {
     width: 1fr;
     margin: 1 1 0 1;
     min-width: 12;
+    max-width: 25;
 }
 
 MenuView Input {
