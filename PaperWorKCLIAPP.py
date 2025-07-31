@@ -19,7 +19,7 @@ class PaperWorkCLIApp(App):
 
     BINDINGS = [
         ("d", "toggle_dark", "Toggle dark mode"),
-        ("s", "save_doc", "Save document")
+        ("r", "refresh_doc", "Refresh")
     ]
     CSS_PATH = "paper-work.tcss"
 
@@ -40,8 +40,15 @@ class PaperWorkCLIApp(App):
             "catppuccin-mocha" if self.theme == "gruvbox" else "gruvbox"
         )
 
+    def action_refresh_doc(self):
+        match self.web_worker.current_role:
+            case "承辦人":
+                self.refresh_officer_doc()
+            case "登記桌人員":
+                self.refresh_checkin_table_doc()
+
     @work(thread=True)
-    def action_save_doc(self) -> None:
+    def save_doc(self) -> None:
         """Save selected document to unzip and merge"""
         msg_box = self.query_one(MessageBox)
         msg_box.alert("本文、附件下載中...")
@@ -58,7 +65,7 @@ class PaperWorkCLIApp(App):
         if message.button.id == "login_button":
             self.login()
         if message.button.id == "download_button":
-            self.action_save_doc()
+            self.save_doc()
         if message.button.id == "to_paper_button":
             self.to_paper()
         if message.button.id == "receipt_button":
@@ -70,10 +77,11 @@ class PaperWorkCLIApp(App):
 
     def on_select_changed(self, event: Select.Changed) -> None:
         if event.select.id == "role_select":
-            match event.value:
-                case "承辦人":
+            current_role = self.web_worker.current_role
+            match current_role, event.value:
+                case "登記桌人員", "承辦人":
                     self.switch_to_officer()
-                case "登記桌人員":
+                case "承辦人", "登記桌人員":
                     self.switch_to_checkin_table()
 
     @work(thread=True)
@@ -118,8 +126,6 @@ class PaperWorkCLIApp(App):
 
     @work(thread=True)
     def switch_to_checkin_table(self) -> None:
-        if self.web_worker.current_role == "登記桌人員":
-            return
         msg_box = self.query_one(MessageBox)
         msg_box.alert("切換至登記桌...")
         self.web_worker.switch_to_checkin_table()
@@ -136,8 +142,6 @@ class PaperWorkCLIApp(App):
 
     @work(thread=True)
     def switch_to_officer(self) -> None:
-        if self.web_worker.current_role != "登記桌人員":
-            return
         msg_box = self.query_one(MessageBox)
         msg_box.alert("切換至承辦人...")
         self.web_worker.switch_to_officer()
@@ -150,6 +154,24 @@ class PaperWorkCLIApp(App):
                 btn.add_class("hided")
             else:
                 btn.remove_class("hided")
+        msg_box.hide()
+
+    @work(thread=True)
+    def refresh_officer_doc(self):
+        msg_box = self.query_one(MessageBox)
+        msg_box.alert("重新整理...")
+        data_table = self.query_one(DataTableView)
+        data_table.documents = self.web_worker.get_officer_all_docs()
+        data_table.reload_rows(unselect_all_document=True)
+        msg_box.hide()
+
+    @work(thread=True)
+    def refresh_checkin_table_doc(self):
+        msg_box = self.query_one(MessageBox)
+        msg_box.alert("重新整理...")
+        data_table = self.query_one(DataTableView)
+        data_table.documents = self.web_worker.get_table_all_docs()
+        data_table.reload_rows(unselect_all_document=True)
         msg_box.hide()
 
     @work(thread=True)
@@ -168,6 +190,7 @@ class PaperWorkCLIApp(App):
         data_table.documents = self.web_worker.get_table_all_docs()
         data_table.reload_rows(unselect_all_document=True)
         msg_box.hide()
+
 
 if __name__ == "__main__":
     app = PaperWorkCLIApp()
