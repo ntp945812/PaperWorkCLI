@@ -70,6 +70,8 @@ class PaperWorkCLIApp(App):
             self.to_paper()
         if message.button.id == "receipt_button":
             self.receipt_document_from_table()
+        if message.button.id == "preview_button":
+            self.preview_document()
 
     def on_input_submitted(self, message: Input.Submitted) -> None:
         if message.input.id == "userRnd":
@@ -134,7 +136,7 @@ class PaperWorkCLIApp(App):
         data_table.reload_rows(unselect_all_document=True)
         menu_buttons = self.query("MenuView Button")
         for btn in menu_buttons:
-            if btn.id == "receipt_button":
+            if btn.id == "receipt_button" or btn.id == "preview_button":
                 btn.remove_class("hided")
             else:
                 btn.add_class("hided")
@@ -190,6 +192,12 @@ class PaperWorkCLIApp(App):
         data_table.documents = self.web_worker.get_table_all_docs()
         data_table.reload_rows(unselect_all_document=True)
         msg_box.hide()
+
+    def preview_document(self):
+        data_table = self.query_one(DataTableView)
+        selected_docs = data_table.selected_docs
+        for d in selected_docs:
+            self.web_worker.preview_document(*d)
 
 
 if __name__ == "__main__":

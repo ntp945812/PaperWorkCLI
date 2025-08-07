@@ -10,12 +10,13 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 import time
 from pathlib import Path
 import base64
+import os
 
 from document import Document
 
 import tempfile
 
-download_dir = "C:\\Users\\hsiegw\\Desktop\\unzip_and_merge"
+DOWNLOAD_DIR = "C:\\Users\\hsiegw\\Desktop\\unzip_and_merge"
 TEMP_DIR = tempfile.gettempdir()
 CAPTCHA_IMG_PATH = Path(TEMP_DIR).joinpath('captcha_login.png')
 
@@ -31,7 +32,7 @@ class WebWorker:
         self.options.add_argument('headless')
         service = webdriver.ChromeService(service_args=['--log-level=OFF'], log_output=subprocess.DEVNULL)
         self.options.add_experimental_option("prefs", {
-            "download.default_directory": download_dir,
+            "download.default_directory": DOWNLOAD_DIR,
             "download.prompt_for_download": False,
             "download.directory_upgrade": True,
             "plugins.always_open_pdf_externally": True,
@@ -57,9 +58,6 @@ class WebWorker:
             cnv.getContext('2d').drawImage(ele, 0, 0);
             return cnv.toDataURL('image/jpeg').substring(22);    
             """, self.driver.find_element(By.XPATH, img_xpath))
-
-
-        print(CAPTCHA_IMG_PATH)
 
         with open(CAPTCHA_IMG_PATH, 'wb') as image:
             image.write(base64.b64decode(img_base64))
@@ -232,12 +230,51 @@ class WebWorker:
                     'value').split(
                     '.')[0]
 
-            download_path = Path(download_dir)
+            download_path = Path(DOWNLOAD_DIR)
 
             download_all_link.click()
             wait.until(lambda _: download_path.joinpath(f'{document_name}.zip').exists())
             download_main_doc_link.click()
             wait.until(lambda _: download_path.joinpath(f'{document_name}.pdf').exists())
+        except NoSuchElementException:
+            pass
+        finally:
+        # download will open another window
+            self.windows_cleanup(original_window)
+
+    def preview_document(self, row_index, doc_id):
+        """:param doc_id: pass any string other than empty can do the job.
+        :param row_index: row index of document wants to download.
+        """
+        self.toggle_mainframe()
+        original_window = self.driver.current_window_handle
+        self.driver.execute_script(f"queryOne('{doc_id}',3,{row_index})")
+        wait = WebDriverWait(self.driver, 15)
+        wait.until(EC.number_of_windows_to_be(2))
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+
+        try:
+            download_main_doc_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')
+            wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')))
+
+            document_name = \
+                self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[1]').get_attribute(
+                    'value').split(
+                    '.')[0]
+
+            download_dir_path = Path(DOWNLOAD_DIR)
+            download_file_path = download_dir_path.joinpath(f'{document_name}.pdf')
+
+            download_main_doc_link.click()
+            wait.until(lambda _: download_file_path.exists())
+
+            temp_filename = Path(TEMP_DIR).joinpath(f'{document_name}.pdf')
+
+            download_file_path.rename(temp_filename)
+
+
+            os.startfile(temp_filename)
+
         except NoSuchElementException:
             pass
         finally:
