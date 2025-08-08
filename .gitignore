@@ -178,3 +178,4 @@ cython_debug/
 .idea/workspace.xml
 /.idea
 /__pycache__
+__pycache__/login_view.cpython-313.pyc

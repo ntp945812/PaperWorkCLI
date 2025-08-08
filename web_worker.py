@@ -283,8 +283,9 @@ class WebWorker:
 
     def transfer_document_to_paper(self, row_index, doc_id):
 
-        self.get_officer_all_docs()
-
+        if self.documents[row_index].doc_type != "線":
+            return
+        
         wait = WebDriverWait(self.driver, timeout=3)
         wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')))
 
@@ -294,7 +295,7 @@ class WebWorker:
         target_tr = self.officer_doc_trs[row_index]
         target_tr_checkbox = target_tr.find_element(By.XPATH,'.//*[@id="ids"]')
 
-        if doc_id == target_tr_checkbox.get_attribute('value') and self.documents[row_index].doc_type == "線":
+        if doc_id == target_tr_checkbox.get_attribute('value'):
             target_tr_checkbox.click()
             to_paper_input.click()
             # 確認要轉紙本

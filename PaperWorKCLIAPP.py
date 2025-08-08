@@ -107,7 +107,7 @@ class PaperWorkCLIApp(App):
             msg_box.hide()
             login_v.remove()
             msg_box.alert("載入公文資料中...")
-            self.call_from_thread(self.mount, MenuView(id="menu", classes="officer"),
+            self.call_from_thread(self.mount, MenuView(id="menu", role=self.web_worker.current_role),
                                   DataTableView(self.web_worker.get_officer_all_docs(), cursor_type='row'))
             msg_box.hide()
         else:
@@ -119,6 +119,8 @@ class PaperWorkCLIApp(App):
         msg_box = self.query_one(MessageBox)
         msg_box.alert("轉紙本作業中...")
         data_table = self.query_one(DataTableView)
+        self.web_worker.get_officer_all_docs()
+        
         for selected_doc in data_table.selected_docs:
             self.web_worker.transfer_document_to_paper(*selected_doc)
 
@@ -134,12 +136,9 @@ class PaperWorkCLIApp(App):
         data_table = self.query_one(DataTableView)
         data_table.documents = self.web_worker.get_table_all_docs()
         data_table.reload_rows(unselect_all_document=True)
-        menu_buttons = self.query("MenuView Button")
-        for btn in menu_buttons:
-            if btn.id == "receipt_button" or btn.id == "preview_button":
-                btn.remove_class("hided")
-            else:
-                btn.add_class("hided")
+        self.call_from_thread(lambda :self.query_one(MenuView).remove())
+        self.call_from_thread(self.mount, MenuView(id="menu", role=self.web_worker.current_role), before=data_table)
+
         msg_box.hide()
 
     @work(thread=True)
@@ -150,12 +149,8 @@ class PaperWorkCLIApp(App):
         data_table = self.query_one(DataTableView)
         data_table.documents = self.web_worker.get_officer_all_docs()
         data_table.reload_rows(unselect_all_document=True)
-        menu_buttons = self.query("MenuView Button")
-        for btn in menu_buttons:
-            if btn.id == "receipt_button":
-                btn.add_class("hided")
-            else:
-                btn.remove_class("hided")
+        self.call_from_thread(lambda :self.query_one(MenuView).remove())
+        self.call_from_thread(self.mount, MenuView(id="menu", role=self.web_worker.current_role), before=data_table)
         msg_box.hide()
 
     @work(thread=True)

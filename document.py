@@ -29,8 +29,12 @@ class Document:
                 self.doc_type = "X"
 
         # 來文日期/字號
-
-        self.issue_date, self.external_doc_number = tr.find_element(By.XPATH, './/td[9]/a').text.splitlines()
+        td9 = tr.find_element(By.XPATH, './/td[9]/a').text.splitlines()
+        if len(td9) == 1:
+            self.issue_date = td9[0][0:10]
+            self.external_doc_number = td9[10:]
+        else:
+            self.issue_date, self.external_doc_number = td9
 
         # 來文單位 //*[@id="listTBODY"]/tr[5]/td[10]/a //*[@id="listTBODY"]/tr[1]/td[10]/a/p
         try:
