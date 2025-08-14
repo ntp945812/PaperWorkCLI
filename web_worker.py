@@ -286,12 +286,16 @@ class WebWorker:
         if self.documents[row_index].doc_type != "線":
             return
         
+        # 轉紙本之前需要重新取得最新的文件列表
+        self.get_officer_all_docs()
+
         wait = WebDriverWait(self.driver, timeout=3)
-        wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')))
-
+        
         original_window = self.driver.current_window_handle
-
+        
+        wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')))
         to_paper_input = self.driver.find_element(By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')
+        
         target_tr = self.officer_doc_trs[row_index]
         target_tr_checkbox = target_tr.find_element(By.XPATH,'.//*[@id="ids"]')
 
@@ -341,23 +345,44 @@ class WebWorker:
                 if doc_id == tr_checkbox.get_attribute('value'):
                     tr_checkbox.click()
                     break
-
+        # 分文按鈕
         self.driver.find_element(By.XPATH, '//*[@id="functionMenuContainer"]/span[1]/input').click()
 
         time.sleep(0.5)
 
+        # 選要分給誰
         officer_select_element = self.driver.find_element(By.XPATH, '//*[@id="form1"]/table[3]/tbody/tr[2]/td/div/table/tbody/tr[1]/td[4]/select[1]')
         officer_select = Select(officer_select_element)
         officer_select.select_by_visible_text(officer)
 
         self.driver.find_element(By.XPATH, '//*[@id="form1"]/table[2]/tbody/tr/td/span/input[1]').click()
 
+        # 切換回承辦人
         self.switch_to_officer()
+        # 切換到簽收頁面
         self.toggle_std1_page()
         self.toggle_mainframe()
         time.sleep(0.5)
+
+        # 讓所有公文在同一頁
+        try:
+            page_size_input = self.driver.find_element(By.XPATH,
+                                                       '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')
+            page_size_input.send_keys("100")
+
+            page_size_text = self.driver.find_element(By.XPATH,
+                                                      '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span')
+            page_size_text.click()
+
+            time.sleep(1)
+
+        except NoSuchElementException:
+            pass
+
+        # 按全選按鈕
         self.driver.find_element(By.XPATH,'//*[@id="cbAll"]').click()
         time.sleep(0.5)
+
         self.driver.find_element(By.XPATH,'//*[@id="functionMenuContainer"]/span[1]/input').click()
         self.switch_to_checkin_table()
 

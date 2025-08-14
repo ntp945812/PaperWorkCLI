@@ -62,16 +62,19 @@ class PaperWorkCLIApp(App):
 
     def on_button_pressed(self, message: Button.Pressed) -> None:
 
-        if message.button.id == "login_button":
-            self.login()
-        if message.button.id == "download_button":
-            self.save_doc()
-        if message.button.id == "to_paper_button":
-            self.to_paper()
-        if message.button.id == "receipt_button":
-            self.receipt_document_from_table()
-        if message.button.id == "preview_button":
-            self.preview_document()
+        match message.button.id:
+            case "login_button":
+                self.login()
+            case "download_button":
+                self.save_doc()
+            case "to_paper_button":
+                self.to_paper()
+            case "receipt_button":
+                self.receipt_document_from_table()
+            case "preview_button":
+                self.preview_document()
+            case "return_button":
+                self.return_document()
 
     def on_input_submitted(self, message: Input.Submitted) -> None:
         if message.input.id == "userRnd":
@@ -119,7 +122,6 @@ class PaperWorkCLIApp(App):
         msg_box = self.query_one(MessageBox)
         msg_box.alert("轉紙本作業中...")
         data_table = self.query_one(DataTableView)
-        self.web_worker.get_officer_all_docs()
         
         for selected_doc in data_table.selected_docs:
             self.web_worker.transfer_document_to_paper(*selected_doc)
@@ -193,6 +195,9 @@ class PaperWorkCLIApp(App):
         selected_docs = data_table.selected_docs
         for d in selected_docs:
             self.web_worker.preview_document(*d)
+
+    def return_document(self):
+        print("return_button pressed!")
 
 
 if __name__ == "__main__":

@@ -25,5 +25,6 @@ class MenuView(VerticalGroup):
                 yield Select([("承辦人", "承辦人"), ("登記桌人員", "登記桌人員")], allow_blank=False, id="role_select", value="登記桌人員")
                 yield Button("簽收", variant="primary", id="receipt_button")
                 yield Button("預覽", variant="primary", id="preview_button")
+                yield Button("退文", variant="primary", id="return_button")
                 yield Input(placeholder="搜尋", id="menu_search_input")
         yield Rule(line_style="double")
