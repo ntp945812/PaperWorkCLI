@@ -17,6 +17,7 @@ class MenuView(VerticalGroup):
                 yield Button("預覽", variant="primary", id="preview_button")
                 yield Button("下載", variant="primary", id="download_button")
                 yield Button("轉紙本", variant="primary", id="to_paper_button")
+                yield Button("退文", variant="primary", id="return_button")
                 yield Input(placeholder="搜尋", id="menu_search_input")
             # yield Button("併/彙辦", variant="primary", id="combine_document_button", disabled=True)
             # yield Button("單位決行", variant="primary", id="authorize_button", disabled=True)

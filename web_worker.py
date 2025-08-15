@@ -386,6 +386,28 @@ class WebWorker:
         self.driver.find_element(By.XPATH,'//*[@id="functionMenuContainer"]/span[1]/input').click()
         self.switch_to_checkin_table()
 
+    # 待測試
+    def return_document(self, row_index, doc_id, reason):
+
+        doc_trs = self.get_document_tr()
+
+        for tr in doc_trs:
+            tr_checkbox = tr.find_element(By.XPATH, './/*[@id="ids"]')
+            if doc_id == tr_checkbox.get_attribute('value'):
+                tr_checkbox.click()
+                break
+        if self.current_role == "登記桌人員":
+            self.driver.find_element(By.XPATH, '//*[@id="functionMenuContainer"]/span[2]/input').click()
+        elif self.current_role == "承辦人":
+            self.driver.find_element(By.XPATH, '//*[@id="functionMenuContainer"]/span[12]/input').click()
+
+        time.sleep(0.5)
+
+        wait = WebDriverWait(self.driver, 3)
+        wait.until(EC.frame_to_be_available_and_switch_to_it((By.XPATH, '//*[@id="batchFrame"]')))
+
+        self.driver.find_element(By.XPATH,'//*[@id="form1"]/table[3]/tbody/tr[2]/td/div/table/tbody/tr[1]/td[4]/textarea').send_keys(reason)
+        self.driver.find_element(By.XPATH,'//*[@id="form1"]/table[2]/tbody/tr/td/span/input[1]').click()
 
 if __name__ == "__main__":
     worker = WebWorker()

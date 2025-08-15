@@ -78,3 +78,33 @@ MenuView Input {
 MenuView Rule {
     margin: 0;
 }
+
+ReturnDocumentScreen {
+    align: center middle;
+}
+
+ReturnDocumentScreen #dialog {
+    width: 50%;
+    min-width: 50;
+    min-height: 20;
+    height: 50%;
+    grid-size: 2;
+    grid-gutter: 1 2;
+    grid-rows: auto 3 3;
+    padding: 0 1;
+    border: thick $background 80%;
+    background: $surface;
+}
+
+ReturnDocumentScreen Label {
+    column-span: 2;
+    margin-top: 2;
+}
+
+ReturnDocumentScreen Input {
+    column-span: 2;
+}
+
+ReturnDocumentScreen Button {
+    width: 100%;
+}
