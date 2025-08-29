@@ -262,15 +262,16 @@ class WebWorker:
                     'value').split(
                     '.')[0]
 
-            download_dir_path = Path(DOWNLOAD_DIR)
-            download_file_path = download_dir_path.joinpath(f'{document_name}.pdf')
-
-            download_main_doc_link.click()
-            wait.until(lambda _: download_file_path.exists())
-
             temp_filename = Path(TEMP_DIR).joinpath(f'{document_name}.pdf')
 
-            download_file_path.rename(temp_filename)
+            if not temp_filename.exists():
+                download_dir_path = Path(DOWNLOAD_DIR)
+                download_file_path = download_dir_path.joinpath(f'{document_name}.pdf')
+
+                download_main_doc_link.click()
+                wait.until(lambda _: download_file_path.exists())
+
+                download_file_path.rename(temp_filename)
 
 
             os.startfile(temp_filename)

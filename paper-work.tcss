@@ -7,6 +7,10 @@ DataTable {
     height: 91h;
 }
 
+DataTable .datatable--even-row {
+    background: #656565;
+}
+
 LoginView {
     layer: one;
     align: center middle;

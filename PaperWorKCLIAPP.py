@@ -8,7 +8,6 @@ from login_view import LoginView
 from message_box import MessageBox
 from meun_view import MenuView
 from web_worker import WebWorker
-from return_document_screen import ReturnDocumentScreen
 
 
 class PaperWorkCLIApp(App):
@@ -52,7 +51,7 @@ class PaperWorkCLIApp(App):
     def save_doc(self) -> None:
         """Save selected document to unzip and merge"""
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("[blink]本文、附件下載中...[/]")
+        msg_box.alert("本文、附件下載中...")
         data_table = self.query_one(DataTableView)
         selected_docs = data_table.selected_docs
         for d in selected_docs:
@@ -63,19 +62,16 @@ class PaperWorkCLIApp(App):
 
     def on_button_pressed(self, message: Button.Pressed) -> None:
 
-        match message.button.id:
-            case "login_button":
-                self.login()
-            case "download_button":
-                self.save_doc()
-            case "to_paper_button":
-                self.to_paper()
-            case "receipt_button":
-                self.receipt_document_from_table()
-            case "preview_button":
-                self.preview_document()
-            case "return_button":
-                self.return_document()
+        if message.button.id == "login_button":
+            self.login()
+        if message.button.id == "download_button":
+            self.save_doc()
+        if message.button.id == "to_paper_button":
+            self.to_paper()
+        if message.button.id == "receipt_button":
+            self.receipt_document_from_table()
+        if message.button.id == "preview_button":
+            self.preview_document()
 
     def on_input_submitted(self, message: Input.Submitted) -> None:
         if message.input.id == "userRnd":
@@ -94,7 +90,7 @@ class PaperWorkCLIApp(App):
     def login(self) -> None:
 
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("[blink]登入中...[/]")
+        msg_box.alert("登入中...")
 
         user_id = self.query_one("#userID", Input).value
         user_pwd = self.query_one("#userPWD", Input).value
@@ -110,7 +106,7 @@ class PaperWorkCLIApp(App):
         if self.web_worker.is_login:
             msg_box.hide()
             login_v.remove()
-            msg_box.alert("[blink]載入公文資料中...[/]")
+            msg_box.alert("載入公文資料中...")
             self.call_from_thread(self.mount, MenuView(id="menu", role=self.web_worker.current_role),
                                   DataTableView(self.web_worker.get_officer_all_docs(), cursor_type='row'))
             msg_box.hide()
@@ -121,8 +117,9 @@ class PaperWorkCLIApp(App):
     @work(thread=True)
     def to_paper(self) -> None:
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("[blink]轉紙本作業中...[/]")
+        msg_box.alert("轉紙本作業中...")
         data_table = self.query_one(DataTableView)
+        self.web_worker.get_officer_all_docs()
         
         for selected_doc in data_table.selected_docs:
             self.web_worker.transfer_document_to_paper(*selected_doc)
@@ -134,7 +131,7 @@ class PaperWorkCLIApp(App):
     @work(thread=True)
     def switch_to_checkin_table(self) -> None:
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("[blink]切換至登記桌...[/]")
+        msg_box.alert("切換至登記桌...")
         self.web_worker.switch_to_checkin_table()
         data_table = self.query_one(DataTableView)
         data_table.documents = self.web_worker.get_table_all_docs()
@@ -147,7 +144,7 @@ class PaperWorkCLIApp(App):
     @work(thread=True)
     def switch_to_officer(self) -> None:
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("[blink]切換至承辦人...[/]")
+        msg_box.alert("切換至承辦人...")
         self.web_worker.switch_to_officer()
         data_table = self.query_one(DataTableView)
         data_table.documents = self.web_worker.get_officer_all_docs()
@@ -159,7 +156,7 @@ class PaperWorkCLIApp(App):
     @work(thread=True)
     def refresh_officer_doc(self):
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("[blink]重新整理...[/]")
+        msg_box.alert("重新整理...")
         data_table = self.query_one(DataTableView)
         data_table.documents = self.web_worker.get_officer_all_docs()
         data_table.reload_rows(unselect_all_document=True)
@@ -168,7 +165,7 @@ class PaperWorkCLIApp(App):
     @work(thread=True)
     def refresh_checkin_table_doc(self):
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("[blink]重新整理...[/]")
+        msg_box.alert("重新整理...")
         data_table = self.query_one(DataTableView)
         data_table.documents = self.web_worker.get_table_all_docs()
         data_table.reload_rows(unselect_all_document=True)
@@ -180,7 +177,7 @@ class PaperWorkCLIApp(App):
             return
 
         msg_box = self.query_one(MessageBox)
-        msg_box.alert("[blink]簽收中...[/]")
+        msg_box.alert("簽收中...")
 
         data_table = self.query_one(DataTableView)
         doc_ids = [d[1] for d in data_table.selected_docs]
@@ -196,28 +193,6 @@ class PaperWorkCLIApp(App):
         selected_docs = data_table.selected_docs
         for d in selected_docs:
             self.web_worker.preview_document(*d)
-
-    @work
-    async def return_document(self):
-        data_table = self.query_one(DataTableView)
-
-        if len(data_table.selected_docs) < 1: return
-
-        selected_row_index = data_table.selected_docs[0][0]
-        doc_title = data_table.documents[selected_row_index].title
-        reason = await self.push_screen_wait(ReturnDocumentScreen(doc_title))
-        if reason != "":
-            msg_box = self.query_one(MessageBox)
-            msg_box.alert("[blink]退文中...[/]")
-            self.web_worker.return_document(*data_table.selected_docs[0],reason)
-
-            if self.web_worker.current_role == "登記桌人員":
-                data_table.documents = self.web_worker.get_table_all_docs()
-            else:
-                data_table.documents = self.web_worker.get_officer_all_docs()
-
-            data_table.reload_rows(unselect_all_document=True)
-            msg_box.hide()
 
 
 if __name__ == "__main__":
