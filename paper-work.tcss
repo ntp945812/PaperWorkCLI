@@ -8,7 +8,7 @@ DataTable {
 }
 
 DataTable .datatable--even-row {
-    background: #656565;
+    background: #384245;
 }
 
 LoginView {
@@ -17,7 +17,7 @@ LoginView {
     margin: 1;
 }
 
-LoginView Label{
+LoginView Label {
     offset: 50w 0;
 }
 
@@ -64,7 +64,7 @@ MenuView {
 MenuView Select {
     width: 1fr;
     margin: 1 1 0 1;
-    min-width: 10;
+    min-width: 15;
 }
 
 MenuView Button {
