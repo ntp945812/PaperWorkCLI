@@ -1,4 +1,5 @@
 from textual.widgets import DataTable
+from textual.events import Click
 
 from rich.text import Text
 
@@ -50,6 +51,21 @@ class DataTableView(DataTable):
         self.reload_rows()
         self.move_cursor(row=row_index)
 
+    def on_click(self, message: Click):
+        hover_row_index = self.hover_row
+        hover_row = self.ordered_rows[hover_row_index]
+
+        selected_row_metadata = (hover_row_index, hover_row.key)
+
+        if selected_row_metadata not in self.selected_docs:
+            self.selected_docs.append(selected_row_metadata)
+
+        else:
+            self.selected_docs.remove(selected_row_metadata)
+
+        self.reload_rows()
+        self.move_cursor(row = hover_row_index)
+
     def reload_rows(self,unselect_all_document:bool = False):
         if unselect_all_document:
             self.selected_docs = []
@@ -61,4 +77,9 @@ class DataTableView(DataTable):
 
     def unselect_all_document(self):
         self.selected_docs = []
+        self.reload_rows()
+
+
+    def select_all_document(self):
+        self.selected_docs = [(index, d.key) for index, d in enumerate(self.ordered_rows)]
         self.reload_rows()

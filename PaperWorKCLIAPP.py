@@ -90,11 +90,19 @@ class PaperWorkCLIApp(App):
                 self.preview_document()
             case "return_button":
                 self.return_document()
+            case "select_all_button":
+                self.select_all_document()
 
 
     def on_input_submitted(self, message: Input.Submitted) -> None:
-        if message.input.id == "userRnd":
-            self.login()
+
+        match message.input.id:
+            case "userRnd":
+                self.login()
+            case "menu_search_input":
+                print(f"{message.input.value}")
+
+
 
     def on_select_changed(self, event: Select.Changed) -> None:
         if event.select.id == "role_select":
@@ -207,13 +215,14 @@ class PaperWorkCLIApp(App):
         data_table.reload_rows(unselect_all_document=True)
         msg_box.hide()
 
+    @work(thread=True)
     def preview_document(self):
         data_table = self.query_one(DataTableView)
         selected_docs = data_table.selected_docs
         for d in selected_docs:
             self.web_worker.preview_document(*d)
 
-    @work
+    @work(thread=True)
     async def return_document(self):
         data_table = self.query_one(DataTableView)
 
@@ -234,6 +243,10 @@ class PaperWorkCLIApp(App):
 
             data_table.reload_rows(unselect_all_document=True)
             msg_box.hide()
+
+    def select_all_document(self):
+        data_table = self.query_one(DataTableView)
+        data_table.select_all_document()
 
 
 if __name__ == "__main__":
