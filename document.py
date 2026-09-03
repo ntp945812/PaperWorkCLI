@@ -10,12 +10,12 @@ class Document:
     def __init__(self, tr: WebElement):
         # 主旨
         try:
-            self.title = tr.find_element(By.XPATH, './/td[12]/p').get_attribute('title')
+            self.title = tr.find_element(By.XPATH, './/*[@id="mainSpan"]/p').get_attribute('title')
         except NoSuchElementException:
             self.title = tr.find_element(By.XPATH, './/td[12]').text
 
         # 文號
-        doc_flow_obj = json.loads(tr.find_element(By.XPATH, './/*[@id="gbDocflowObj"]').get_attribute('value'))
+        doc_flow_obj = json.loads(tr.find_element(By.CSS_SELECTOR, '[id^=gbDocflowObj]').get_attribute('value'))
         self.doc_id = doc_flow_obj['id']  # 公文系統內部識別號碼
         self.internal_doc_number = doc_flow_obj['doSno']  # 本局收文號
 
@@ -29,18 +29,14 @@ class Document:
                 self.doc_type = "X"
 
         # 來文日期/字號
-        td9 = tr.find_element(By.XPATH, './/td[9]/a').text.splitlines()
-        if len(td9) == 1:
-            self.issue_date = td9[0][0:10]
-            self.external_doc_number = td9[10:]
-        else:
-            self.issue_date, self.external_doc_number = td9
+        self.issue_date = tr.find_element(By.XPATH, './/td[14]').text
+        self.external_doc_number =tr.find_element(By.XPATH, './/td[11]').text
 
         # 來文單位 //*[@id="listTBODY"]/tr[5]/td[10]/a //*[@id="listTBODY"]/tr[1]/td[10]/a/p
         try:
-            self.issue_unit = tr.find_element(By.XPATH, './/td[10]/a/p').get_attribute('title')
+            self.issue_unit = tr.find_element(By.XPATH, './/td[12]/p').get_attribute('title')
         except NoSuchElementException:
-            self.issue_unit = tr.find_element(By.XPATH, './/td[10]/a').text
+            self.issue_unit = tr.find_element(By.XPATH, './/td[12]/a').text
 
         # 限辦期限
-        self.deadline = tr.find_element(By.XPATH, './/td[15]').text
+        self.deadline = tr.find_element(By.XPATH, './/td[9]').text

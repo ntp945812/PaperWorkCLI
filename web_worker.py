@@ -29,7 +29,7 @@ class WebWorker:
         self.is_login = False
         self.current_role = None
         self.options = webdriver.ChromeOptions()
-        self.options.add_argument('headless')
+        # self.options.add_argument('headless')
         service = webdriver.ChromeService(service_args=['--log-level=OFF'], log_output=subprocess.DEVNULL)
         self.options.add_experimental_option("prefs", {
             "download.default_directory": DOWNLOAD_DIR,
@@ -46,41 +46,34 @@ class WebWorker:
         self.driver.quit()
 
     def go_to_login_page(self):
-        self.driver.get("https://odm.kcg.gov.tw")
-        WebDriverWait(self.driver, 5).until(EC.title_is("高雄市政府第二代公文整合系統-登入畫面"))
+        self.driver.get("https://dm.kcg.gov.tw/tdym/home/welcome_news.jsp?continue")
+        wait = WebDriverWait(self.driver, 5)
+        WebDriverWait(self.driver, 5).until(EC.title_is("高雄市政府 共用式身分驗證系統"))
+        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="cardLogonAuthOptionBox"]/div[2]/a'))).click() # 自然人憑證登入頁面按鈕
 
-    def download_user_rnd_img(self):
-        img_xpath = "/html/body/form/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td/table/tbody/tr/td[1]/table/tbody/tr[1]/td/div/table/tbody/tr[3]/td[3]/img"
-        img_base64 = self.driver.execute_script("""
-            var ele = arguments[0];
-            var cnv = document.createElement('canvas');
-            cnv.width = ele.width; cnv.height = ele.height;
-            cnv.getContext('2d').drawImage(ele, 0, 0);
-            return cnv.toDataURL('image/jpeg').substring(22);    
-            """, self.driver.find_element(By.XPATH, img_xpath))
+    # def download_user_rnd_img(self):
+    #     img_xpath = "/html/body/form/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td/table/tbody/tr/td[1]/table/tbody/tr[1]/td/div/table/tbody/tr[3]/td[3]/img"
+    #     img_base64 = self.driver.execute_script("""
+    #         var ele = arguments[0];
+    #         var cnv = document.createElement('canvas');
+    #         cnv.width = ele.width; cnv.height = ele.height;
+    #         cnv.getContext('2d').drawImage(ele, 0, 0);
+    #         return cnv.toDataURL('image/jpeg').substring(22);
+    #         """, self.driver.find_element(By.XPATH, img_xpath))
+    #
+    #     with open(CAPTCHA_IMG_PATH, 'wb') as image:
+    #         image.write(base64.b64decode(img_base64))
 
-        with open(CAPTCHA_IMG_PATH, 'wb') as image:
-            image.write(base64.b64decode(img_base64))
-
-    def login(self, user_id, user_pwd, user_rnd):
-        user_id_input = self.driver.find_element(By.XPATH, '//*[@id="userID"]')
-        user_pwd_input = self.driver.find_element(By.XPATH, '//*[@id="userPWD"]')
-        user_rnd_input = self.driver.find_element(By.XPATH, '//*[@id="userRnd"]')
-        login_btn = self.driver.find_element(By.XPATH,
-                                             '/html/body/form/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td/table/tbody/tr/td[1]/table/tbody/tr[2]/td/table/tbody/tr/td[2]/input')
-        user_id_input.send_keys(user_id)
+    def login(self, user_pwd):
+        user_pwd_input = self.driver.find_element(By.XPATH, '//*[@id="cert_pin_code"]')
+        login_btn = self.driver.find_element(By.XPATH, '//*[@id="certLoginBtn"]')
         user_pwd_input.send_keys(user_pwd)
-        user_rnd_input.send_keys(user_rnd)
 
         try:
             login_btn.click()
-            WebDriverWait(self.driver, 3).until(EC.title_is("公文管理系統"))
+            WebDriverWait(self.driver, 10).until(EC.title_contains("高雄第三代公文整合系統"))
             self.is_login = True
             self.current_role = "承辦人"
-            self.driver.switch_to.frame(self.driver.find_element(By.ID, "title"))
-            # 切換到承辦人頁面
-            self.driver.find_element(By.XPATH,
-                                     '//*[@id="form1"]/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[3]/a').click()
 
         except TimeoutException as timeout:
             msg = self.driver.find_element(By.TAG_NAME, 'body').text
@@ -123,9 +116,7 @@ class WebWorker:
 
             self.driver.switch_to.default_content()
             wait = WebDriverWait(self.driver, 10)
-            wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "fbody")))
-            wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "memu")))
-            sdt2_a = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="sdt2"]')))
+            sdt2_a = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="menu_r01"]/ul/li[2]')))
             sdt2_a.click()
 
     def toggle_mainframe(self):
@@ -183,7 +174,6 @@ class WebWorker:
         return docs
 
     def get_document_tr(self):
-        self.toggle_mainframe()
         # 文件數 <=10 的時候 不會出現input
         try:
             page_size_input = self.driver.find_element(By.XPATH,
@@ -199,9 +189,7 @@ class WebWorker:
         except NoSuchElementException:
             pass
 
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
-
-        docs_table = self.driver.find_element(By.XPATH, '//*[@id="listTBODY"]')
+        docs_table = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
 
         tr = docs_table.find_elements(By.TAG_NAME, 'tr')
 

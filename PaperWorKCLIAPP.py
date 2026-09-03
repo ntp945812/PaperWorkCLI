@@ -97,7 +97,7 @@ class PaperWorkCLIApp(App):
     def on_input_submitted(self, message: Input.Submitted) -> None:
 
         match message.input.id:
-            case "userRnd":
+            case "userPWD":
                 self.login()
             case "menu_search_input":
                 print(f"{message.input.value}")
@@ -119,14 +119,12 @@ class PaperWorkCLIApp(App):
         msg_box = self.query_one(MessageBox)
         msg_box.alert("[blink]登入中...[/]")
 
-        user_id = self.query_one("#userID", Input).value
         user_pwd = self.query_one("#userPWD", Input).value
-        user_rnd = self.query_one("#userRnd", Input).value
 
         login_v = self.query_one(LoginView)
 
         try:
-            self.web_worker.login(user_id, user_pwd, user_rnd)
+            self.web_worker.login(user_pwd)
         except TimeoutException as timeout:
             self.call_from_thread(msg_box.alert, timeout.msg, hide_after=2.5)
 
