@@ -8,6 +8,8 @@ import json
 class Document:
 
     def __init__(self, tr: WebElement):
+
+        self.tr = tr
         # 主旨
         try:
             self.title = tr.find_element(By.XPATH, './/*[@id="mainSpan"]/p').get_attribute('title')

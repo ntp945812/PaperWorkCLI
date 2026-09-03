@@ -29,7 +29,7 @@ class DataTableView(DataTable):
         for number, d in enumerate(self.documents, start=1):
             row_data = (d.doc_type, d.issue_date, d.deadline, d.external_doc_number, d.internal_doc_number, d.title,
                         d.issue_unit)
-            if (number - 1, d.doc_id) in self.selected_docs:
+            if (number - 1, d.internal_doc_number, d.tr) in self.selected_docs:
                 row_data = (Text(s, style="grey89 on steel_blue") for s in row_data)
 
             self.add_row(
@@ -40,7 +40,7 @@ class DataTableView(DataTable):
         row_key = message.row_key
         row_index = message.cursor_row
 
-        selected_row_metadata = (row_index, row_key.value)
+        selected_row_metadata = (row_index, self.documents[row_index].internal_doc_number, self.documents[row_index].tr)
 
         if selected_row_metadata not in self.selected_docs:
             self.selected_docs.append(selected_row_metadata)
@@ -55,7 +55,7 @@ class DataTableView(DataTable):
         hover_row_index = self.hover_row
         hover_row = self.ordered_rows[hover_row_index]
 
-        selected_row_metadata = (hover_row_index, hover_row.key)
+        selected_row_metadata = (hover_row_index, self.documents[hover_row_index].internal_doc_number, self.documents[hover_row_index].tr)
 
         if selected_row_metadata not in self.selected_docs:
             self.selected_docs.append(selected_row_metadata)

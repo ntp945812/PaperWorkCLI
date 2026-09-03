@@ -29,7 +29,7 @@ class WebWorker:
         self.is_login = False
         self.current_role = None
         self.options = webdriver.ChromeOptions()
-        # self.options.add_argument('headless')
+        self.options.add_argument('headless')
         service = webdriver.ChromeService(service_args=['--log-level=OFF'], log_output=subprocess.DEVNULL)
         self.options.add_experimental_option("prefs", {
             "download.default_directory": DOWNLOAD_DIR,
@@ -119,13 +119,6 @@ class WebWorker:
             sdt2_a = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="menu_r01"]/ul/li[2]')))
             sdt2_a.click()
 
-    def toggle_mainframe(self):
-        """切換到公文列表所在的frame"""
-        if self.is_login:
-            self.driver.switch_to.default_content()
-            wait = WebDriverWait(self.driver, 10)
-            wait.until(EC.frame_to_be_available_and_switch_to_it((By.XPATH, '//*[@id="fbody"]')))
-            wait.until(EC.frame_to_be_available_and_switch_to_it((By.XPATH, '//*[@id="mainframe"]')))
 
     def windows_cleanup(self,original_window):
 
@@ -191,39 +184,30 @@ class WebWorker:
 
         docs_table = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="listTBODY"]')))
 
-        tr = docs_table.find_elements(By.TAG_NAME, 'tr')
+        trs = docs_table.find_elements(By.TAG_NAME, 'tr')
 
-        return tr
+        return trs
 
 
-    def download_document(self, row_index, doc_id):
-        """:param doc_id: pass any string other than empty can do the job.
+    def download_document(self, row_index, doc_internal_doc_number, doc_tr):
+        """:param doc_internal_doc_number: # 本局收文號.
         :param row_index: row index of document wants to download.
         """
-        self.toggle_mainframe()
         original_window = self.driver.current_window_handle
-        self.driver.execute_script(f"queryOne('{doc_id}',3,{row_index})")
+        doc_tr.find_element(By.XPATH, './/*[@id="doSnoSpan"]').click()
         wait = WebDriverWait(self.driver, 15)
         wait.until(EC.number_of_windows_to_be(2))
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
         try:
-            download_all_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')
-            wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[1]/th[3]/a[2]')))
-            download_main_doc_link = self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')
-            wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[3]')))
-
-            document_name = \
-                self.driver.find_element(By.XPATH, '//*[@id="listTHEAD"]/tr[2]/td[3]/input[1]').get_attribute(
-                    'value').split(
-                    '.')[0]
+            wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="tabL5"]'))).click() # 來文及附件標籤按鈕
+            time.sleep(0.3)
+            wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="downloadAllBtn"]'))).click()
 
             download_path = Path(DOWNLOAD_DIR)
 
-            download_all_link.click()
-            wait.until(lambda _: download_path.joinpath(f'{document_name}.zip').exists())
-            download_main_doc_link.click()
-            wait.until(lambda _: download_path.joinpath(f'{document_name}.pdf').exists())
+            wait.until(lambda _: download_path.joinpath(f'{doc_internal_doc_number}.zip').exists())
+
         except NoSuchElementException:
             pass
         finally:
@@ -234,7 +218,6 @@ class WebWorker:
         """:param doc_id: pass any string other than empty can do the job.
         :param row_index: row index of document wants to download.
         """
-        self.toggle_mainframe()
         original_window = self.driver.current_window_handle
         self.driver.execute_script(f"queryOne('{doc_id}',3,{row_index})")
         wait = WebDriverWait(self.driver, 15)

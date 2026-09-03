@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a6d4ad6-0465-456c-98eb-da3978cb9311" name="Changes" comment="轉移到3代前commit">
+    <list default="true" id="0a6d4ad6-0465-456c-98eb-da3978cb9311" name="Changes" comment="登入功能 - 完成&#10;顯示承辦人待辦公文(&lt;10件時) - 完成">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PaperWorKCLIAPP.py" beforeDir="false" afterPath="$PROJECT_DIR$/PaperWorKCLIAPP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_table_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_table_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/document.py" beforeDir="false" afterPath="$PROJECT_DIR$/document.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/login_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_worker.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_worker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -157,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788318545585</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="登入功能 - 完成&#10;顯示承辦人待辦公文(&lt;10件時) - 完成">
+      <option name="closed" value="true" />
+      <created>1788395148957</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1788395148957</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -177,6 +184,7 @@
     <MESSAGE value="Rename paper class and it's property." />
     <MESSAGE value="增加下載功能" />
     <MESSAGE value="轉移到3代前commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="轉移到3代前commit" />
+    <MESSAGE value="登入功能 - 完成&#10;顯示承辦人待辦公文(&lt;10件時) - 完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="登入功能 - 完成&#10;顯示承辦人待辦公文(&lt;10件時) - 完成" />
   </component>
 </project>
