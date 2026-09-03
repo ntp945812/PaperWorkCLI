@@ -6,6 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoAlertPresentException, StaleElementReferenceException
+from selenium.webdriver.common.action_chains import ActionChains
 
 import time
 from pathlib import Path
@@ -40,6 +41,7 @@ class WebWorker:
             "profile.default_content_setting_values.automatic_downloads": 1,
         })
         self.driver = webdriver.Chrome(options=self.options, service=service)
+        self.actions = ActionChains(self.driver)
         self.go_to_login_page()
 
     def __exit__(self):
@@ -49,7 +51,10 @@ class WebWorker:
         self.driver.get("https://dm.kcg.gov.tw/tdym/home/welcome_news.jsp?continue")
         wait = WebDriverWait(self.driver, 5)
         WebDriverWait(self.driver, 5).until(EC.title_is("高雄市政府 共用式身分驗證系統"))
-        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="cardLogonAuthOptionBox"]/div[2]/a'))).click() # 自然人憑證登入頁面按鈕
+        time.sleep(0.5)
+        card_auth_btn = self.driver.find_element(By.XPATH, '//*[@id="cardLogonAuthOptionBox"]/div[2]/a') # 自然人憑證登入頁面按鈕
+        self.actions.move_to_element(card_auth_btn).click().perform()
+
 
     # def download_user_rnd_img(self):
     #     img_xpath = "/html/body/form/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td/table/tbody/tr/td[1]/table/tbody/tr[1]/td/div/table/tbody/tr[3]/td[3]/img"
@@ -67,6 +72,7 @@ class WebWorker:
     def login(self, user_pwd):
         user_pwd_input = self.driver.find_element(By.XPATH, '//*[@id="cert_pin_code"]')
         login_btn = self.driver.find_element(By.XPATH, '//*[@id="certLoginBtn"]')
+        self.actions.move_to_element(login_btn).perform()
         user_pwd_input.send_keys(user_pwd)
 
         try:
