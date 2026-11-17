@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a6d4ad6-0465-456c-98eb-da3978cb9311" name="Changes" comment="下載本文及附件功能 - 完成">
-      <change beforePath="$PROJECT_DIR$/.idea/PaperWorkCLI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PaperWorkCLI.iml" afterDir="false" />
+    <list default="true" id="0a6d4ad6-0465-456c-98eb-da3978cb9311" name="Changes" comment="針對headless做調整 click前須捲動視窗到元件">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaperWorKCLIAPP.py" beforeDir="false" afterPath="$PROJECT_DIR$/PaperWorKCLIAPP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_table_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_table_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/document.py" beforeDir="false" afterPath="$PROJECT_DIR$/document.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_worker.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_worker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +43,65 @@
     &quot;accountId&quot;: &quot;c42f871a-a158-46e7-a15f-55081a1ccee4&quot;
   }
 }</component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="9.49601732107674E-167" />
+      <entry key="S5" value="4.672804664711646E-67" />
+      <entry key="S10" value="9.919824769224055E-34" />
+      <entry key="S30" value="2.7191111355948933E-11" />
+      <entry key="S60" value="1.4016718876062066E-5" />
+      <entry key="M2" value="0.010925607522615436" />
+      <entry key="M5" value="0.6276524867931176" />
+      <entry key="M10" value="2.4774619980597397" />
+      <entry key="M15" value="3.932836048328338" />
+      <entry key="M30" value="6.260925722145693" />
+      <entry key="H1" value="7.909108471058932" />
+      <entry key="H2" value="8.892299881297566" />
+      <entry key="H4" value="9.429624788771891" />
+      <entry key="D1" value="9.90255571081168" />
+      <entry key="W1" value="9.986019894188642" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.000000000000008" />
+      <entry key="M2" value="1.0000001262139346" />
+      <entry key="M5" value="1.0026366447662292" />
+      <entry key="M10" value="1.072617159802399" />
+      <entry key="M15" value="1.219298583613879" />
+      <entry key="M30" value="1.6622664263147433" />
+      <entry key="H1" value="2.150883395502441" />
+      <entry key="H2" value="2.517157433137567" />
+      <entry key="H4" value="2.741928479782797" />
+      <entry key="D1" value="2.9544746833096194" />
+      <entry key="W1" value="2.9934320289253487" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.9073486328125E-6" />
+      <entry key="MS500" value="0.0717936471873147" />
+      <entry key="S2" value="0.5176324619206888" />
+      <entry key="S5" value="0.7684375906440062" />
+      <entry key="S10" value="0.8766057213160351" />
+      <entry key="S30" value="0.9570503070979559" />
+      <entry key="S60" value="0.9783028592600055" />
+      <entry key="M2" value="0.999798456671511" />
+      <entry key="M5" value="1.6215056994483208" />
+      <entry key="M10" value="3.5393328074324106" />
+      <entry key="M15" value="5.141524406153072" />
+      <entry key="M30" value="7.914954253523293" />
+      <entry key="H1" value="10.054755063565166" />
+      <entry key="H2" value="11.406487936333704" />
+      <entry key="H4" value="12.1699697518872" />
+      <entry key="D1" value="12.856751684497123" />
+      <entry key="W1" value="12.979411730441115" />
+    </decayedShown>
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -55,25 +116,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.PaperWorKCLIAPP.executor": "Run",
-    "Python.merge_all.executor": "Run",
-    "Python.webWorker.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "paper3",
-    "last_opened_file_path": "D:/個人資料/dev/PaperWorkCLI",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.PaperWorKCLIAPP.executor&quot;: &quot;Run&quot;,
+    &quot;Python.merge_all.executor&quot;: &quot;Run&quot;,
+    &quot;Python.webWorker.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;paper3&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/個人資料/dev/PaperWorkCLI&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;python.packages.toolwindow.project.migrated.to.right.top.v2&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="webWorker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PaperWorkCLI" />
@@ -110,7 +172,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-821f704e66d9-5bd6d13a2a75-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-262.9437.214" />
+        <option value="bundled-python-sdk-3c73f5f83ce7-5c0e4880bfa8-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-262.12573.39" />
       </set>
     </attachedChunks>
   </component>
@@ -179,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788398252896</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="針對headless做調整 click前須捲動視窗到元件">
+      <option name="closed" value="true" />
+      <created>1788400915085</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1788400915085</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +274,7 @@
     <MESSAGE value="轉移到3代前commit" />
     <MESSAGE value="登入功能 - 完成&#10;顯示承辦人待辦公文(&lt;10件時) - 完成" />
     <MESSAGE value="下載本文及附件功能 - 完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="下載本文及附件功能 - 完成" />
+    <MESSAGE value="針對headless做調整 click前須捲動視窗到元件" />
+    <option name="LAST_COMMIT_MESSAGE" value="針對headless做調整 click前須捲動視窗到元件" />
   </component>
 </project>

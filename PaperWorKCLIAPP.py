@@ -144,10 +144,8 @@ class PaperWorkCLIApp(App):
         msg_box = self.query_one(MessageBox)
         msg_box.alert("[blink]轉紙本作業中...[/]")
         data_table = self.query_one(DataTableView)
-        self.web_worker.get_officer_all_docs()
-        
-        for selected_doc in data_table.selected_docs:
-            self.web_worker.transfer_document_to_paper(*selected_doc)
+
+        self.web_worker.transfer_document_to_paper(data_table.selected_docs)
 
         data_table.documents = self.web_worker.get_officer_all_docs()
         data_table.reload_rows(unselect_all_document=True)

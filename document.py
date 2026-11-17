@@ -35,10 +35,15 @@ class Document:
         self.external_doc_number =tr.find_element(By.XPATH, './/td[11]').text
 
         # 來文單位 //*[@id="listTBODY"]/tr[5]/td[10]/a //*[@id="listTBODY"]/tr[1]/td[10]/a/p
-        try:
-            self.issue_unit = tr.find_element(By.XPATH, './/td[12]/p').get_attribute('title')
-        except NoSuchElementException:
-            self.issue_unit = tr.find_element(By.XPATH, './/td[12]/a').text
+        p = tr.find_elements(By.XPATH, './/td[12]/p')
+        a = tr.find_elements(By.XPATH, './/td[12]/a')
+
+        if p:
+            self.issue_unit = p[0].get_attribute('title')
+        elif a:
+            self.issue_unit = a[0].text
+        else:
+            self.issue_unit = ''
 
         # 限辦期限
         self.deadline = tr.find_element(By.XPATH, './/td[9]').text

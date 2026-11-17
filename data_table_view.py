@@ -29,7 +29,7 @@ class DataTableView(DataTable):
         for number, d in enumerate(self.documents, start=1):
             row_data = (d.doc_type, d.issue_date, d.deadline, d.external_doc_number, d.internal_doc_number, d.title,
                         d.issue_unit)
-            if (number - 1, d.internal_doc_number, d.tr) in self.selected_docs:
+            if (number - 1, d.internal_doc_number, d) in self.selected_docs:
                 row_data = (Text(s, style="grey89 on steel_blue") for s in row_data)
 
             self.add_row(
@@ -37,10 +37,9 @@ class DataTableView(DataTable):
 
     def on_data_table_row_selected(self, message: DataTable.RowSelected):
 
-        row_key = message.row_key
         row_index = message.cursor_row
 
-        selected_row_metadata = (row_index, self.documents[row_index].internal_doc_number, self.documents[row_index].tr)
+        selected_row_metadata = (row_index, self.documents[row_index].internal_doc_number, self.documents[row_index])
 
         if selected_row_metadata not in self.selected_docs:
             self.selected_docs.append(selected_row_metadata)
@@ -49,13 +48,12 @@ class DataTableView(DataTable):
             self.selected_docs.remove(selected_row_metadata)
 
         self.reload_rows()
-        self.move_cursor(row=row_index)
+        self.move_cursor(row=row_index,scroll=False)
 
     def on_click(self, message: Click):
         hover_row_index = self.hover_row
-        hover_row = self.ordered_rows[hover_row_index]
 
-        selected_row_metadata = (hover_row_index, self.documents[hover_row_index].internal_doc_number, self.documents[hover_row_index].tr)
+        selected_row_metadata = (hover_row_index, self.documents[hover_row_index].internal_doc_number, self.documents[hover_row_index])
 
         if selected_row_metadata not in self.selected_docs:
             self.selected_docs.append(selected_row_metadata)
@@ -64,16 +62,15 @@ class DataTableView(DataTable):
             self.selected_docs.remove(selected_row_metadata)
 
         self.reload_rows()
-        self.move_cursor(row = hover_row_index)
+        self.move_cursor(row = hover_row_index,scroll=False)
 
     def reload_rows(self,unselect_all_document:bool = False):
         if unselect_all_document:
             self.selected_docs = []
-        scroll_y  = self.scroll_y
 
         self.clear()
         self.load_documents()
-        self.scroll_to(y=scroll_y, animate=False)
+        self.scroll_to(y = self.scroll_y, animate=False)
 
     def unselect_all_document(self):
         self.selected_docs = []
@@ -81,5 +78,5 @@ class DataTableView(DataTable):
 
 
     def select_all_document(self):
-        self.selected_docs = [(index, d.key) for index, d in enumerate(self.ordered_rows)]
+        self.selected_docs = [(index, d.key, self.documents[index], d) for index, d in enumerate(self.ordered_rows)]
         self.reload_rows()

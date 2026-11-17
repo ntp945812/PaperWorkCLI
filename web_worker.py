@@ -11,7 +11,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 from pathlib import Path
 import base64
-import os
+import os, re
 
 from document import Document
 
@@ -77,7 +77,7 @@ class WebWorker:
 
         try:
             login_btn.click()
-            WebDriverWait(self.driver, 10).until(EC.title_contains("高雄第三代公文整合系統"))
+            WebDriverWait(self.driver, 15).until(EC.title_contains("高雄第三代公文整合系統"))
             self.is_login = True
             self.current_role = "承辦人"
 
@@ -124,6 +124,7 @@ class WebWorker:
             wait = WebDriverWait(self.driver, 10)
             sdt2_a = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="menu_r01"]/ul/li[2]')))
             sdt2_a.click()
+            time.sleep(1.0)
 
 
     def windows_cleanup(self,original_window):
@@ -175,13 +176,9 @@ class WebWorker:
     def get_document_tr(self):
         # 文件數 <=10 的時候 不會出現input
         try:
-            page_size_input = self.driver.find_element(By.XPATH,
-                                                       '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td[1]/span/input')
-            page_size_input.send_keys("100")
-
-            page_size_text = self.driver.find_element(By.XPATH,
-                                                      '//*[@id="form1"]/div[2]/table[2]/tbody/tr/td/table/tbody/tr/td/span')
-            page_size_text.click()
+            page_size_select_element = self.driver.find_element(By.XPATH,'//*[@id="form1"]/div[2]/div[5]/section[1]/select')
+            page_size_select = Select(page_size_select_element)
+            page_size_select.select_by_visible_text("100")
 
             time.sleep(1)
 
@@ -195,12 +192,15 @@ class WebWorker:
         return trs
 
 
-    def download_document(self, row_index, doc_internal_doc_number, doc_tr):
-        """:param doc_internal_doc_number: # 本局收文號.
+    def download_document(self, row_index, doc_internal_doc_number, doc_obj):
+        """
+        :param doc_obj: document object
+        :param doc_internal_doc_number: # 本局收文號.
         :param row_index: row index of document wants to download.
         """
         original_window = self.driver.current_window_handle
-        doc_tr.find_element(By.XPATH, './/*[@id="doSnoSpan"]').click()
+        dos_no_btn = doc_obj.tr.find_element(By.XPATH, './/*[@id="doSnoSpan"]')
+        self.actions.move_to_element(dos_no_btn).click().perform()
         wait = WebDriverWait(self.driver, 15)
         wait.until(EC.number_of_windows_to_be(2))
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -211,8 +211,9 @@ class WebWorker:
             wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="downloadAllBtn"]'))).click()
 
             download_path = Path(DOWNLOAD_DIR)
+            download_file_path = download_path.joinpath(f'{doc_internal_doc_number}.zip')
 
-            wait.until(lambda _: download_path.joinpath(f'{doc_internal_doc_number}.zip').exists())
+            wait.until(lambda _: download_file_path.exists())
 
         except NoSuchElementException:
             pass
@@ -259,42 +260,50 @@ class WebWorker:
         # download will open another window
             self.windows_cleanup(original_window)
 
-    def transfer_document_to_paper(self, row_index, doc_id):
+    def transfer_document_to_paper(self, selected_documents):
 
-        if self.documents[row_index].doc_type != "線":
-            return
-        
-        # 轉紙本之前需要重新取得最新的文件列表
-        self.get_officer_all_docs()
+        # 先確定原先類別為線上
+        for (_,_,doc_obj) in selected_documents:
+            if doc_obj.doc_type != '線':
+                return
+            else:
+                tr_check_box = doc_obj.tr.find_element(By.XPATH, './td[2]//input')
+                self.actions.move_to_element(tr_check_box).click().perform()
 
         wait = WebDriverWait(self.driver, timeout=3)
         
         original_window = self.driver.current_window_handle
-        
-        wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')))
-        to_paper_input = self.driver.find_element(By.XPATH,'//*[@id="functionMenuContainer"]/span[2]/input')
-        
-        target_tr = self.officer_doc_trs[row_index]
-        target_tr_checkbox = target_tr.find_element(By.XPATH,'.//*[@id="ids"]')
 
-        if doc_id == target_tr_checkbox.get_attribute('value'):
-            target_tr_checkbox.click()
-            to_paper_input.click()
-            # 確認要轉紙本
-            alert = wait.until(lambda d: d.switch_to.alert)
-            alert.accept()
+        # 轉紙本/線上按鈕
+        to_paper_btn = wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="toDoBtnLine"]/span[4]/button')))
+        self.actions.move_to_element(to_paper_btn).click().perform()
 
-            # 確認請印出紙本公文 有時候會出現 有時候又不會出現
+        # 確認是否要轉紙本按鈕-確認
+        wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[10]/div/div[6]/button[1]'))).click()
+
+        # 1件以上公文需要輸入轉紙本原因
+        if len(selected_documents) > 1:
+
             try:
-                alert2 = wait.until(EC.alert_is_present())
-                alert2.accept()
+                # 轉紙本原因列表
+                wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="form1"]/div[4]/div/div[2]/div/div/select')))
+                reason_select_element = self.driver.find_element(By.XPATH,'//*[@id="form1"]/div[4]/div/div[2]/div/div/select')
+                reason_select = Select(reason_select_element)
+                reason_select.select_by_visible_text("其他")
+
+                # 轉紙本原因input
+                wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="form1"]/div[4]/div/div[2]/div/div/input'))).send_keys('轉紙本')
+
+                # 確定存檔按鈕-確定存檔
+                wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="form1"]/div[2]/button[1]'))).click()
             except TimeoutException:
-                print("請印出紙本公文 alert not present.")
+                print("無出現轉紙本頁面")
 
-            self.windows_cleanup(original_window)
-
-        else:
-            raise RuntimeError("row_index and doc_id missmatch in transfer_document_to_paper")
+        try:
+            # 請列印紙本公文按鈕-OK
+            wait.until(EC.element_to_be_clickable((By.XPATH,'/html/body/div[10]/div/div[6]/button[1]')))
+        except TimeoutException:
+            print("無出現請列印紙本公文按鈕")
 
     def receipt_document_from_table(self, doc_ids):
         self.get_table_all_docs()
@@ -339,7 +348,6 @@ class WebWorker:
         self.switch_to_officer()
         # 切換到簽收頁面
         self.toggle_std1_page()
-        self.toggle_mainframe()
         time.sleep(0.5)
 
         # 讓所有公文在同一頁
